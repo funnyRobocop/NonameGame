@@ -4,7 +4,7 @@ using TMPro;
 using Zenject;
 using Cysharp.Threading.Tasks;
 
-public class LevelStartCountdownView : MonoBehaviour
+public class LevelStartCountdownTextView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _countdownText;
     
@@ -29,10 +29,10 @@ public class LevelStartCountdownView : MonoBehaviour
         {
             _countdownText.text = i.ToString();
             
-            // Замена стандартному yield return new WaitForSeconds(1)
             // PlayerLoopTiming.Update привязывает таймер к кадрам Unity (безопасно)
             // уничтожение объекта (this.GetCancellationTokenOnDestroy()) автоматически прервет таймер, чтобы не было утечек памяти
-            await UniTask.Delay(TimeSpan.FromSeconds(1), delayTiming: PlayerLoopTiming.Update, cancellationToken: this.GetCancellationTokenOnDestroy());
+            await UniTask.Delay(TimeSpan.FromSeconds(1), delayTiming: PlayerLoopTiming.Update, cancellationToken: 
+                this.GetCancellationTokenOnDestroy());
         }
 
         // Команда СТАРТ
