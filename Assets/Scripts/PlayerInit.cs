@@ -27,6 +27,7 @@ public class PlayerInit : MonoBehaviour
         _characterController.transform.position = _model.LastCheckpointPosition.Value;
         _characterController.transform.rotation = _model.LastCheckpointRotation.Value;
         _characterController.enabled = true;
+        
         Debug.Log($"Игрок респаунится на чекпоинте: {_model.LastCheckpointPosition.Value}");
     }
 }
