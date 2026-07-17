@@ -8,11 +8,6 @@ public class LevelFinishView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _rewardText;
     private GameDataModel _model;
 
-    private void Awake()
-    {
-        gameObject.SetActive(false);
-        _levelFinishPanel.SetActive(false);
-    }
 
     [Inject]
     public void Construct(GameDataModel model)
@@ -22,6 +17,7 @@ public class LevelFinishView : MonoBehaviour
 
     public void Show()
     {
+        Debug.Log("Показать панель завершения уровня");
         gameObject.SetActive(true);
         _levelFinishPanel.SetActive(true);
 
