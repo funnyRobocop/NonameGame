@@ -1,11 +1,10 @@
-using System.Collections.Generic;
 using UniRx;
 
 public class GameDataModel
 {
     // ReactiveProperty автоматически уведомляет всех, кто на него подписался, при изменении значения
     public IntReactiveProperty Score { get; } = new IntReactiveProperty(0);
-    public IntReactiveProperty Coins { get; } = new IntReactiveProperty(100); // Дадим немного на старте
+    public IntReactiveProperty Coins { get; } = new IntReactiveProperty(100);
 
     // Для списков используем ReactiveCollection — она уведомляет о добавлении/удалении элементов
     public ReactiveCollection<string> PurchasedSkins { get; } = new ReactiveCollection<string>();
