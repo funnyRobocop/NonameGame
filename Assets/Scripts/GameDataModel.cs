@@ -1,4 +1,5 @@
 using UniRx;
+using UnityEngine;
 
 public class GameDataModel
 {
@@ -12,6 +13,8 @@ public class GameDataModel
     // Текущий экипированный скин
     public ReactiveProperty<string> CurrentSkinAddress { get; } = new ("default_skin");
     public BoolReactiveProperty IsInputLocked { get; } = new (true);
+    
+    public ReactiveProperty<Vector3> LastCheckpointPosition { get; } = new (Vector3.zero);
 
     public GameDataModel()
     {
