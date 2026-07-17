@@ -6,11 +6,13 @@ using UniRx.Triggers;
 public class KillZoneTrigger : MonoBehaviour
 {
     private GameDataModel _model;
+    private PlayerInit _playerInit;
 
     [Inject]
-    public void Construct(GameDataModel model)
+    public void Construct(GameDataModel model, PlayerInit playerInit)
     {
         _model = model;
+        _playerInit = playerInit;
     }
 
     private void Start()
@@ -21,15 +23,14 @@ public class KillZoneTrigger : MonoBehaviour
             .Subscribe(other =>
             {
                 // Перемещаем игрока на позицию последнего сохраненного чекпоинта
-                other.transform.position = _model.LastCheckpointPosition.Value;
-                
-                // ЕСЛИ ВЫ ИСПОЛЬЗУЕТЕ Rigidbody:
-                // При телепортации обязательно нужно сбрасывать накопленную скорость падения, 
-                // иначе персонаж продолжит лететь вниз даже после респауна!
-                if (other.TryGetComponent<Rigidbody>(out var rb))
+                var playerInit= other.GetComponentInParent<PlayerInit>();
+                if (playerInit != null)
                 {
-                    rb.linearVelocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
+                    playerInit.RespawnPlayer();
+                }
+                else
+                {
+                    Debug.LogWarning("PlayerInit component not found on the player object.");
                 }
 
                 Debug.Log("Игрок упал! Респаун на чекпоинте.");
