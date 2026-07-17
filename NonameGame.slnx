@@ -1,10 +1,12 @@
 ﻿<Solution>
   <Project Path="Zenject.csproj" />
+  <Project Path="UniRx.csproj" />
   <Project Path="Zenject-IntegrationTests-Editor.csproj" />
   <Project Path="Zenject-ReflectionBaking-Editor.csproj" />
   <Project Path="Zenject-UnitTests-Editor.csproj" />
   <Project Path="Zenject-Editor.csproj" />
   <Project Path="Zenject-IntegrationTests.csproj" />
+  <Project Path="UniRx.Examples.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
