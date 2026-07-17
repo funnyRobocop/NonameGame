@@ -15,6 +15,7 @@ public class GameDataModel
     public BoolReactiveProperty IsInputLocked { get; } = new (true);
     
     public ReactiveProperty<Vector3> LastCheckpointPosition { get; } = new (Vector3.zero);
+    public ReactiveProperty<Quaternion> LastCheckpointRotation { get; } = new (Quaternion.identity);
 
     public GameDataModel()
     {

@@ -29,6 +29,7 @@ public class CheckpointTrigger : MonoBehaviour
                 // Записываем позицию этого чекпоинта в модель
                 // Берем позицию самого триггера (или создайте пустой дочерний SpawnPoint внутри него)
                 _model.LastCheckpointPosition.Value = transform.position + Vector3.up * 1f; 
+                _model.LastCheckpointRotation.Value = transform.rotation;
                 
                 Debug.Log($"Чекпоинт сохранен: {transform.position}");
                 
