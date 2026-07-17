@@ -1,44 +1,36 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class CheckpointCounter : MonoBehaviour
 {
 
-    public event System.Action OnFinished;
-
     public int ReachedCount { get; private set; }
-    public bool IsFinished { get; private set; }
+    public BoolReactiveProperty IsFinished { get; } = new (false);
 
-    private List<CheckpointTrigger> _checkpoints = new();
+    private readonly List<CheckpointTrigger> _checkpoints = new();
 
-    private void Awake()
+    void Awake()
     {
         _checkpoints.AddRange(transform.GetComponentsInChildren<CheckpointTrigger>());
 
         foreach (var checkpoint in _checkpoints)
         {
-            checkpoint.OnReached += HandleCheckpointReached;
-        }
-    }
-
-    void OnDestroy()
-    {
-        foreach (var checkpoint in _checkpoints)
-        {
-            checkpoint.OnReached -= HandleCheckpointReached;
+            checkpoint.IsReached.Where(isCompleted => isCompleted)
+            .Subscribe(_ => { HandleCheckpointReached(); })
+            .AddTo(this);
         }
     }
 
     private void HandleCheckpointReached()
     {
-        if (IsFinished) return;
+        if (IsFinished.Value) return;
 
         ReachedCount++;
 
         if (ReachedCount >= _checkpoints.Count)
         {
-            IsFinished = true;
-            OnFinished?.Invoke();
+            IsFinished.Value = true;
             Debug.Log("All checkpoints reached!");
         }
     }

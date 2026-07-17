@@ -1,22 +1,17 @@
-using System;
 using UnityEngine;
+using UniRx;
 
 public class CheckpointTrigger : MonoBehaviour
 {
 
-    public event Action OnReached;
-    public bool IsReached { get; private set; }
+    public BoolReactiveProperty IsReached { get; } = new (false);
 
     void OnTriggerEnter(Collider other)
     {
-        if (IsReached) return;
-
-        if (other.CompareTag("Player"))
+        if (!IsReached.Value && other.CompareTag("Player"))
         {
-            IsReached = true;
-            OnReached?.Invoke();
-
-            Debug.Log("Checkpoint reached!");          
+            Debug.Log($"Checkpoint reached: {gameObject.name}");
+            IsReached.Value = true;
         }
     }
 }

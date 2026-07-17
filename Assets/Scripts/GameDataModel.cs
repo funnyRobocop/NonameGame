@@ -3,14 +3,14 @@ using UniRx;
 public class GameDataModel
 {
     // ReactiveProperty автоматически уведомляет всех, кто на него подписался, при изменении значения
-    public IntReactiveProperty Score { get; } = new IntReactiveProperty(0);
-    public IntReactiveProperty Coins { get; } = new IntReactiveProperty(100);
+    public IntReactiveProperty Score { get; } = new (0);
+    public IntReactiveProperty Coins { get; } = new (100);
 
     // Для списков используем ReactiveCollection — она уведомляет о добавлении/удалении элементов
-    public ReactiveCollection<string> PurchasedSkins { get; } = new ReactiveCollection<string>();
+    public ReactiveCollection<string> PurchasedSkins { get; } = new();
     
     // Текущий экипированный скин
-    public ReactiveProperty<string> CurrentSkinAddress { get; } = new ReactiveProperty<string>("default_skin");
+    public ReactiveProperty<string> CurrentSkinAddress { get; } = new ("default_skin");
 
     public GameDataModel()
     {
