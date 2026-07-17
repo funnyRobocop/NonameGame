@@ -11,6 +11,7 @@ public class GameDataModel
     
     // Текущий экипированный скин
     public ReactiveProperty<string> CurrentSkinAddress { get; } = new ("default_skin");
+    public BoolReactiveProperty IsInputLocked { get; } = new (true);
 
     public GameDataModel()
     {
