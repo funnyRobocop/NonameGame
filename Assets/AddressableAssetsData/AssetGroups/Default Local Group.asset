@@ -20,11 +20,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 69e04e0c3da5e6d48b451fd47ea0ae0d
-    m_Address: Assets/Art/3D/CatRed.fbx
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 32c9af46ef521ad4ebad84d6e08da894, type: 2}
   m_SchemaSet:

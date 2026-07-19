@@ -14542,7 +14542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameInstaller
   _playerInit: {fileID: 4646839639885838123}
-  _gameUIView: {fileID: 0}
+  _gameUIView: {fileID: 772605331}
 --- !u!114 &1230467421
 MonoBehaviour:
   m_ObjectHideFlags: 0
