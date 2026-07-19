@@ -8,6 +8,7 @@ public class LevelFinishView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _rewardText;
     private GameDataModel _model;
 
+    public bool IsVisible => gameObject.activeSelf;
 
     [Inject]
     public void Construct(GameDataModel model)

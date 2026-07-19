@@ -15,8 +15,13 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 2e977b4545a49f945aa8a33ef17c3c48
   m_SerializeEntries:
-  - m_GUID: b02c6db204f609744a47aa11eb033995
-    m_Address: Skins/RedHero
+  - m_GUID: 4b0eb10095ede7141b19de967700cd14
+    m_Address: Skins/CatRed
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 69e04e0c3da5e6d48b451fd47ea0ae0d
+    m_Address: Assets/Art/3D/CatRed.fbx
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
