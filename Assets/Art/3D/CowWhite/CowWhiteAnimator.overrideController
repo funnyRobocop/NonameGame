@@ -6,16 +6,16 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAnimatorBearBrown
+  m_Name: CowWhiteAnimator
   m_Controller: {fileID: 9100000, guid: 95d5b7a7f6dc4264cae67a6ac3296d00, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: -203655887218126122, guid: 90544458bf267734794fa99919e5952a, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 438637116cc3c014ab0ad2ecf394b009, type: 3}
-  - m_OriginalClip: {fileID: 7400000, guid: 4a19c2046b30e294cbdc50cb91321aed, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: b2ff4c969999e184783e559e198b8648, type: 2}
+    m_OverrideClip: {fileID: -203655887218126122, guid: e9f175c2411d52f419407d9f2138aa87, type: 3}
   - m_OriginalClip: {fileID: -203655887218126122, guid: 140d4d023c3869d42a021321635c6e05, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: e96ef0f569f6b064995434e431f38c3a, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 7a7d7af14a559844daa8878fb63f4031, type: 3}
   - m_OriginalClip: {fileID: -203655887218126122, guid: 764d07376df398642ab78f0d29f51bc6, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 1ddd7be3f871b974aa8e238f9ff49762, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 34505a9e5716acc4e9bbc72b12f93762, type: 3}
   - m_OriginalClip: {fileID: -203655887218126122, guid: cdc53370023531648acb5d91b760cf70, type: 3}
-    m_OverrideClip: {fileID: -203655887218126122, guid: 09d6639bea8f07e4782fcbba74c7e58f, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 772b116d1b097144f8cdd874ddf515f7, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4a19c2046b30e294cbdc50cb91321aed, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ca5ec85d3905fc94590229c0de4a18c9, type: 2}
