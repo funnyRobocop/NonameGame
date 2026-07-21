@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: RoosterRedPlayerAnimator
+  m_Controller: {fileID: 9100000, guid: 95d5b7a7f6dc4264cae67a6ac3296d00, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 90544458bf267734794fa99919e5952a, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: be35cf38c0515a84db782cfaebcae290, type: 3}
+  - m_OriginalClip: {fileID: 7400000, guid: 4a19c2046b30e294cbdc50cb91321aed, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: b77f0e929606bc64d9c2ea74f06658ee, type: 2}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 140d4d023c3869d42a021321635c6e05, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 32ae7631249a46246b04960080278f43, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: 764d07376df398642ab78f0d29f51bc6, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 87a4805ab1cc64740b60344251071b89, type: 3}
+  - m_OriginalClip: {fileID: -203655887218126122, guid: cdc53370023531648acb5d91b760cf70, type: 3}
+    m_OverrideClip: {fileID: -203655887218126122, guid: 605495fdf4c2da1438c8431442e3d739, type: 3}
