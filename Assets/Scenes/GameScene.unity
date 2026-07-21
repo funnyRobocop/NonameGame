@@ -14536,7 +14536,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1af3131b88b8cb4687be7bd405d8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameInstaller
-  _playerInit: {fileID: 0}
   _gameUIView: {fileID: 772605331}
 --- !u!114 &1230467421
 MonoBehaviour:

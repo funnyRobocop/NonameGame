@@ -6,7 +6,7 @@ AnimatorOverrideController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerAnimatorCatRedBearBrown
+  m_Name: PlayerAnimatorBearBrown
   m_Controller: {fileID: 9100000, guid: 95d5b7a7f6dc4264cae67a6ac3296d00, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: -203655887218126122, guid: 90544458bf267734794fa99919e5952a, type: 3}

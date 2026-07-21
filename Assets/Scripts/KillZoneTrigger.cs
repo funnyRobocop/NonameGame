@@ -6,13 +6,11 @@ using UniRx.Triggers;
 public class KillZoneTrigger : MonoBehaviour
 {
     private GameDataModel _model;
-    private PlayerInit _playerInit;
 
     [Inject]
-    public void Construct(GameDataModel model, PlayerInit playerInit)
+    public void Construct(GameDataModel model)
     {
         _model = model;
-        _playerInit = playerInit;
     }
 
     private void Start()
