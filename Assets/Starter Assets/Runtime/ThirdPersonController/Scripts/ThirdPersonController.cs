@@ -152,16 +152,6 @@ namespace StarterAssets
             _fallTimeoutDelta = FallTimeout;
         }
 
-        public void DeactivateInput()
-        {
-            _playerInput.DeactivateInput();
-        }
-
-        public void ActivateInput()
-        {
-            _playerInput.ActivateInput();
-        }
-
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
