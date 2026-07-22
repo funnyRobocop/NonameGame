@@ -19,15 +19,12 @@ public class CheckpointTrigger : MonoBehaviour
 
     private void Start()
     {
-        // Слушаем физический триггер чекпоинта
         this.OnTriggerEnterAsObservable()
             .Where(other => other.CompareTag("Player") && !_isActivated)
             .Subscribe(_ =>
             {
-                _isActivated = true; // Активируем один раз
+                _isActivated = true;
                 
-                // Записываем позицию этого чекпоинта в модель
-                // Берем позицию самого триггера (или создайте пустой дочерний SpawnPoint внутри него)
                 _model.LastCheckpointPosition.Value = transform.position + Vector3.up * 1f; 
                 _model.LastCheckpointRotation.Value = transform.rotation;
                 

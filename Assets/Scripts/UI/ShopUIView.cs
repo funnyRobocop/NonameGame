@@ -7,7 +7,7 @@ public class ShopUIView : MonoBehaviour
 
     public void OnBackButtonClicked()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("MainMenuScene");
     }
 
 }

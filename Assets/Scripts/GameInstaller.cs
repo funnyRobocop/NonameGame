@@ -8,8 +8,6 @@ public class GameInstaller : MonoInstaller
 
     public override void InstallBindings()
     {
-        Container.Bind<GameDataModel>().AsSingle().NonLazy();
-
         Container.Bind<GameUIView>().FromInstance(_gameUIView).AsSingle();
 
         // Говорим: когда кто-то запросит PlayerInit, создай объект из этого префаба, 
