@@ -1,35 +1,83 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AddressableAssets;
+using Zenject;
 using UniRx;
 using Cysharp.Threading.Tasks;
-using UnityEngine.AddressableAssets;
 
 public class MainMenuUIView : MonoBehaviour
 {
+    [Header("UI Controls")]
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _shopButton;
+    
+    [Header("Fade Settings")]
+    [SerializeField] private CanvasGroup _fadeScreen; // Компонент для плавного затемнения
+    [SerializeField] private float _fadeDuration = 0.5f;
+    [SerializeField] private string _gameSceneAddress = "GameScene";
+    [SerializeField] private string _shopSceneAddress = "ShopScene";
 
+    private GameDataModel _model;
 
-    void Start()
+    [Inject]
+    public void Construct(GameDataModel model)
     {
-        CursorController.LockCursor(false);
+        _model = model;
+    }
+
+    private void Start()
+    {
+        if (_fadeScreen != null)
+        {
+            _fadeScreen.alpha = 0f;
+            _fadeScreen.blocksRaycasts = false;
+        }
 
         _playButton.OnClickAsObservable()
-            .Subscribe(_ => OnPlayButtonClicked().Forget())
+            .First() 
+            .Subscribe(_ => StartGameSequenceAsync().Forget())
             .AddTo(this);
-            
+        
         _shopButton.OnClickAsObservable()
-            .Subscribe(_ => OnShopButtonClicked().Forget())
+            .First() 
+            .Subscribe(_ => OnBackButtonClicked().Forget())
             .AddTo(this);
     }
 
-    public UniTask OnPlayButtonClicked()
+    private async UniTaskVoid StartGameSequenceAsync()
     {
-        return Addressables.LoadSceneAsync("GameScene").ToUniTask();
+        var cancellationToken = this.GetCancellationTokenOnDestroy();
+
+        if (_fadeScreen != null)
+        {
+            _fadeScreen.blocksRaycasts = true;
+            
+            await FadeAsync(0f, 1f, _fadeDuration, cancellationToken);
+        }
+
+        Debug.Log("Запуск загрузки уровня...");
+        
+        await Addressables.LoadSceneAsync(_gameSceneAddress)
+            .ToUniTask(cancellationToken: cancellationToken);
     }
 
-    public UniTask OnShopButtonClicked()
+    private UniTask OnBackButtonClicked()
     {
-        return Addressables.LoadSceneAsync("ShopScene").ToUniTask();
+        return Addressables.LoadSceneAsync(_shopSceneAddress).ToUniTask();
+    }
+
+    private async UniTask FadeAsync(float startAlpha, float endAlpha, float duration, System.Threading.CancellationToken token)
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime;
+            _fadeScreen.alpha = Mathf.Lerp(startAlpha, endAlpha, elapsedTime / duration);
+            
+            await UniTask.Yield(PlayerLoopTiming.Update, token);
+        }
+
+        _fadeScreen.alpha = endAlpha;
     }
 }

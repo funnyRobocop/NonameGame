@@ -17,7 +17,7 @@ public class ShopUIView : MonoBehaviour
             .AddTo(this);
     }
 
-    public UniTask OnBackButtonClicked()
+    private UniTask OnBackButtonClicked()
     {
         return Addressables.LoadSceneAsync("MainMenuScene").ToUniTask();
     }
