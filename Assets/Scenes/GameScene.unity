@@ -21087,7 +21087,7 @@ MonoBehaviour:
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 0
-  m_EmojiFallbackSupport: 1
+  m_EmojiFallbackSupport: 0
   m_parseCtrlCharacters: 0
   m_isOrthographic: 1
   m_isCullingEnabled: 0
@@ -25021,7 +25021,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ab0ea997d812d042a3b713bb0f976a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterSkinLoader
-  _skinPivot: {fileID: 2032733361}
+  _charPivot: {fileID: 2032733361}
 --- !u!4 &2032733361
 Transform:
   m_ObjectHideFlags: 0

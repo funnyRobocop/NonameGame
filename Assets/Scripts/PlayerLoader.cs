@@ -31,8 +31,17 @@ public class PlayerLoader : MonoBehaviour
 
         if (charType == CharType.None)
         {
-            Debug.Log("No skin selected.");
-            return;
+            Debug.Log("No CharType selected.");
+            if (_model.PurchasedCharTypes.Count > 0)
+            {
+                Debug.Log("Loading first purchased CharType.");
+                charType = _model.PurchasedCharTypes[0];
+            }
+            else
+            {
+                Debug.Log("No purchased CharTypes available.");
+                return;
+            }
         }
 
         try

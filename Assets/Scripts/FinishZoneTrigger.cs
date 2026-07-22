@@ -4,7 +4,7 @@ using Zenject;
 using UniRx;
 using UniRx.Triggers;
 using Cysharp.Threading.Tasks;
-using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
 
 public class FinishZoneTrigger : MonoBehaviour
 {
@@ -48,8 +48,6 @@ public class FinishZoneTrigger : MonoBehaviour
 
         await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: this.GetCancellationTokenOnDestroy());
 
-        //await Addressables.LoadSceneAsync("MainMenuSCene").ToUniTask();
-
-        await SceneManager.LoadSceneAsync("MainMenuScene");
+        await Addressables.LoadSceneAsync("MainMenuScene").ToUniTask();
     }
 }

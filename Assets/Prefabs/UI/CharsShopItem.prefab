@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e4106176f8a9247bdb0b5818a4ba7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemView
-  _skinType: 0
+  _charType: 0
   _price: 0
   _actionButton: {fileID: 1012217507110469933}
   _buttonText: {fileID: 5130837530628207324}

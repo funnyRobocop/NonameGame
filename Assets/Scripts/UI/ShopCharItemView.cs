@@ -4,7 +4,7 @@ using TMPro;
 using Zenject;
 using UniRx;
 
-public class CharShopItemView : MonoBehaviour
+public class ShopCharItemView : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private CharType _charType;
@@ -24,11 +24,11 @@ public class CharShopItemView : MonoBehaviour
 
     private void Start()
     {
-        Observable.CombineLatest(
+        _ = Observable.CombineLatest(
             _model.Coins,
             _model.PurchasedCharTypes.ObserveEveryValueChanged(x => x.Count),
             _model.CurrentCharType,
-            (coins, purchasedCount, currentChar) => new { coins, currentChar = currentChar })
+            (coins, purchasedCount, currentChar) => new { coins, currentChar })
         .Subscribe(state =>
         {
             var isPurchased = _model.PurchasedCharTypes.Contains(_charType);

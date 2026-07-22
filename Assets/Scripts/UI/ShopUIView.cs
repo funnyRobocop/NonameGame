@@ -1,13 +1,24 @@
+using Cysharp.Threading.Tasks;
+using UniRx;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using UnityEngine.AddressableAssets;
 using UnityEngine.UI;
 
 public class ShopUIView : MonoBehaviour
 {
+    [SerializeField] private Button _backButton;
 
-    public void OnBackButtonClicked()
+    void Start()
     {
-        SceneManager.LoadScene("MainMenuScene");
+        CursorController.LockCursor(false);
+
+        _backButton.OnClickAsObservable()
+            .Subscribe(_ => OnBackButtonClicked().Forget())
+            .AddTo(this);
     }
 
+    public UniTask OnBackButtonClicked()
+    {
+        return Addressables.LoadSceneAsync("MainMenuScene").ToUniTask();
+    }
 }
