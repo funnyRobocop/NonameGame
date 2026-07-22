@@ -7,7 +7,7 @@ using UniRx;
 public class ShopCharItemView : MonoBehaviour
 {
     [Header("Settings")]
-    [SerializeField] private CharType _charType;
+    [SerializeField] private CharacterType _charType;
     [SerializeField] private int _price;
 
     [Header("UI References")]

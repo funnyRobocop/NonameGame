@@ -74,3 +74,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f39ccd50cd53d504ca03541cc45b4095, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ProjectInstaller
+  _characterDatabase: {fileID: 11400000, guid: cf0d9c7bb058bff41a258f7b4902348b, type: 2}

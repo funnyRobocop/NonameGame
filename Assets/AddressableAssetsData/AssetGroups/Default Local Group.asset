@@ -25,8 +25,43 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 58b386a886764be478a6216b25c650d9
+    m_Address: Char/CatRed
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 736edaec6d665b1448d7b0564f64aa47
+    m_Address: Char/RoosterRed
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7a91cecc2f2814e4cb1a0140a8140e0a
+    m_Address: Char/SheepWhite
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 91d79b3498c5eef43bef1703234c250f
+    m_Address: Char/ZebraWhite
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d40dea251263bfb469018a7c0f407d9d
     m_Address: MainMenuScene
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d82569e8df154ef45a717796e527c9a3
+    m_Address: Char/RacoonBrown
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e58b8e5018959cd4ba5744ef43acb79c
+    m_Address: Char/BearBrown
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fa95f8a802c5242468bb423ebea1e5cd
+    m_Address: Char/CowWhite
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

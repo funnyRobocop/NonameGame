@@ -25093,27 +25093,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2032733361}
-  - component: {fileID: 2032733360}
+  - component: {fileID: 2032733362}
   m_Layer: 0
-  m_Name: PlayerLoader
+  m_Name: PlayerSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2032733360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2032733359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ab0ea997d812d042a3b713bb0f976a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CharacterSkinLoader
-  _charPivot: {fileID: 2032733361}
 --- !u!4 &2032733361
 Transform:
   m_ObjectHideFlags: 0
@@ -25129,6 +25116,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2032733362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2032733359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a30fd56f7b801745924d0061d9fd844, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelCharacterSpawner
+  _spawnPoint: {fileID: 2032733361}
 --- !u!1001 &2039402294
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,18 +18,11 @@ public class PlayerLoader : MonoBehaviour
         _model = model;
     }
 
-    private void Start()
-    {
-        _model.CurrentCharType
-            .Subscribe(charType => LoadSkinAsync(charType).Forget())
-            .AddTo(this);
-    }
-
-    private async UniTaskVoid LoadSkinAsync(CharType charType)
+    private async UniTaskVoid LoadSkinAsync(CharacterType charType)
     {
         ClearCurrentSkin();
 
-        if (charType == CharType.None)
+        if (charType == CharacterType.None)
         {
             Debug.Log("No CharType selected.");
             if (_model.PurchasedCharTypes.Count > 0)
