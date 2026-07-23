@@ -15,6 +15,7 @@ public class CheckpointTrigger : MonoBehaviour
     public void Construct(GameDataModel model)
     {
         _model = model;
+        _isActivated = false;
     }
 
     private void Start()

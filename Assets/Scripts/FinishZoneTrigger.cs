@@ -24,9 +24,11 @@ public class FinishZoneTrigger : MonoBehaviour
 
     private void Start()
     {
+        _model.IsLevelFinished.Value = false;
+        
         this.OnTriggerEnterAsObservable()
             .Where(other => other.CompareTag("Player") && !_model.IsLevelFinished.Value)
-            .First() // Срабатывает строго 1 раз
+            .FirstOrDefault() // Срабатывает строго 1 раз
             .Subscribe(other =>
             {
                 FinishRoundSequenceAsync().Forget();
