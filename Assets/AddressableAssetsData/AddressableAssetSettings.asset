@@ -15,10 +15,10 @@ MonoBehaviour:
   m_DefaultGroup: 2e977b4545a49f945aa8a33ef17c3c48
   m_currentHash:
     serializedVersion: 2
-    Hash: 00000000000000000000000000000000
+    Hash: e890409888946bd61bd57a2f8211db5a
   m_ExtractTypeTreeData: 0
   m_OptimizeCatalogSize: 0
-  m_BuildRemoteCatalog: 0
+  m_BuildRemoteCatalog: 1
   m_CatalogRequestsTimeout: 0
   m_DisableCatalogUpdateOnStart: 0
   m_InternalIdNamingMode: 0
@@ -53,10 +53,10 @@ MonoBehaviour:
   m_CheckForContentUpdateRestrictionsOption: 0
   m_MonoScriptBundleCustomNaming: 
   m_RemoteCatalogBuildPath:
-    m_Id: 
+    m_Id: 0e7d03f3bffbc3f4c95b1dde05dacaa1
   m_RemoteCatalogLoadPath:
-    m_Id: 
-  m_ContentStateBuildPathProfileVariableName: 
+    m_Id: db10c1aef8a78c6459c61d4c531e78f3
+  m_ContentStateBuildPathProfileVariableName: <default settings path>
   m_CustomContentStateBuildPath: 
   m_ContentStateBuildPath: 
   m_BuildAddressablesWithPlayerBuild: 0
@@ -81,7 +81,7 @@ MonoBehaviour:
       - m_Id: c035b350aa3ff0445adeae293de9f33d
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: db10c1aef8a78c6459c61d4c531e78f3
-        m_Value: <undefined>
+        m_Value: 'https://funnyrobocop.github.io/ServerData[BuildTarget]'
       - m_Id: f59d1d26f3d176b4cb58f4e9769d4211
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
     m_ProfileEntryNames:
