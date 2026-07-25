@@ -35,16 +35,6 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 7a91cecc2f2814e4cb1a0140a8140e0a
-    m_Address: Char/SheepWhite
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 91d79b3498c5eef43bef1703234c250f
-    m_Address: Char/ZebraWhite
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d40dea251263bfb469018a7c0f407d9d
     m_Address: MainMenuScene
     m_ReadOnly: 0

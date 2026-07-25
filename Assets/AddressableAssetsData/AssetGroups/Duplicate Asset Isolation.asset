@@ -1,0 +1,138 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Duplicate Asset Isolation
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Duplicate Asset Isolation
+  m_GUID: 102723042eb65dd40bf4cf2265fb032a
+  m_SerializeEntries:
+  - m_GUID: 140d4d023c3869d42a021321635c6e05
+    m_Address: Assets/Art/3D/CatRed/CatRed@Jump.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14e8a8d2158bec840b56c54f5266e692
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_05.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 186de84b3207156479abe98f4958fed0
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_03.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1a91fcd19acf1e54bba0945d9f390849
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_04.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 274649b0e221539409070ebf6c18918b
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_09.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 29841e7d5bbfb5b419c9ad16ca8bc4c1
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_06.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 36e335017ad71d54fbb10842863188ae
+    m_Address: Packages/com.unity.render-pipelines.core/Runtime/RenderPipelineResources/FallbackShader.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4419d82f33d36e848b3ed5af4c8da37e
+    m_Address: Assets/Starter Assets/Runtime/InputSystem/StarterAssets.inputactions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 46965f9cbaf525742a6da4c2172a99cd
+    m_Address: Packages/com.unity.cinemachine/Presets/Noise/Handheld_normal_mild.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4a19c2046b30e294cbdc50cb91321aed
+    m_Address: Assets/Art/3D/CatRed/CatRedInAirAnim.anim
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 67c8b33e424ccdc4486edf538ab91c5a
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_08.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 72f526a6a9890f643a88e85a61c86c8a
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_01.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 764d07376df398642ab78f0d29f51bc6
+    m_Address: Assets/Art/3D/CatRed/CatRed@Running.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 85016e0f2b01da248b9663dd49a161b0
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_02.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90544458bf267734794fa99919e5952a
+    m_Address: Assets/Art/3D/CatRed/CatRed@Breathing Idle.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 933532a4fcc9baf4fa0491de14d08ed7
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Lit.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 95d5b7a7f6dc4264cae67a6ac3296d00
+    m_Address: Assets/Art/3D/BasePlayerAnimator.controller
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a3194b8bbc96ef84fab1f98f4b7dae3e
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_10.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ca9f5fa95ffab41fb9a615ab714db018
+    m_Address: Packages/com.unity.inputsystem/InputSystem/Plugins/PlayerInput/DefaultInputActions.inputactions
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cdc53370023531648acb5d91b760cf70
+    m_Address: Assets/Art/3D/CatRed/CatRed@Walking.fbx
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dd1af302b8902684d9381de1f2d3a5af
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Footstep_07.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e6e9a19c3678ded42a3bc431ebef7dbd
+    m_Address: Packages/com.unity.render-pipelines.universal/Shaders/Utils/FallbackError.shader
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ff697d3070687ce4583faa0561a145a2
+    m_Address: Assets/Starter Assets/Runtime/ThirdPersonController/Character/Sfx/Player_Land.wav
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 32c9af46ef521ad4ebad84d6e08da894, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d094f87fdb44ded489711c0988af097b, type: 2}
+    - {fileID: 11400000, guid: c41744955d89f2248818bbe2d4756d22, type: 2}
