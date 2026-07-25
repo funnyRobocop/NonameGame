@@ -81,7 +81,7 @@ MonoBehaviour:
       - m_Id: c035b350aa3ff0445adeae293de9f33d
         m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
       - m_Id: db10c1aef8a78c6459c61d4c531e78f3
-        m_Value: 'https://funnyrobocop.github.io/ServerData[BuildTarget]'
+        m_Value: 'https://funnyrobocop.github.io/NonameGameRemoteAssets/ServerData/[BuildTarget]'
       - m_Id: f59d1d26f3d176b4cb58f4e9769d4211
         m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
     m_ProfileEntryNames:
