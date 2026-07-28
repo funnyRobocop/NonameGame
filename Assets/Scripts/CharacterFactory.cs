@@ -20,6 +20,7 @@ public class CharacterFactory
     public async UniTask<GameObject> CreateCharacterAsync(Transform spawnPoint)
     {
         var currentCharType = _model.CurrentCharType.Value;
+        currentCharType = CharacterType.RoosterRed;//for test
         var config = _db.GetCharacterTypeData(currentCharType);
 
         if (config == null)
