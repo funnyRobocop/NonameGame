@@ -21,6 +21,11 @@ namespace StarterAssets
         [Tooltip("Sprint speed of the character in m/s")]
         public float SprintSpeed = 5.335f;
 
+        private Vector3 _impactForce = Vector3.zero;
+        [SerializeField] private float mass;
+        [SerializeField] private float antiimpactForce;
+        [SerializeField] private float impactTreshold;
+
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
@@ -37,7 +42,7 @@ namespace StarterAssets
         public float JumpHeight = 1.2f;
 
         [Tooltip("The character uses its own gravity value. The engine default is -9.81f")]
-        public float Gravity = -15.0f;
+        public float Gravity = -25.0f;
 
         [Space(10)]
         [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again")]
@@ -267,9 +272,22 @@ namespace StarterAssets
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
-            // move the player
-            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            if (_impactForce.magnitude > impactTreshold)
+            {
+                // Перемещаем персонажа с учетом силы удара
+                _controller.Move((targetDirection.normalized + _impactForce) * Time.deltaTime);
+                
+                // Гасим силу каждый кадр
+                _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Time.deltaTime * antiimpactForce);
+            }
+            else
+            {
+                _impactForce = Vector3.zero;
+                // Обычное движение, если удара нет
+                // move the player
+                _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                                new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            }
 
             // update animator if using character
             if (_hasAnimator)
@@ -387,6 +405,11 @@ namespace StarterAssets
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
             }
+        }
+
+        public void AddKnockback(Vector3 direction, float force)
+        {
+            _impactForce += direction.normalized * force / mass;
         }
     }
 }
