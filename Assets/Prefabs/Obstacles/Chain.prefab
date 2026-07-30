@@ -284,7 +284,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4563813150274997865}
-  - component: {fileID: 5580086920504513503}
   m_Layer: 0
   m_Name: Chain
   m_TagString: Untagged
@@ -308,19 +307,6 @@ Transform:
   - {fileID: 1692871523146435030}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5580086920504513503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7849035139323739641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ada6606dffbfb74e8d8f82ab521f109, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CircleRotator
-  duration: 1
 --- !u!1 &7971129299677292455
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,8 +316,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1692871523146435030}
+  - component: {fileID: 3184869023623983209}
   m_Layer: 0
-  m_Name: Point
+  m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -354,6 +341,19 @@ Transform:
   - {fileID: 6440710466199732692}
   m_Father: {fileID: 4563813150274997865}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3184869023623983209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971129299677292455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ada6606dffbfb74e8d8f82ab521f109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CircleRotator
+  duration: 1
 --- !u!1001 &129370996615733588
 PrefabInstance:
   m_ObjectHideFlags: 0

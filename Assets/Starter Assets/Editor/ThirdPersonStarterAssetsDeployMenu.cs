@@ -9,7 +9,7 @@ namespace StarterAssets
     public partial class StarterAssetsDeployMenu : ScriptableObject
     {
         // prefab paths
-        private const string PlayerArmaturePrefabName = "PlayerArmature";
+        /*private const string PlayerArmaturePrefabName = "PlayerArmature";
 
         /// <summary>
         /// Check the Armature, main camera, cinemachine virtual camera, camera target and references
@@ -97,6 +97,6 @@ namespace StarterAssets
             }
 
             return null;
-        }
+        }*/
     }
 }
