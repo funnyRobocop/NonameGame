@@ -23,7 +23,6 @@ using UnityEngine.InputSystem;
         public float SprintSpeed = 5.335f;
 
         private Vector3 _impactForce = Vector3.zero;
-        private Vector3 _platformMovement = Vector3.zero;
         [SerializeField] private float mass;
         [SerializeField] private float antiimpactForce;
         [SerializeField] private float impactTreshold;
@@ -271,27 +270,27 @@ using UnityEngine.InputSystem;
                 transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
             }
 
-
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+
+            // 1. Считаем базовое движение игрока (направление * скорость)
             Vector3 finalMove = targetDirection.normalized;
 
+            // 2. Обрабатываем импульс отлета (Knockback) от кувалды
             if (_impactForce.magnitude > impactTreshold)
             {
                 finalMove += _impactForce;
                 _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Time.deltaTime * antiimpactForce);
             }
             else
-            {
-                finalMove *= _speed;
+            {   finalMove *= _speed;
                 _impactForce = Vector3.zero;
             }
-            
+
+            finalMove.y = _verticalVelocity;
+
             finalMove *= Time.deltaTime;
-            finalMove += _platformMovement;
 
-            _controller.Move(finalMove + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
-
-            _platformMovement = Vector3.zero;
+            _controller.Move(finalMove);
 
             // update animator if using character
             if (_hasAnimator)
@@ -414,11 +413,6 @@ using UnityEngine.InputSystem;
         public void AddKnockback(Vector3 direction, float force)
         {
             _impactForce += direction.normalized * force / mass;
-        }
-
-        public void SetPlatformMovement(Vector3 movement)
-        {
-            _platformMovement = movement;
         }
     }
 //}
