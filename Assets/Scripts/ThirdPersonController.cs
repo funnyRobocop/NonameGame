@@ -26,6 +26,7 @@ using UnityEngine.InputSystem;
         [SerializeField] private float mass;
         [SerializeField] private float antiimpactForce;
         [SerializeField] private float impactTreshold;
+        public bool ForceGrounded;
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -187,7 +188,7 @@ using UnityEngine.InputSystem;
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
                 transform.position.z);
             Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
-                QueryTriggerInteraction.Ignore);
+                QueryTriggerInteraction.Ignore) || ForceGrounded;
 
             // update animator if using character
             if (_hasAnimator)

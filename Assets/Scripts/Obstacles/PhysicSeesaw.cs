@@ -14,14 +14,40 @@ public class PhysicSeesaw : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Берем точку, где сейчас стоят ноги игрока
+            // 1. Давим весом игрока на качели
             Vector3 forcePosition = other.transform.position;
-            
-            // Направление силы — строго вниз (имитация гравитации и веса)
             Vector3 forceDirection = Vector3.down * playerWeightForce;
-
-            // Прикладываем силу к качелям в конкретной точке
             _rigidbody.AddForceAtPosition(forceDirection, forcePosition, ForceMode.Force);
+
+            var controller = other.GetComponent<ThirdPersonController>();
+            if (controller != null)
+            {
+                controller.ForceGrounded = true;
+            }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            var controller = other.GetComponent<ThirdPersonController>();
+            if (controller != null)
+            {
+                controller.ForceGrounded = true;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            var controller = other.GetComponent<ThirdPersonController>();
+            if (controller != null)
+            {
+                controller.ForceGrounded = false;
+            }
         }
     }
 }
