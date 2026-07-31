@@ -23,6 +23,7 @@ using UnityEngine.InputSystem;
         public float SprintSpeed = 5.335f;
 
         private Vector3 _impactForce = Vector3.zero;
+        private Vector3 _forcedMoving = Vector3.zero;
         [SerializeField] private float mass;
         [SerializeField] private float antiimpactForce;
         [SerializeField] private float impactTreshold;
@@ -287,6 +288,8 @@ using UnityEngine.InputSystem;
                 _impactForce = Vector3.zero;
             }
 
+            finalMove += _forcedMoving;
+
             finalMove.y = _verticalVelocity;
 
             finalMove *= Time.deltaTime;
@@ -414,6 +417,11 @@ using UnityEngine.InputSystem;
         public void AddKnockback(Vector3 direction, float force)
         {
             _impactForce += direction.normalized * force / mass;
+        }
+
+        public void SetForcedMoving(Vector3 forcedMoving)
+        {
+            _forcedMoving = forcedMoving;
         }
     }
 //}
