@@ -423,5 +423,17 @@ using UnityEngine.InputSystem;
         {
             _forcedMoving = forcedMoving;
         }
+
+        public void BouncePlayer(float customJumpForce)
+        {
+            _verticalVelocity = customJumpForce;
+            
+            Grounded = false; 
+            
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDJump, true);
+            }
+        }
     }
 //}
