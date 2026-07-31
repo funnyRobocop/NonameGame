@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7196941537068089700}
   m_Layer: 0
-  m_Name: Turmiket
+  m_Name: Turniket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
