@@ -14402,6 +14402,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GiantHammer
       objectReference: {fileID: 0}
+    - target: {fileID: 4541338463617145766, guid: 3586565208b31e943a1bf5e7500d3a85, type: 3}
+      propertyPath: duration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5246711895526611739, guid: 3586565208b31e943a1bf5e7500d3a85, type: 3}
       propertyPath: m_LocalPosition.x
       value: 90

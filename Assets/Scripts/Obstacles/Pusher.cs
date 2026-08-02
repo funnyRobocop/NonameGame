@@ -18,6 +18,19 @@ public class Pusher : MonoBehaviour
                 Debug.Log($"Pushing player with force {pushForce}");
                 controller.AddKnockback(pushDir, pushForce);
             }
+
+            var ragdollComponent = other.GetComponent<PlayerRagdoll>();
+            if (ragdollComponent != null)
+            {                
+                // Считаем вектор удара
+                Vector3 strikeDirection = (other.transform.position - transform.position).normalized;
+                strikeDirection.y = 0.7f; // Подбрасываем корову повыше в воздух!
+
+                float strikeForce = 20f; // Сила физического удара кувалды
+
+                // Активируем падение
+                ragdollComponent.ApplyRagdollImpulse(strikeDirection, strikeForce);
+            }
         }
     }
 }

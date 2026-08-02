@@ -18,6 +18,7 @@ public class PlayerInit : MonoBehaviour
         // При старте игры записываем текущую позицию игрока как самый первый чекпоинт
         _model.LastCheckpointPosition.Value = transform.position;
         _characterController = GetComponent<CharacterController>();
+        gameObject.AddComponent<PlayerRagdoll>(); // Добавляем компонент PlayerRagdoll к игроку
     }
 
     public void RespawnPlayer()
