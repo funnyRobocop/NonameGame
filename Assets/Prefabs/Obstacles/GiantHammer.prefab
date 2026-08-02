@@ -59,7 +59,7 @@ Transform:
   m_GameObject: {fileID: 985537413487823194}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 7, z: 0}
+  m_LocalPosition: {x: 0, y: 6.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Rotator
   easeType: 7
-  duration: 1
+  duration: 10
   from: {x: 0, y: 0, z: 0}
   to: {x: 0, y: 0, z: -180}
 --- !u!1 &1465161939828861587
