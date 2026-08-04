@@ -18,7 +18,8 @@ public class PlayerInit : MonoBehaviour
         // При старте игры записываем текущую позицию игрока как самый первый чекпоинт
         _model.LastCheckpointPosition.Value = transform.position;
         _characterController = GetComponent<CharacterController>();
-        gameObject.AddComponent<PlayerRagdoll>(); // Добавляем компонент PlayerRagdoll к игроку
+        //gameObject.AddComponent<PlayerRagdoll>(); // Добавляем компонент PlayerRagdoll к игроку
+        //_characterController.transform.SetParent(null);
     }
 
     public void RespawnPlayer()
@@ -28,6 +29,7 @@ public class PlayerInit : MonoBehaviour
         _characterController.transform.position = _model.LastCheckpointPosition.Value;
         _characterController.transform.rotation = _model.LastCheckpointRotation.Value;
         _characterController.enabled = true;
+        //_characterController.transform.SetParent(null);
         
         Debug.Log($"Игрок респаунится на чекпоинте: {_model.LastCheckpointPosition.Value}");
     }

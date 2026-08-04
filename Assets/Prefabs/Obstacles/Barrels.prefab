@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 1837455378943351227}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: -1, z: 4}
+  m_LocalPosition: {x: 4, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -155,12 +155,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
-  startDelay: 14
+  startDelay: 1
 --- !u!65 &9119155274986101634
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -226,7 +226,7 @@ Transform:
   m_GameObject: {fileID: 1969829966522757986}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 4}
+  m_LocalPosition: {x: 0, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -349,12 +349,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
-  startDelay: 10
+  startDelay: 2
 --- !u!65 &4724423545019252959
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -420,7 +420,7 @@ Transform:
   m_GameObject: {fileID: 2628196157466708401}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: -1, z: 2}
+  m_LocalPosition: {x: 2, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -543,12 +543,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
-  startDelay: 6
+  startDelay: 2
 --- !u!65 &2600762187369017861
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -614,7 +614,7 @@ Transform:
   m_GameObject: {fileID: 2994677102133430253}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: -1, z: 2}
+  m_LocalPosition: {x: 4, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -737,12 +737,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
-  startDelay: 8
+  startDelay: 0
 --- !u!65 &701309304249168880
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ Transform:
   m_GameObject: {fileID: 3591843313695134335}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4, y: -1, z: 0}
+  m_LocalPosition: {x: 4, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -931,12 +931,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
-  startDelay: 3
+  startDelay: 2
 --- !u!65 &6976032043437562783
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1002,7 +1002,7 @@ Transform:
   m_GameObject: {fileID: 5536576212507831422}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: -1, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1125,10 +1125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
   startDelay: 1
 --- !u!65 &8733482861548110924
@@ -1196,7 +1196,7 @@ Transform:
   m_GameObject: {fileID: 6012164406232319961}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 2}
+  m_LocalPosition: {x: 0, y: 0, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1319,12 +1319,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
-  startDelay: 4
+  startDelay: 1
 --- !u!65 &9000969871127062537
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1390,7 +1390,7 @@ Transform:
   m_GameObject: {fileID: 6490499638898131559}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1513,10 +1513,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
   startDelay: 0
 --- !u!65 &4519155858353442495
@@ -1584,7 +1584,7 @@ Transform:
   m_GameObject: {fileID: 6957573690408820527}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2, y: -1, z: 4}
+  m_LocalPosition: {x: 2, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1707,12 +1707,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ce3ac2662ce16148b4d9d48740284a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaterBarrel
-  heightOffset: 3
-  upDuration: 1.5
+  heightOffset: 2
+  upDuration: 2
   stayDuration: 2
-  downDuration: 1.5
+  downDuration: 2
   hideDuration: 2
-  startDelay: 12
+  startDelay: 0
 --- !u!65 &5669951382069660687
 BoxCollider:
   m_ObjectHideFlags: 0

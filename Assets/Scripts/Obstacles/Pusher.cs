@@ -9,7 +9,7 @@ public class Pusher : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            var controller = other.GetComponent<ThirdPersonController>();
+            /*var controller = other.GetComponent<ThirdPersonController>();
             if (controller != null)
             {
                 Vector3 pushDir = (other.transform.position - transform.position).normalized;
@@ -17,14 +17,14 @@ public class Pusher : MonoBehaviour
                 
                 Debug.Log($"Pushing player with force {pushForce}");
                 controller.AddKnockback(pushDir, pushForce);
-            }
+            }*/
 
             var ragdollComponent = other.GetComponent<PlayerRagdoll>();
             if (ragdollComponent != null)
             {                
                 // Считаем вектор удара
                 Vector3 strikeDirection = (other.transform.position - transform.position).normalized;
-                strikeDirection.y = 0.7f; // Подбрасываем корову повыше в воздух!
+                strikeDirection.y = 5f; // Подбрасываем корову повыше в воздух!
 
                 float strikeForce = 20f; // Сила физического удара кувалды
 
