@@ -71,7 +71,7 @@ public class PlayerRagdoll : MonoBehaviour
             }
         }
 
-        Invoke(nameof(StandUp), 1f);
+        Invoke(nameof(StandUp), 20f);
     }
 
     private void StandUp()

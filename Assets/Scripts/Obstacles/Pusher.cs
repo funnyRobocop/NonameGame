@@ -24,9 +24,9 @@ public class Pusher : MonoBehaviour
             {                
                 // Считаем вектор удара
                 Vector3 strikeDirection = (other.transform.position - transform.position).normalized;
-                strikeDirection.y = 5f; // Подбрасываем корову повыше в воздух!
+                strikeDirection.y = 1f; // Подбрасываем корову повыше в воздух!
 
-                float strikeForce = 20f; // Сила физического удара кувалды
+                float strikeForce = 10f; // Сила физического удара кувалды
 
                 // Активируем падение
                 ragdollComponent.ApplyRagdollImpulse(strikeDirection, strikeForce);
