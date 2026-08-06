@@ -2,6 +2,7 @@
   <Project Path="Zenject.csproj" />
   <Project Path="UniRx.csproj" />
   <Project Path="Zenject-IntegrationTests-Editor.csproj" />
+  <Project Path="ithappy.Battle_Stadium.csproj" />
   <Project Path="UniTask.csproj" />
   <Project Path="Zenject-ReflectionBaking-Editor.csproj" />
   <Project Path="UniTask.Linq.csproj" />
