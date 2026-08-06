@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class MovingBruses : MonoBehaviour
+public class ForcedMover : MonoBehaviour
 {
     [SerializeField] private Vector3 _moving;
 
@@ -12,7 +12,7 @@ public class MovingBruses : MonoBehaviour
             var controller = other.GetComponent<ThirdPersonController>();
             if (controller != null)
             {
-                controller.SetForcedMoving(_moving);
+                controller.AddForcedMoving(_moving);
             }
         }
     }
@@ -24,7 +24,7 @@ public class MovingBruses : MonoBehaviour
             var controller = other.GetComponent<ThirdPersonController>();
             if (controller != null)
             {
-                controller.SetForcedMoving(Vector3.zero);
+                controller.AddForcedMoving(_moving * -1f);
             }
         }
     }

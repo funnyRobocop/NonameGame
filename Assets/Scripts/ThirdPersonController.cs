@@ -419,9 +419,9 @@ using UnityEngine.InputSystem;
             _impactForce += direction.normalized * force / mass;
         }
 
-        public void SetForcedMoving(Vector3 forcedMoving)
+        public void AddForcedMoving(Vector3 forcedMoving)
         {
-            _forcedMoving = forcedMoving;
+            _forcedMoving += forcedMoving;
         }
 
         public void BouncePlayer(float customJumpForce)
