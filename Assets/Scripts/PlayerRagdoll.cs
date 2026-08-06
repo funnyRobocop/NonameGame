@@ -74,7 +74,7 @@ public class PlayerRagdoll : MonoBehaviour
         Invoke(nameof(StandUp), timeToStandUp);
     }
 
-    private void StandUp()
+    public void StandUp()
     {
         if (ragdollHips != null)
         {
