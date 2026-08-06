@@ -59,7 +59,7 @@ public class PlayerRagdoll : MonoBehaviour
         }
     }
 
-    public void ApplyRagdollImpulse(Vector3 forceDirection, float forceMagnitude)
+    public void ApplyRagdollImpulse(Vector3 forceDirection, float forceMagnitude, float timeToStandUp)
     {
         ToggleRagdoll(true);
 
@@ -71,7 +71,7 @@ public class PlayerRagdoll : MonoBehaviour
             }
         }
 
-        Invoke(nameof(StandUp), 20f);
+        Invoke(nameof(StandUp), timeToStandUp);
     }
 
     private void StandUp()

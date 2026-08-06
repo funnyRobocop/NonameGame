@@ -7,17 +7,23 @@ namespace ithappy
         public Vector3 rotationAxis = Vector3.up;
         public float rotationAngle = 45f;
         public float duration = 2f;
-        public bool useRandomDelay = false; // Toggle random delay
-        public float maxRandomDelay = 1f; // Maximum random delay
+        public bool useRandomDelay = false;
+        public float maxRandomDelay = 1f;
 
         private Quaternion startRotation;
         private float timeElapsed = 0f;
         private bool isReversing = false;
         private float randomDelay = 0f;
+        
+        // Ссылка на физическое тело
+        private Rigidbody _rigidbody;
 
         void Start()
         {
             startRotation = transform.rotation;
+            
+            // Автоматически находим Rigidbody
+            _rigidbody = GetComponent<Rigidbody>();
 
             if (useRandomDelay)
             {
@@ -25,11 +31,11 @@ namespace ithappy
             }
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (timeElapsed < randomDelay)
             {
-                timeElapsed += Time.deltaTime;
+                timeElapsed += Time.fixedDeltaTime;
                 return;
             }
 
@@ -41,9 +47,16 @@ namespace ithappy
             float currentAngle = rotationAngle * (isReversing ? (1 - progress) : progress);
             Quaternion currentRotation = startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
 
-            transform.rotation = currentRotation;
+            if (_rigidbody != null)
+            {
+                _rigidbody.MoveRotation(currentRotation);
+            }
+            else
+            {
+                transform.rotation = currentRotation;
+            }
 
-            timeElapsed += Time.deltaTime;
+            timeElapsed += Time.fixedDeltaTime;
 
             if (timeElapsed >= duration / 2f + randomDelay)
             {
