@@ -1,19 +1,26 @@
 using UnityEngine;
-using Unity.Cinemachine; // Подключаем Cinemachine
+using Unity.Cinemachine;
+using System.Collections;
 
 public class PlayerRagdoll : MonoBehaviour
 {
-    [Header("Настройки Камер Cinemachine")]
-    [SerializeField] private CinemachineCamera normalCamera;  // Сюда перетащите PlayerFollowCamera
-    [SerializeField] private CinemachineCamera ragdollCamera; // Сюда перетащите RagdollFollowCamera
+    [Header("Камеры Cinemachine")]
+    [SerializeField] private CinemachineCamera normalCamera;
+    [SerializeField] private CinemachineCamera ragdollCamera;
     
-    [Header("Кости")]
-    [SerializeField] private Transform ragdollHips;          // Сюда кость mixamorig:Hips
+    [Header("Кости и Настройки")]
+    [SerializeField] private Transform ragdollHips;
+    [SerializeField] private LayerMask groundLayer; 
+    [SerializeField] private float standUpDistance = 0.3f; // Дистанция до земли для подъема
 
     private CharacterController _controller;
     private Animator _animator;
     private Rigidbody[] _ragdollRigidbones;
     private Collider[] _ragdollColliders;
+    private Rigidbody _hipsRigidbody;
+    
+    private bool _isRagdollActive;
+    private Coroutine _groundCheckCoroutine;
 
     void Awake()
     {
@@ -23,12 +30,18 @@ public class PlayerRagdoll : MonoBehaviour
         _ragdollRigidbones = GetComponentsInChildren<Rigidbody>();
         _ragdollColliders = GetComponentsInChildren<Collider>();
 
+        if (ragdollHips != null)
+        {
+            _hipsRigidbody = ragdollHips.GetComponent<Rigidbody>();
+        }
+
         ToggleRagdoll(false);
     }
 
     public void ToggleRagdoll(bool isRagdoll)
     {
-        // Отключаем контроллер и анимации при падении
+        _isRagdollActive = isRagdoll;
+
         if (_controller != null) _controller.enabled = !isRagdoll;
         if (_animator != null) _animator.enabled = !isRagdoll;
         
@@ -41,25 +54,29 @@ public class PlayerRagdoll : MonoBehaviour
             if (col.gameObject != this.gameObject) col.enabled = isRagdoll;
         }
 
-        // ВАЖНО: Управляем приоритетами камер для идеального переключения
         if (normalCamera != null && ragdollCamera != null)
         {
             if (isRagdoll)
             {
-                // Включаем камеру рэгдолла, делая её приоритет максимальным
                 normalCamera.Priority = 5;
                 ragdollCamera.Priority = 15;
             }
             else
             {
-                // Возвращаем приоритет обычной камере персонажа
                 normalCamera.Priority = 15;
                 ragdollCamera.Priority = 5;
             }
         }
+
+        // Если рэгдолл включился — запускаем корутину отслеживания земли
+        if (isRagdoll)
+        {
+            if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
+            _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
+        }
     }
 
-    public void ApplyRagdollImpulse(Vector3 forceDirection, float forceMagnitude, float timeToStandUp)
+    public void ApplyRagdollImpulse(Vector3 forceDirection, float forceMagnitude)
     {
         ToggleRagdoll(true);
 
@@ -70,17 +87,61 @@ public class PlayerRagdoll : MonoBehaviour
                 rb.AddForce(forceDirection * forceMagnitude, ForceMode.Impulse);
             }
         }
-
-        Invoke(nameof(StandUp), timeToStandUp);
     }
 
-    public void StandUp()
+    private IEnumerator CheckForGroundLanding()
     {
+        yield return new WaitForSeconds(0.4f);
+
+        while (_isRagdollActive)
+        {
+            if (ragdollHips != null && _hipsRigidbody != null)
+            {
+                // Пускаем физический луч от таза строго вниз
+                Ray ray = new Ray(ragdollHips.position, Vector3.down);
+                
+                // Проверяем: близко ли земля И успокоилось ли физическое тело (скорость падения упала)
+                if (Physics.Raycast(ray, standUpDistance + 0.5f, groundLayer))
+                {
+                    // Проверяем вектор скорости таза.
+                    if (_hipsRigidbody.linearVelocity.magnitude < 1.5f) 
+                    {
+                        StandUp();
+                        yield break;
+                    }
+                }
+            }
+            
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private void StandUp()
+    {
+        if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
+
         if (ragdollHips != null)
         {
-            Vector3 targetPosition = ragdollHips.position;
-            targetPosition.y += 0.1f; 
+            var targetPosition = ragdollHips.position;
+
+            if (Physics.Raycast(ragdollHips.position, Vector3.down, out var hit, 3f, groundLayer))
+            {
+                targetPosition.y = hit.point.y + 0.05f;
+            }
+            else
+            {
+                targetPosition.y += 0.1f;
+            }
+
             transform.position = targetPosition;
+
+            // Выравниваем вращение корня персонажа по направлению движения
+            var forwardDirection = ragdollHips.forward;
+            forwardDirection.y = 0; // Нам нужен только горизонтальный поворот
+            if (forwardDirection != Vector3.zero)
+            {
+                transform.rotation = Quaternion.LookRotation(forwardDirection);
+            }
         }
 
         ToggleRagdoll(false);

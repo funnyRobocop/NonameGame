@@ -4,7 +4,6 @@ public class Pusher : MonoBehaviour
 {
     [SerializeField] private float pushForce;
     [SerializeField] private float yForce;
-    [SerializeField] private float timeToStandUp;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,11 +13,11 @@ public class Pusher : MonoBehaviour
             if (ragdollComponent != null)
             {                
                 // Считаем вектор удара
-                Vector3 strikeDirection = (other.transform.position - transform.position).normalized;
+                var strikeDirection = (other.transform.position - transform.position).normalized;
                 strikeDirection.y = yForce;
 
                 // Активируем падение
-                ragdollComponent.ApplyRagdollImpulse(strikeDirection, pushForce, timeToStandUp);
+                ragdollComponent.ApplyRagdollImpulse(strikeDirection, pushForce);
             }
         }
     }

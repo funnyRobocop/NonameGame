@@ -15,11 +15,6 @@ public class ForcedMover : MonoBehaviour
             {
                 controller.AddForcedMoving(_moving);
             }
-            var ragdoll = other.GetComponent<PlayerRagdoll>();
-            if (ragdoll != null)
-            {
-                ragdoll.ToggleRagdoll(true);
-            }
         }
     }
 
@@ -31,11 +26,6 @@ public class ForcedMover : MonoBehaviour
             if (controller != null)
             {
                 controller.AddForcedMoving(_moving * -1f);
-            }
-            var ragdoll = other.GetComponent<PlayerRagdoll>();
-            if (ragdoll != null)
-            {
-                ragdoll.StandUp();
             }
         }
     }
