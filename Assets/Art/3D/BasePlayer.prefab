@@ -449,7 +449,7 @@ MonoBehaviour:
   GroundedRadius: 0.36
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 129
   CinemachineCameraTarget: {fileID: 7485263040202926250}
   TopClamp: 70
   BottomClamp: -30
@@ -632,7 +632,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc26f52198642b444bd2911ca886d4c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlatformConnector
-  currentPlatform: {fileID: 0}
 --- !u!1 &3486953802901730816
 GameObject:
   m_ObjectHideFlags: 0
