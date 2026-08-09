@@ -7,7 +7,10 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.transform.SetParent(transform);
+            if (other.TryGetComponent(out PlatformConnector platformConnector))
+            {
+                platformConnector.Connect(transform);
+            }
         }
     }
 
@@ -15,7 +18,10 @@ public class MovingPlatform : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            other.transform.SetParent(null);
+            if (other.TryGetComponent(out PlatformConnector platformConnector))
+            {
+                platformConnector.Disconnect(transform);
+            }
         }
     }
 }
