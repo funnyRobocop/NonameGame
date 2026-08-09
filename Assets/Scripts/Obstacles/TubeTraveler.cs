@@ -72,7 +72,6 @@ public class TubeTraveler : MonoBehaviour
             }
         }
 
-        // Удаляем скрипт полета. Через 3 секунды корова встанет на ноги сама
         Destroy(this);
     }
 }
