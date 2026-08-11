@@ -34,7 +34,8 @@ using UnityEngine.InputSystem;
         [SerializeField] private float dashDuration = 0.2f;   // Длительность рывка в секундах
         private float _dashTimeLeft = 0f;                     // Таймер оставшегося времени рывка
         private Vector3 _dashDirection;
-        private bool _canDash = true;   
+        private bool _canDash = true; 
+        private bool _ignoreFirstAirJump = false; // Блокиратор мгновенного дэша после прыжка  
 
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
@@ -329,84 +330,82 @@ using UnityEngine.InputSystem;
             if (Grounded)
             {
                 _canDash = true;
-                // reset the fall timeout timer
+                _ignoreFirstAirJump = false; // Сбрасываем блокиратор на земле
+                
                 _fallTimeoutDelta = FallTimeout;
 
-                // update animator if using character
                 if (_hasAnimator)
                 {
                     _animator.SetBool(_animIDJump, false);
                     _animator.SetBool(_animIDFreeFall, false);
                 }
 
-                // stop our velocity dropping infinitely when grounded
                 if (_verticalVelocity < 0.0f)
                 {
                     _verticalVelocity = -2f;
                 }
 
-                // Jump
+                // Прыжок с земли
                 if (_input.jump && _jumpTimeoutDelta <= 0.0f)
                 {
-                    // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
 
-                    // update animator if using character
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDJump, true);
                     }
+
+                    // ВАЖНО: Мы только что прыгнули. Включаем блокиратор, 
+                    // чтобы это же нажатие Пробела не активировало рывок в следующем кадре!
+                    _ignoreFirstAirJump = true; 
                 }
 
-                // jump timeout
                 if (_jumpTimeoutDelta >= 0.0f)
                 {
                     _jumpTimeoutDelta -= Time.deltaTime;
                 }
             }
-            else
+            else // МЫ В ВОЗДУХЕ
             {
-                if (_input.jump && _canDash && _dashTimeLeft <= 0f)
+                // Если игрок отпустил Пробел хотя бы на один кадр в воздухе, 
+                // снимаем блокиратор — теперь следующее нажатие будет именно осознанным рывком
+                if (!_input.jump)
+                {
+                    _ignoreFirstAirJump = false;
+                }
+
+                // РЫВОК В ВОЗДУХЕ
+                // Добавляем условие: && !_ignoreFirstAirJump
+                if (_input.jump && _canDash && _dashTimeLeft <= 0f && !_ignoreFirstAirJump)
                 {
                     _canDash = false;
-                    _dashTimeLeft = dashDuration; // Запускаем таймер
+                    _dashTimeLeft = dashDuration; 
                     
-                    // Направление рывка: берем направление взгляда персонажа (куда направлена моделька)
                     _dashDirection = transform.forward; 
-                    
-                    // Если игрок в этот момент зажимает WASD, можно брать направление движения:
-                    // Vector3 inputDir = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
-                    // _dashDirection = Quaternion.Euler(0.0f, _mainCamera.transform.eulerAngles.y, 0.0f) * inputDir;
-                    
                     _verticalVelocity = 0f;
-                    _input.jump = false; // Сбрасываем инпут, чтобы не спамить
-
+                    _input.jump = false;
                     //_animator.SetTrigger("Dive");
                 }
 
-                // reset the jump timeout timer
                 _jumpTimeoutDelta = JumpTimeout;
 
-                // fall timeout
                 if (_fallTimeoutDelta >= 0.0f)
                 {
                     _fallTimeoutDelta -= Time.deltaTime;
                 }
                 else
                 {
-                    // update animator if using character
                     if (_hasAnimator)
                     {
                         _animator.SetBool(_animIDFreeFall, true);
                     }
                 }
 
-                // if we are not grounded, do not jump
+                // очистка инпута
                 _input.jump = false;
             }
 
-            // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if ( (_dashTimeLeft <= 0f) && (_verticalVelocity < _terminalVelocity) )
+            if ((_dashTimeLeft <= 0f) && (_verticalVelocity < _terminalVelocity))
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
