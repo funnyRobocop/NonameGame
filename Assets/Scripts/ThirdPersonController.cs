@@ -29,6 +29,13 @@ using UnityEngine.InputSystem;
         [SerializeField] private float impactTreshold;
         public bool ForceGrounded;
 
+        [Header("Настройки Рывка (Dash)")]
+        [SerializeField] private float dashSpeed = 25f;      // Скорость рывка
+        [SerializeField] private float dashDuration = 0.2f;   // Длительность рывка в секундах
+        private float _dashTimeLeft = 0f;                     // Таймер оставшегося времени рывка
+        private Vector3 _dashDirection;
+        private bool _canDash = true;   
+
         [Tooltip("How fast the character turns to face movement direction")]
         [Range(0.0f, 0.3f)]
         public float RotationSmoothTime = 0.12f;
@@ -276,23 +283,36 @@ using UnityEngine.InputSystem;
 
             // 1. Считаем базовое движение игрока (направление * скорость)
             Vector3 finalMove = targetDirection.normalized;
-
-            // 2. Обрабатываем импульс отлета (Knockback) от кувалды
-            if (_impactForce.magnitude > impactTreshold)
+            if (_dashTimeLeft > 0f)
             {
-                finalMove += _impactForce;
-                _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Time.deltaTime * antiimpactForce);
+                // Двигаемся строго в направлении рывка с большой скоростью
+                finalMove = _dashDirection * dashSpeed;
+                
+                // Уменьшаем таймер рывка
+                _dashTimeLeft -= Time.deltaTime;
+                
+                // Переводим в движение за кадр
+                finalMove *= Time.deltaTime;
             }
             else
-            {   finalMove *= _speed;
-                _impactForce = Vector3.zero;
+            {
+                // 2. Обрабатываем импульс отлета (Knockback) от кувалды
+                if (_impactForce.magnitude > impactTreshold)
+                {
+                    finalMove += _impactForce;
+                    _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Time.deltaTime * antiimpactForce);
+                }
+                else
+                {   finalMove *= _speed;
+                    _impactForce = Vector3.zero;
+                }
+
+                finalMove += _forcedMoving;
+
+                finalMove.y = _verticalVelocity;
+
+                finalMove *= Time.deltaTime;
             }
-
-            finalMove += _forcedMoving;
-
-            finalMove.y = _verticalVelocity;
-
-            finalMove *= Time.deltaTime;
 
             _controller.Move(finalMove);
 
@@ -308,6 +328,7 @@ using UnityEngine.InputSystem;
         {
             if (Grounded)
             {
+                _canDash = true;
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
 
@@ -345,6 +366,24 @@ using UnityEngine.InputSystem;
             }
             else
             {
+                if (_input.jump && _canDash && _dashTimeLeft <= 0f)
+                {
+                    _canDash = false;
+                    _dashTimeLeft = dashDuration; // Запускаем таймер
+                    
+                    // Направление рывка: берем направление взгляда персонажа (куда направлена моделька)
+                    _dashDirection = transform.forward; 
+                    
+                    // Если игрок в этот момент зажимает WASD, можно брать направление движения:
+                    // Vector3 inputDir = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+                    // _dashDirection = Quaternion.Euler(0.0f, _mainCamera.transform.eulerAngles.y, 0.0f) * inputDir;
+                    
+                    _verticalVelocity = 0f;
+                    _input.jump = false; // Сбрасываем инпут, чтобы не спамить
+
+                    //_animator.SetTrigger("Dive");
+                }
+
                 // reset the jump timeout timer
                 _jumpTimeoutDelta = JumpTimeout;
 
@@ -367,7 +406,7 @@ using UnityEngine.InputSystem;
             }
 
             // apply gravity over time if under terminal (multiply by delta time twice to linearly speed up over time)
-            if (_verticalVelocity < _terminalVelocity)
+            if ( (_dashTimeLeft <= 0f) && (_verticalVelocity < _terminalVelocity) )
             {
                 _verticalVelocity += Gravity * Time.deltaTime;
             }
