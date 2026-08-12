@@ -18,7 +18,8 @@ public class PunchingGlove : MonoBehaviour
     
     [Header("Тайминги цикла")]
     [SerializeField] private float restDuration;   
-    [SerializeField] private float startDelay;     
+    [SerializeField] private float startDelay;    
+    [SerializeField] Bouncer bouncer;
 
     private Vector3 _startLocalPos;
     private bool _isPunching;
@@ -58,7 +59,9 @@ public class PunchingGlove : MonoBehaviour
         _isPunching = true;
 
         Sequence punchSeq = DOTween.Sequence();
+        punchSeq.AppendCallback(() => bouncer.CanPushPlayer = true);
         punchSeq.Append(transform.DOLocalMoveZ(_startLocalPos.z + punchDistance, punchSpeed).SetEase(Ease.OutQuad));
+        punchSeq.AppendCallback(() => bouncer.CanPushPlayer = false);
         punchSeq.AppendInterval(stayDuration);
         punchSeq.Append(transform.DOLocalMoveZ(_startLocalPos.z, returnSpeed).SetEase(Ease.InOutSine));
         punchSeq.SetUpdate(UpdateType.Fixed);

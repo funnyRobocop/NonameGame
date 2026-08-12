@@ -5,8 +5,12 @@ public class Bouncer : MonoBehaviour
     [SerializeField] private float pushForce;
     [SerializeField] private float yForce;
 
+    public bool CanPushPlayer { get; set; } = true;
+
     private void OnTriggerEnter(Collider other)
     {
+        if (!CanPushPlayer) return;
+
         if (other.gameObject.CompareTag("Player"))
         {
             var controller = other.GetComponent<ThirdPersonController>();

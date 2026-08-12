@@ -304,17 +304,17 @@ using UnityEngine.InputSystem;
                     _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Time.deltaTime * antiimpactForce);
                 }
                 else
-                {   finalMove *= _speed;
+                {
+                    finalMove *= _speed;
                     _impactForce = Vector3.zero;
                 }
-
-                finalMove += _forcedMoving;
-
+                
                 finalMove.y = _verticalVelocity;
 
                 finalMove *= Time.deltaTime;
+                finalMove += _forcedMoving * Time.fixedDeltaTime;
             }
-
+                
             _controller.Move(finalMove);
 
             // update animator if using character

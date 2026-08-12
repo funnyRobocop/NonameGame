@@ -159,8 +159,9 @@ MonoBehaviour:
   punchSpeed: 0.15
   stayDuration: 0.5
   returnSpeed: 1
-  restDuration: 2
+  restDuration: 0.5
   startDelay: 0
+  bouncer: {fileID: 8333445577249000386}
 --- !u!1 &5709480136938505504
 GameObject:
   m_ObjectHideFlags: 0

@@ -91,7 +91,7 @@ public class PlayerRagdoll : MonoBehaviour
 
     private IEnumerator CheckForGroundLanding()
     {
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
 
         while (_isRagdollActive)
         {
@@ -101,10 +101,10 @@ public class PlayerRagdoll : MonoBehaviour
                 Ray ray = new Ray(ragdollHips.position, Vector3.down);
                 
                 // Проверяем: близко ли земля И успокоилось ли физическое тело (скорость падения упала)
-                if (Physics.Raycast(ray, standUpDistance + 0.5f, groundLayer))
+                if (Physics.Raycast(ray, standUpDistance + 0.1f, groundLayer))
                 {
                     // Проверяем вектор скорости таза.
-                    if (_hipsRigidbody.linearVelocity.magnitude < 1.5f) 
+                    if (_hipsRigidbody.linearVelocity.magnitude < 2f) 
                     {
                         StandUp();
                         yield break;

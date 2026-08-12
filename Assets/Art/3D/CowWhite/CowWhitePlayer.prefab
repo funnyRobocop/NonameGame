@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 1184078553473108894}
   m_Layer: 6
   m_Name: CowWhite
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1979,35 +1979,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3565135039823991971, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380120765590948891, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.20000005
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380120765590948891, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.375
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380120765590948891, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380120765590948891, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380120765590948891, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380120765590948891, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4380120765590948891, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 7010859913281682799, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_LocalPosition.x
