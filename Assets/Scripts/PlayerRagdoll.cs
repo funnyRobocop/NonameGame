@@ -1,6 +1,7 @@
 using UnityEngine;
 using Unity.Cinemachine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayerRagdoll : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class PlayerRagdoll : MonoBehaviour
     [SerializeField] private Transform _ragdollCameraTarget;
     [SerializeField] private Transform _ragdollHips;
     [SerializeField] private LayerMask _groundLayer; 
-    [SerializeField] private float _standUpDistance = 0.1f; // Дистанция до земли для подъема
+    [SerializeField] private float _standUpDistance; // Дистанция до земли для подъема
 
     private CinemachineCamera _normalCamera;
     private CinemachineCamera _ragdollCamera;
@@ -24,6 +25,7 @@ public class PlayerRagdoll : MonoBehaviour
 
     public Transform NormalCameraTarget => _normalCameraTarget;
     public Transform RagdollCameraTarget => _ragdollCameraTarget;
+    public Transform Hip => _ragdollHips;
 
     void Awake()
     {
@@ -106,13 +108,10 @@ public class PlayerRagdoll : MonoBehaviour
         {
             if (_ragdollHips != null && _hipsRigidbody != null)
             {
-                // Пускаем физический луч от таза строго вниз
                 Ray ray = new Ray(_ragdollHips.position, Vector3.down);
                 
-                // Проверяем: близко ли земля И успокоилось ли физическое тело (скорость падения упала)
                 if (Physics.Raycast(ray, _standUpDistance, _groundLayer))
                 {
-                    // Проверяем вектор скорости таза.
                     if (_hipsRigidbody.linearVelocity.magnitude < 1f) 
                     {
                         StandUp();
@@ -144,12 +143,12 @@ public class PlayerRagdoll : MonoBehaviour
 
             transform.position = targetPosition;
 
-            var forwardDirection = Vector3.forward;
+            /*var forwardDirection = Vector3.;
             //forwardDirection.y = 0; // Нам нужен только горизонтальный поворот
             if (forwardDirection != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(forwardDirection);
-            }
+            }*/
         }
 
         ToggleRagdoll(false);

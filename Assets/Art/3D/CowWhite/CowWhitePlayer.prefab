@@ -1965,6 +1965,14 @@ PrefabInstance:
       propertyPath: _ragdollHips
       value: 
       objectReference: {fileID: 5540996767466072619}
+    - target: {fileID: 1296433996173928527, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: _standUpDistance
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1296433996173928527, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: _groundLayer.m_Bits
+      value: 193
+      objectReference: {fileID: 0}
     - target: {fileID: 1968151281439063246, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_Avatar
       value: 
@@ -1983,7 +1991,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3565135039823991971, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_TagString
-      value: Untagged
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7010859913281682799, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2035,7 +2043,7 @@ PrefabInstance:
       objectReference: {fileID: 5540996767466072619}
     - target: {fileID: 8030818204260607709, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

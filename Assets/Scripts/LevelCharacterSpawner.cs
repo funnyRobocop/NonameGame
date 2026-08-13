@@ -30,7 +30,7 @@ public class LevelCharacterSpawner : MonoBehaviour
         GameObject player = await _characterFactory.CreateCharacterAsync(_spawnPoint);
         var playerRagdoll = player.GetComponentInChildren<PlayerRagdoll>();
         playerRagdoll.Init(_normalCamera, _ragdollCamera);
-        _normalCameraTarget.SetTarget(playerRagdoll.NormalCameraTarget);
-        _ragdollCameraTarget.SetTarget(playerRagdoll.RagdollCameraTarget);
+        _normalCamera.Target.TrackingTarget = playerRagdoll.NormalCameraTarget;
+        _ragdollCamera.Target.TrackingTarget = playerRagdoll.RagdollCameraTarget;
     }
 }

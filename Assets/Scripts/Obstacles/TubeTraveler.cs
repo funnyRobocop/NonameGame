@@ -5,10 +5,11 @@ using UnityEngine.Splines; // ОБЯЗАТЕЛЬНО: подключаем пр�
 public class TubeTraveler : MonoBehaviour
 {
     private SplineContainer _splineContainer;
-    private float _speed = 25f; // Скорость полета внутри трубы
+    private float _speed = 20f; // Скорость полета внутри трубы
     private Transform _hipsTransform;
     private float _progress = 0f; // Прогресс движения от 0 (вход) до 1 (выход)
-
+    private  Rigidbody _hipsRigidbody;
+    
     public void SetupPath(Transform splineTransform)
     {
         // Получаем компонент SplineContainer, который виден у вас на скриншоте
@@ -22,7 +23,8 @@ public class TubeTraveler : MonoBehaviour
         }
 
         // Находим кость таза рэгдолла
-        _hipsTransform = transform.Find("mixamorig:Hips") ?? GetComponentInChildren<Rigidbody>().transform;
+        _hipsTransform = GetComponentInChildren<PlayerRagdoll>().Hip;
+        _hipsRigidbody = _hipsTransform.GetComponent<Rigidbody>();
 
         StartCoroutine(FlyThroughTube());
     }
@@ -48,6 +50,7 @@ public class TubeTraveler : MonoBehaviour
             if (_hipsTransform != null)
             {
                 _hipsTransform.position = targetPos;
+                _hipsRigidbody.AddRelativeForce(Vector3.forward * 0.5f, ForceMode.VelocityChange); // Легкий импульс вперед для плавного движения
             }
 
             yield return new WaitForFixedUpdate();
@@ -58,9 +61,10 @@ public class TubeTraveler : MonoBehaviour
 
     private void ExitTube()
     {
+        Debug.Log("Игрок вышел из трубы!");
         // ВЫПЛЁВЫВАНИЕ: Получаем направление финальной точки сплайна (куда смотрит выход трубы)
-        Vector3 ejectDirection = (Vector3)_splineContainer.EvaluateTangent(1f);
-        //ejectDirection.y = 0.4f; // Слегка подбрасываем вверх для красивой дуги полета
+        Vector3 ejectDirection = (Vector3)_splineContainer.EvaluateTangent(5f);
+        ejectDirection.y = 0.4f; // Слегка подбрасываем вверх для красивой дуги полета
 
         Rigidbody[] allRbs = GetComponentsInChildren<Rigidbody>();
         foreach (var rb in allRbs)
