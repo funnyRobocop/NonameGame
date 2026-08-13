@@ -4,15 +4,15 @@ using System.Collections;
 
 public class PlayerRagdoll : MonoBehaviour
 {
-    [Header("Камеры Cinemachine")]
-    [SerializeField] private CinemachineCamera normalCamera;
-    [SerializeField] private CinemachineCamera ragdollCamera;
     
-    [Header("Кости и Настройки")]
-    [SerializeField] private Transform ragdollHips;
-    [SerializeField] private LayerMask groundLayer; 
-    [SerializeField] private float standUpDistance = 0.1f; // Дистанция до земли для подъема
+    [SerializeField] private Transform _normalCameraTarget;
+    [SerializeField] private Transform _ragdollCameraTarget;
+    [SerializeField] private Transform _ragdollHips;
+    [SerializeField] private LayerMask _groundLayer; 
+    [SerializeField] private float _standUpDistance = 0.1f; // Дистанция до земли для подъема
 
+    private CinemachineCamera _normalCamera;
+    private CinemachineCamera _ragdollCamera;
     private CharacterController _controller;
     private Animator _animator;
     private Rigidbody[] _ragdollRigidbones;
@@ -22,6 +22,9 @@ public class PlayerRagdoll : MonoBehaviour
     private bool _isRagdollActive;
     private Coroutine _groundCheckCoroutine;
 
+    public Transform NormalCameraTarget => _normalCameraTarget;
+    public Transform RagdollCameraTarget => _ragdollCameraTarget;
+
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -30,12 +33,18 @@ public class PlayerRagdoll : MonoBehaviour
         _ragdollRigidbones = GetComponentsInChildren<Rigidbody>();
         _ragdollColliders = GetComponentsInChildren<Collider>();
 
-        if (ragdollHips != null)
+        if (_ragdollHips != null)
         {
-            _hipsRigidbody = ragdollHips.GetComponent<Rigidbody>();
+            _hipsRigidbody = _ragdollHips.GetComponent<Rigidbody>();
         }
 
         ToggleRagdoll(false);
+    }
+
+    public void Init(CinemachineCamera normalCamera, CinemachineCamera ragdollCamera)
+    {
+        _normalCamera = normalCamera;
+        _ragdollCamera = ragdollCamera;
     }
 
     public void ToggleRagdoll(bool isRagdoll)
@@ -54,17 +63,17 @@ public class PlayerRagdoll : MonoBehaviour
             if (col.gameObject != this.gameObject) col.enabled = isRagdoll;
         }
 
-        if (normalCamera != null && ragdollCamera != null)
+        if (_normalCamera != null && _ragdollCamera != null)
         {
             if (isRagdoll)
             {
-                normalCamera.Priority = 5;
-                ragdollCamera.Priority = 15;
+                _normalCamera.Priority = 5;
+                _ragdollCamera.Priority = 15;
             }
             else
             {
-                normalCamera.Priority = 15;
-                ragdollCamera.Priority = 5;
+                _normalCamera.Priority = 15;
+                _ragdollCamera.Priority = 5;
             }
         }
 
@@ -95,13 +104,13 @@ public class PlayerRagdoll : MonoBehaviour
 
         while (_isRagdollActive)
         {
-            if (ragdollHips != null && _hipsRigidbody != null)
+            if (_ragdollHips != null && _hipsRigidbody != null)
             {
                 // Пускаем физический луч от таза строго вниз
-                Ray ray = new Ray(ragdollHips.position, Vector3.down);
+                Ray ray = new Ray(_ragdollHips.position, Vector3.down);
                 
                 // Проверяем: близко ли земля И успокоилось ли физическое тело (скорость падения упала)
-                if (Physics.Raycast(ray, standUpDistance, groundLayer))
+                if (Physics.Raycast(ray, _standUpDistance, _groundLayer))
                 {
                     // Проверяем вектор скорости таза.
                     if (_hipsRigidbody.linearVelocity.magnitude < 1f) 
@@ -120,11 +129,11 @@ public class PlayerRagdoll : MonoBehaviour
     {
         if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
 
-        if (ragdollHips != null)
+        if (_ragdollHips != null)
         {
-            var targetPosition = ragdollHips.position;
+            var targetPosition = _ragdollHips.position;
 
-            if (Physics.Raycast(ragdollHips.position, Vector3.down, out var hit, 3f, groundLayer))
+            if (Physics.Raycast(_ragdollHips.position, Vector3.down, out var hit, 3f, _groundLayer))
             {
                 targetPosition.y = hit.point.y + 0.05f;
             }
