@@ -11,7 +11,7 @@ public class PlayerRagdoll : MonoBehaviour
     [Header("Кости и Настройки")]
     [SerializeField] private Transform ragdollHips;
     [SerializeField] private LayerMask groundLayer; 
-    [SerializeField] private float standUpDistance = 0.3f; // Дистанция до земли для подъема
+    [SerializeField] private float standUpDistance = 0.1f; // Дистанция до земли для подъема
 
     private CharacterController _controller;
     private Animator _animator;
@@ -101,10 +101,10 @@ public class PlayerRagdoll : MonoBehaviour
                 Ray ray = new Ray(ragdollHips.position, Vector3.down);
                 
                 // Проверяем: близко ли земля И успокоилось ли физическое тело (скорость падения упала)
-                if (Physics.Raycast(ray, standUpDistance + 0.1f, groundLayer))
+                if (Physics.Raycast(ray, standUpDistance, groundLayer))
                 {
                     // Проверяем вектор скорости таза.
-                    if (_hipsRigidbody.linearVelocity.magnitude < 2f) 
+                    if (_hipsRigidbody.linearVelocity.magnitude < 1f) 
                     {
                         StandUp();
                         yield break;
@@ -135,9 +135,8 @@ public class PlayerRagdoll : MonoBehaviour
 
             transform.position = targetPosition;
 
-            // Выравниваем вращение корня персонажа по направлению движения
-            var forwardDirection = ragdollHips.forward;
-            forwardDirection.y = 0; // Нам нужен только горизонтальный поворот
+            var forwardDirection = Vector3.forward;
+            //forwardDirection.y = 0; // Нам нужен только горизонтальный поворот
             if (forwardDirection != Vector3.zero)
             {
                 transform.rotation = Quaternion.LookRotation(forwardDirection);

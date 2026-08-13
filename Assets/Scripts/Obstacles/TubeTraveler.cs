@@ -5,7 +5,7 @@ using UnityEngine.Splines; // ОБЯЗАТЕЛЬНО: подключаем пр�
 public class TubeTraveler : MonoBehaviour
 {
     private SplineContainer _splineContainer;
-    private float _speed = 15f; // Скорость полета внутри трубы
+    private float _speed = 25f; // Скорость полета внутри трубы
     private Transform _hipsTransform;
     private float _progress = 0f; // Прогресс движения от 0 (вход) до 1 (выход)
 
@@ -60,7 +60,7 @@ public class TubeTraveler : MonoBehaviour
     {
         // ВЫПЛЁВЫВАНИЕ: Получаем направление финальной точки сплайна (куда смотрит выход трубы)
         Vector3 ejectDirection = (Vector3)_splineContainer.EvaluateTangent(1f);
-        ejectDirection.y = 0.4f; // Слегка подбрасываем вверх для красивой дуги полета
+        //ejectDirection.y = 0.4f; // Слегка подбрасываем вверх для красивой дуги полета
 
         Rigidbody[] allRbs = GetComponentsInChildren<Rigidbody>();
         foreach (var rb in allRbs)
