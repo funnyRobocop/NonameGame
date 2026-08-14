@@ -3,6 +3,7 @@
   <Project Path="UniRx.csproj" />
   <Project Path="Zenject-IntegrationTests-Editor.csproj" />
   <Project Path="ithappy.Battle_Stadium.csproj" />
+  <Project Path="Fusion.Unity.Editor.csproj" />
   <Project Path="UniTask.csproj" />
   <Project Path="Zenject-ReflectionBaking-Editor.csproj" />
   <Project Path="UniTask.Linq.csproj" />
@@ -13,6 +14,7 @@
   <Project Path="UniRx.Examples.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
   <Project Path="Assembly-CSharp-firstpass.csproj" />
+  <Project Path="Fusion.Unity.csproj" />
   <Project Path="Assembly-CSharp-Editor.csproj" />
   <Project Path="Zenject-TestFramework.csproj" />
   <Project Path="UniTask.TextMeshPro.csproj" />
