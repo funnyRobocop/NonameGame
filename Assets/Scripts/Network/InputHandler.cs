@@ -11,16 +11,24 @@ public class InputHandler : MonoBehaviour, INetworkRunnerCallbacks
     {
         NetworkInputData inputData = new NetworkInputData();
         Vector2 moveVector = Vector2.zero;
+        var keyboard = Keyboard.current;
 
-        if (Keyboard.current != null)
+        if (keyboard != null)
         {
-            if (Keyboard.current.wKey.isPressed) moveVector.y += 1f;
-            if (Keyboard.current.sKey.isPressed) moveVector.y -= 1f;
-            if (Keyboard.current.aKey.isPressed) moveVector.x -= 1f;
-            if (Keyboard.current.dKey.isPressed) moveVector.x += 1f;
+            if (keyboard.wKey.isPressed) moveVector.y += 1f;
+            if (keyboard.sKey.isPressed) moveVector.y -= 1f;
+            if (keyboard.aKey.isPressed) moveVector.x -= 1f;
+            if (keyboard.dKey.isPressed) moveVector.x += 1f;
         }
 
         inputData.MoveDirection = moveVector.normalized;
+        
+        if (keyboard != null)
+        {
+            inputData.JumpPressed = keyboard.spaceKey.isPressed;
+            inputData.SprintPressed = keyboard.leftShiftKey.isPressed;
+        }
+
         input.Set(inputData);
     }        
 

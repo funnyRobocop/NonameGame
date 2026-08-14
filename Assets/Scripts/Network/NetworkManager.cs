@@ -1,6 +1,7 @@
 using UnityEngine;
 using Fusion;
 using UnityEngine.SceneManagement;
+using Mono.Cecil.Cil;
 
 public class NetworkManager : SimulationBehaviour, IPlayerJoined
 {
@@ -40,11 +41,10 @@ public class NetworkManager : SimulationBehaviour, IPlayerJoined
             Vector3 spawnPos = spawnPoint != null ? spawnPoint.position : Vector3.up * 2f;
             Quaternion spawnRot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
-            Debug.Log($"[Сеть] Игрок {player.PlayerId} зашел!");
-
             // Вместо GameObject.Instantiate во Fusion используется ТОЛЬКО Runner.Spawn!
             // Последний аргумент (player) критически важен: он дает вошедшему игроку InputAuthority (право управлять)
             Runner.Spawn(playerPrefab, spawnPos, spawnRot, player);
+            Debug.Log($"[Сеть] Игрок {player.PlayerId} зашел!" + spawnPos);
         }
     }
 }

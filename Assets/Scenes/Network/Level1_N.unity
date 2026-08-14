@@ -1030,6 +1030,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_26_001 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 3574479246453831437, guid: 501830674f8d6de428bd1ad2a97cb5cb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7269789957324112336, guid: 501830674f8d6de428bd1ad2a97cb5cb, type: 3}
       propertyPath: rotationSpeed
       value: 125
@@ -7079,7 +7083,7 @@ Transform:
   m_GameObject: {fileID: 7215794913069311649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 0, z: -5}
+  m_LocalPosition: {x: 0.20000005, y: 33.77, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12487,7 +12491,7 @@ Transform:
   m_GameObject: {fileID: 3611530642505499182}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20000005, y: 0, z: -5}
+  m_LocalPosition: {x: 0.20000005, y: 33.77, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
