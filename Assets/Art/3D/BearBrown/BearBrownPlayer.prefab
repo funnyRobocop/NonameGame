@@ -921,6 +921,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 587150332322782754, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 587150332322782754, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: SortKey
+      value: 2479283482
+      objectReference: {fileID: 0}
     - target: {fileID: 1968151281439063246, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_Avatar
       value: 
@@ -931,7 +939,7 @@ PrefabInstance:
       objectReference: {fileID: 22100000, guid: 4547be54d1b3c074b89d9dfa34bc70b0, type: 2}
     - target: {fileID: 2539360355606567289, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_Name
-      value: PlayerBearBrown
+      value: BearBrownPlayer
       objectReference: {fileID: 0}
     - target: {fileID: 7010859913281682799, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_LocalPosition.x

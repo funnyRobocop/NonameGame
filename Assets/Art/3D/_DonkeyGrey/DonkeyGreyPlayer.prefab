@@ -921,6 +921,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 587150332322782754, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 587150332322782754, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: SortKey
+      value: 3829546560
+      objectReference: {fileID: 0}
     - target: {fileID: 1968151281439063246, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_Avatar
       value: 

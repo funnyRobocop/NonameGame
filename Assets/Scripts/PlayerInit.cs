@@ -20,7 +20,7 @@ public class PlayerInit : MonoBehaviour
 
     private void Start()
     {
-        _model.LastCheckpointPosition.Value = transform.position;
+        //_model.LastCheckpointPosition.Value = transform.position;
         _characterController = GetComponent<CharacterController>();
         _ragdoll = GetComponent<PlayerRagdoll>();
         _characterController.transform.SetParent(null);

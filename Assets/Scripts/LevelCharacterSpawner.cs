@@ -18,7 +18,7 @@ public class LevelCharacterSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnPlayerAsync().Forget();
+        //SpawnPlayerAsync().Forget();
     }
 
 
