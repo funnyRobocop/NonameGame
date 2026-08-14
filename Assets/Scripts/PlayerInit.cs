@@ -6,6 +6,7 @@ public class PlayerInit : MonoBehaviour
     private GameDataModel _model;
 
     private CharacterController _characterController;
+    private PlayerRagdoll _ragdoll;
 
     [Inject]
     public void Construct(GameDataModel model)
@@ -17,6 +18,7 @@ public class PlayerInit : MonoBehaviour
     {
         _model.LastCheckpointPosition.Value = transform.position;
         _characterController = GetComponent<CharacterController>();
+        _ragdoll = GetComponent<PlayerRagdoll>();
         _characterController.transform.SetParent(null);
     }
 
@@ -27,6 +29,7 @@ public class PlayerInit : MonoBehaviour
         _characterController.transform.rotation = _model.LastCheckpointRotation.Value;
         _characterController.enabled = true;
         _characterController.transform.SetParent(null);
+        _ragdoll.ToggleRagdoll(false);
         
         Debug.Log($"Игрок респаунится на чекпоинте: {_model.LastCheckpointPosition.Value}");
     }

@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c64427e4aa29734982298500dc36ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TubeEntrance
-  _spline: {fileID: 7726329606237697573}
+  _spline: {fileID: 134299653449285202}
 --- !u!135 &1832700580710679240
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1223,10 +1223,10 @@ MonoBehaviour:
         z: 0.3973088
       Rotation:
         value:
-          x: -0.19880354
-          y: 0.7805889
-          z: -0.19995795
-          w: -0.5578305
+          x: -0.23640126
+          y: 0.77003664
+          z: -0.1726877
+          w: -0.56686604
     - Position:
         x: -3.1441743
         y: -2.121499
@@ -1324,35 +1324,35 @@ MonoBehaviour:
       TangentIn:
         x: -0
         y: -0
-        z: -0.87709653
+        z: -0.856003
       TangentOut:
         x: 0
         y: 0
-        z: 1.6844547
+        z: 1.5316522
       Rotation:
         value:
-          x: -0.28411987
-          y: 0.9503865
-          z: 0.044449806
-          w: -0.11859785
+          x: 0.03385042
+          y: 0.9912453
+          z: 0.004433798
+          w: -0.12754302
     - Position:
         x: -7.5633
         y: -4.8740587
-        z: -15
+        z: -14
       TangentIn:
         x: -0
         y: -0
-        z: -0.7575868
+        z: -0.65762496
       TangentOut:
         x: 0
         y: 0
-        z: 0.7575868
+        z: 0.65762496
       Rotation:
         value:
-          x: -0.2901191
-          y: 0.95690393
-          z: 0.005741525
-          w: -0.011522191
+          x: -0.2953092
+          y: 0.9552866
+          z: 0.006686509
+          w: -0.013237813
     m_MetaData:
     - Mode: 0
       Tension: 0.5

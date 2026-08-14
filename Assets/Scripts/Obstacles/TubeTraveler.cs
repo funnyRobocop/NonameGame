@@ -5,25 +5,16 @@ using UnityEngine.Splines; // ОБЯЗАТЕЛЬНО: подключаем пр�
 public class TubeTraveler : MonoBehaviour
 {
     private SplineContainer _splineContainer;
-    private float _speed = 20f; // Скорость полета внутри трубы
+    private float _speed = 5f; // Скорость полета внутри трубы
     private Transform _hipsTransform;
     private float _progress = 0f; // Прогресс движения от 0 (вход) до 1 (выход)
     private  Rigidbody _hipsRigidbody;
     
-    public void SetupPath(Transform splineTransform)
+    public void SetupPath(SplineContainer splineContainer, PlayerRagdoll ragdoll) 
     {
-        // Получаем компонент SplineContainer, который виден у вас на скриншоте
-        _splineContainer = splineTransform.GetComponent<SplineContainer>();
-        
-        if (_splineContainer == null)
-        {
-            Debug.LogError("На объекте TubeSpline отсутствует компонент SplineContainer!");
-            Destroy(this);
-            return;
-        }
+        _splineContainer = splineContainer;
 
-        // Находим кость таза рэгдолла
-        _hipsTransform = GetComponentInChildren<PlayerRagdoll>().Hip;
+        _hipsTransform = ragdoll.HipsTransform;
         _hipsRigidbody = _hipsTransform.GetComponent<Rigidbody>();
 
         StartCoroutine(FlyThroughTube());
@@ -32,7 +23,7 @@ public class TubeTraveler : MonoBehaviour
     private IEnumerator FlyThroughTube()
     {
         // Получаем общую длину сплайна в метрах
-        float splineLength = _splineContainer.CalculateLength();
+        var splineLength = _splineContainer.CalculateLength();
 
         while (_progress < 1f)
         {
@@ -40,17 +31,18 @@ public class TubeTraveler : MonoBehaviour
             _progress += (_speed / splineLength) * Time.fixedDeltaTime;
             _progress = Mathf.Clamp01(_progress);
 
-            // Магия Unity Splines: узнаем точную мировую позицию на сплайне по проценту прогресса
+            // узнаем точную мировую позицию на сплайне по проценту прогресса
             Vector3 targetPos = _splineContainer.EvaluatePosition(_progress);
 
             // Двигаем корень игрока по этой точке
             transform.position = targetPos;
 
-            // Подтягиваем кость таза рэгдолла в центр, чтобы корова не застревала в стенках
+            // Подтягиваем кость таза рэгдолла в центр
             if (_hipsTransform != null)
             {
                 _hipsTransform.position = targetPos;
-                _hipsRigidbody.AddRelativeForce(Vector3.forward * 0.5f, ForceMode.VelocityChange); // Легкий импульс вперед для плавного движения
+                // Легкий импульс вперед для плавного движения
+                //_hipsRigidbody.AddRelativeForce(Vector3.forward * 0.5f, ForceMode.VelocityChange);
             }
 
             yield return new WaitForFixedUpdate();
@@ -62,11 +54,12 @@ public class TubeTraveler : MonoBehaviour
     private void ExitTube()
     {
         Debug.Log("Игрок вышел из трубы!");
-        // ВЫПЛЁВЫВАНИЕ: Получаем направление финальной точки сплайна (куда смотрит выход трубы)
-        Vector3 ejectDirection = (Vector3)_splineContainer.EvaluateTangent(5f);
-        ejectDirection.y = 0.4f; // Слегка подбрасываем вверх для красивой дуги полета
 
-        Rigidbody[] allRbs = GetComponentsInChildren<Rigidbody>();
+        //Получаем направление финальной точки сплайна
+        Vector3 ejectDirection = _splineContainer.EvaluateTangent(5f); 
+        // Слегка подбрасываем вверх
+        ejectDirection.y = 0.4f;
+        var allRbs = GetComponentsInChildren<Rigidbody>();
         foreach (var rb in allRbs)
         {
             if (!rb.isKinematic)

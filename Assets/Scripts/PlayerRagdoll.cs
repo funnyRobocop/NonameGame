@@ -25,7 +25,7 @@ public class PlayerRagdoll : MonoBehaviour
 
     public Transform NormalCameraTarget => _normalCameraTarget;
     public Transform RagdollCameraTarget => _ragdollCameraTarget;
-    public Transform Hip => _ragdollHips;
+    public Transform HipsTransform => _ragdollHips;
 
     void Awake()
     {
@@ -143,7 +143,7 @@ public class PlayerRagdoll : MonoBehaviour
 
             transform.position = targetPosition;
 
-            /*var forwardDirection = Vector3.;
+            /*var forwardDirection = Vector3 ;
             //forwardDirection.y = 0; // Нам нужен только горизонтальный поворот
             if (forwardDirection != Vector3.zero)
             {
