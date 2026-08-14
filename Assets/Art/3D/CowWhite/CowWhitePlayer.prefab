@@ -1965,14 +1965,6 @@ PrefabInstance:
       propertyPath: _ragdollHips
       value: 
       objectReference: {fileID: 5540996767466072619}
-    - target: {fileID: 1296433996173928527, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: _standUpDistance
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1296433996173928527, guid: 5e26fe163b44f0946944360da294e068, type: 3}
-      propertyPath: _groundLayer.m_Bits
-      value: 193
-      objectReference: {fileID: 0}
     - target: {fileID: 1968151281439063246, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_Avatar
       value: 

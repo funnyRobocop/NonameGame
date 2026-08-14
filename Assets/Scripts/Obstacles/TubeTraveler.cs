@@ -4,18 +4,18 @@ using UnityEngine.Splines; // ОБЯЗАТЕЛЬНО: подключаем пр�
 
 public class TubeTraveler : MonoBehaviour
 {
+
+    private float _speed;
+
     private SplineContainer _splineContainer;
-    private float _speed = 5f; // Скорость полета внутри трубы
     private Transform _hipsTransform;
-    private float _progress = 0f; // Прогресс движения от 0 (вход) до 1 (выход)
-    private  Rigidbody _hipsRigidbody;
+    private float _progress;
     
-    public void SetupPath(SplineContainer splineContainer, PlayerRagdoll ragdoll) 
+    public void SetupPath(SplineContainer splineContainer, PlayerRagdoll ragdoll, float speed) 
     {
         _splineContainer = splineContainer;
-
+        _speed = speed;
         _hipsTransform = ragdoll.HipsTransform;
-        _hipsRigidbody = _hipsTransform.GetComponent<Rigidbody>();
 
         StartCoroutine(FlyThroughTube());
     }
@@ -41,8 +41,6 @@ public class TubeTraveler : MonoBehaviour
             if (_hipsTransform != null)
             {
                 _hipsTransform.position = targetPos;
-                // Легкий импульс вперед для плавного движения
-                //_hipsRigidbody.AddRelativeForce(Vector3.forward * 0.5f, ForceMode.VelocityChange);
             }
 
             yield return new WaitForFixedUpdate();
@@ -55,16 +53,14 @@ public class TubeTraveler : MonoBehaviour
     {
         Debug.Log("Игрок вышел из трубы!");
 
-        //Получаем направление финальной точки сплайна
-        Vector3 ejectDirection = _splineContainer.EvaluateTangent(5f); 
-        // Слегка подбрасываем вверх
+        Vector3 ejectDirection = _splineContainer.EvaluateTangent(5f);        
         ejectDirection.y = 0.4f;
-        var allRbs = GetComponentsInChildren<Rigidbody>();
-        foreach (var rb in allRbs)
+
+        foreach (var rb in GetComponentsInChildren<Rigidbody>())
         {
             if (!rb.isKinematic)
             {
-                // Выстреливаем рэгдолл вперед
+                Debug.Log("Выстрел из трубы!");
                 rb.AddForce(ejectDirection.normalized, ForceMode.Impulse);
             }
         }

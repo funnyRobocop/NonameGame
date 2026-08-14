@@ -7,9 +7,6 @@ public class LevelCharacterSpawner : MonoBehaviour
 {
     [SerializeField] private Transform _spawnPoint;
     [SerializeField] private CinemachineCamera _normalCamera;
-    [SerializeField] private CinemachineCamera _ragdollCamera;
-    [SerializeField] private FollowTransform _normalCameraTarget;
-    [SerializeField] private FollowTransform _ragdollCameraTarget;
 
     private CharacterFactory _characterFactory;
 
@@ -28,9 +25,7 @@ public class LevelCharacterSpawner : MonoBehaviour
     private async UniTaskVoid SpawnPlayerAsync()
     {
         GameObject player = await _characterFactory.CreateCharacterAsync(_spawnPoint);
-        var playerRagdoll = player.GetComponentInChildren<PlayerRagdoll>();
-        playerRagdoll.Init(_normalCamera, _ragdollCamera);
-        _normalCamera.Target.TrackingTarget = playerRagdoll.NormalCameraTarget;
-        _ragdollCamera.Target.TrackingTarget = playerRagdoll.RagdollCameraTarget;
+        var playerInit = player.GetComponentInChildren<PlayerInit>();
+        _normalCamera.Target.TrackingTarget = playerInit.NormalCameraTarget;
     }
 }

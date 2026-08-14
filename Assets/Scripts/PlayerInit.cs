@@ -7,6 +7,10 @@ public class PlayerInit : MonoBehaviour
 
     private CharacterController _characterController;
     private PlayerRagdoll _ragdoll;
+    
+    [SerializeField] private Transform _normalCameraTarget;
+
+    public Transform NormalCameraTarget => _normalCameraTarget;
 
     [Inject]
     public void Construct(GameDataModel model)

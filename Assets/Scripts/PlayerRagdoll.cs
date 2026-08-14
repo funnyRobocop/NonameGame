@@ -2,19 +2,18 @@ using UnityEngine;
 using Unity.Cinemachine;
 using System.Collections;
 using Unity.VisualScripting;
+using Zenject;
 
 public class PlayerRagdoll : MonoBehaviour
 {
     
-    [SerializeField] private Transform _normalCameraTarget;
-    [SerializeField] private Transform _ragdollCameraTarget;
     [SerializeField] private Transform _ragdollHips;
     [SerializeField] private LayerMask _groundLayer; 
     [SerializeField] private float _standUpDistance; // Дистанция до земли для подъема
 
-    private CinemachineCamera _normalCamera;
-    private CinemachineCamera _ragdollCamera;
     private CharacterController _controller;
+
+    private CameraSwitcher _cameraSwitcher;
     private Animator _animator;
     private Rigidbody[] _ragdollRigidbones;
     private Collider[] _ragdollColliders;
@@ -23,10 +22,14 @@ public class PlayerRagdoll : MonoBehaviour
     private bool _isRagdollActive;
     private Coroutine _groundCheckCoroutine;
 
-    public Transform NormalCameraTarget => _normalCameraTarget;
-    public Transform RagdollCameraTarget => _ragdollCameraTarget;
     public Transform HipsTransform => _ragdollHips;
 
+    [Inject]
+    public void Construct(CameraSwitcher cameraSwitcher)
+    {
+        _cameraSwitcher = cameraSwitcher;
+    }
+    
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -43,14 +46,8 @@ public class PlayerRagdoll : MonoBehaviour
         ToggleRagdoll(false);
     }
 
-    public void Init(CinemachineCamera normalCamera, CinemachineCamera ragdollCamera)
-    {
-        _normalCamera = normalCamera;
-        _ragdollCamera = ragdollCamera;
-    }
-
     public void ToggleRagdoll(bool isRagdoll)
-    {
+    {        
         _isRagdollActive = isRagdoll;
 
         if (_controller != null) _controller.enabled = !isRagdoll;
@@ -65,25 +62,15 @@ public class PlayerRagdoll : MonoBehaviour
             if (col.gameObject != this.gameObject) col.enabled = isRagdoll;
         }
 
-        if (_normalCamera != null && _ragdollCamera != null)
-        {
-            if (isRagdoll)
-            {
-                _normalCamera.Priority = 5;
-                _ragdollCamera.Priority = 15;
-            }
-            else
-            {
-                _normalCamera.Priority = 15;
-                _ragdollCamera.Priority = 5;
-            }
-        }
-
-        // Если рэгдолл включился — запускаем корутину отслеживания земли
         if (isRagdoll)
-        {
+        {           
             if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
             _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
+        }
+        else
+        {
+            if (_cameraSwitcher != null)
+                _cameraSwitcher.ResetRagdollCameras();
         }
     }
 
