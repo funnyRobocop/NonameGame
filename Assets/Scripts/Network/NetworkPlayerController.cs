@@ -39,7 +39,10 @@ public class NetworkPlayerController : NetworkBehaviour
                 {
                     CinemachineCamera vCam = cameraObj.GetComponent<CinemachineCamera>();
                     if (vCam != null)
+                    {
                         vCam.Target.TrackingTarget = _normalCameraTarget;
+                        vCam.Target.LookAtTarget = _normalCameraTarget;
+                    }
                 }
             }
 
