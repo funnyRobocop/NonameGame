@@ -18,10 +18,13 @@ public class NetworkPlayerController : NetworkBehaviour
     [SerializeField] private float jumpHeight;
     [SerializeField] private float terminalVelocity; // Максимальная скорость падения
     [SerializeField] private Transform _normalCameraTarget;
+    [SerializeField] private float antiImpactForce = 5f; // Скорость затухания отскока
+    [SerializeField] private float impactThreshold = 0.2f;
     
     // Синхронизируем вертикальную скорость между клиентами через атрибут Fusion 2
     [Networked] private float _verticalVelocity { get; set; }
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
+    [Networked] private Vector3 _impactForce { get; set; }
     
     private bool _isJumpPressedPrevious = false; // Для отслеживания одиночного клика Пробела
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
@@ -134,11 +137,25 @@ public class NetworkPlayerController : NetworkBehaviour
                 currentMoveSpeed = speed; 
             }
 
+            // --- ОБРАБОТКА СЕТЕВОГО ОТСКОКА ---
+            if (_impactForce.magnitude > impactThreshold)
+            {
+                // Прибавляем вектор отскока прямо к базовому движению WASD
+                movement += _impactForce;
+                
+                // Плавно тушим силу отскока с каждым сетевым кадром (Runner.DeltaTime вместо Time.deltaTime)
+                _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Runner.DeltaTime * antiImpactForce);
+            }
+            else
+            {
+                _impactForce = Vector3.zero;
+            }
+
             // Добавляем высчитанную вертикальную скорость гравитации/прыжка в итоговый вектор
             movement.y = _verticalVelocity;
 
             // Двигаем Character Controller со строгим учетом сетевого шага
-            _controller.Move(movement * Runner.DeltaTime);
+            if (_isSpawnReady) _controller.Move(movement * Runner.DeltaTime);
 
             if (_animator != null)
             {
@@ -191,4 +208,15 @@ public class NetworkPlayerController : NetworkBehaviour
         if (_controller != null) _controller.enabled = true;
         Debug.Log($"[Сервер] Игрок {Object.InputAuthority} успешно возрожден на чекпоинте.");
     }
+
+    public void ApplyNetworkKnockback(Vector3 direction, float force)
+{
+    // Во Fusion изменять [Networked] переменные напрямую разрешено только Серверу (StateAuthority)
+    // или владельцу ввода (InputAuthority), если включен специальный режим. 
+    // Самый надежный способ для прототипа — прикладывать силу на стороне того, кто управляет телом
+    if (HasInputAuthority || Runner.IsServer)
+    {
+        _impactForce += direction * force;
+    }
+}
 }
