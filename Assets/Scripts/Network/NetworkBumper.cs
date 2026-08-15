@@ -10,7 +10,6 @@ public class NetworkBumper : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                // Находим сетевой контроллер зашедшего игрока
                 var networkPlayer = other.GetComponent<NetworkPlayerController>();
                 
                 if (networkPlayer != null)
