@@ -10,12 +10,12 @@ public class NetworkPlayerController : NetworkBehaviour
         private Animator _animator;
         
         [Header("Настройки движения")]
-        [SerializeField] private float speed = 6f;
+        [SerializeField] private float speed;
         
         [Header("Настройки Физики Сети")]
-        [SerializeField] private float gravity = -15.0f;
-        [SerializeField] private float jumpHeight = 1.2f;
-        [SerializeField] private float terminalVelocity = -53.0f; // Максимальная скорость падения
+        [SerializeField] private float gravity;
+        [SerializeField] private float jumpHeight;
+        [SerializeField] private float terminalVelocity; // Максимальная скорость падения
         [SerializeField] private Transform _normalCameraTarget;
         
         // Синхронизируем вертикальную скорость между клиентами через атрибут Fusion 2
@@ -41,7 +41,8 @@ public class NetworkPlayerController : NetworkBehaviour
                     if (vCam != null)
                     {
                         vCam.Target.TrackingTarget = _normalCameraTarget;
-                        vCam.Target.LookAtTarget = _normalCameraTarget;
+                        vCam.Priority = 10;
+                        //vCam.Target.LookAtTarget = _normalCameraTarget;
                     }
                 }
             }
@@ -67,11 +68,11 @@ public class NetworkPlayerController : NetworkBehaviour
                 // --- 1. РАСЧЕТ ГРАВИТАЦИИ И ПРИЖИМАНИЯ ---
                 if (_controller.isGrounded)
                 {
-                    // Когда корова на земле, держим скорость слегка отрицательной, 
+                    // Когда корова на земле, держим скорость отрицательной, 
                     // чтобы она не «взлетала» на кочках и ступенях
                     if (_verticalVelocity < 0.0f)
                     {
-                        _verticalVelocity = -2.0f;
+                        _verticalVelocity = gravity;
                     }
 
                     // --- 2. ЛОГИКА ПРЫЖКА ПО СЕТИ ---

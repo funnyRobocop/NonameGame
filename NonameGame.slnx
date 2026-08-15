@@ -20,12 +20,9 @@
   <Project Path="Zenject-TestFramework.csproj" />
   <Project Path="UniTask.TextMeshPro.csproj" />
   <Project Path="kTools.Mirrors.Runtime.csproj" />
-  <Project Path="Unity.StarterAssets.Editor.csproj" />
-  <Project Path="Unity.StarterAssets.csproj" />
   <Project Path="Zenject-PoolMonitor-Editor.csproj" />
   <Project Path="UniTask.Editor.csproj" />
   <Project Path="UniTask.DOTween.csproj" />
-  <Project Path="URPWizard.csproj" />
   <Project Path="kTools.Mirrors.Editor.csproj" />
   <Project Path="Unity.Fusion.CodeGen.csproj" />
 </Solution>
