@@ -37,6 +37,8 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
         _ragdollRigidbones = GetComponentsInChildren<Rigidbody>();
         _ragdollColliders = GetComponentsInChildren<Collider>();
 
+        if (_cameraSwitcher == null) _cameraSwitcher = FindAnyObjectByType<CameraSwitcher>();
+
         if (ragdollHips != null)
         {
             _hipsRigidbody = ragdollHips.GetComponent<Rigidbody>();
@@ -48,7 +50,7 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
 
     // Атрибут [Rpc] говорит Fusion: когда этот метод вызывается, выполни его на ВСЕХ компьютерах в сети
     [Rpc(RpcSources.All, RpcTargets.All)]
-    public void RPC_ApplyRagdollImpulse(Vector3 forceDirection, float forceMagnitude, CinemachineCamera _camera = null)
+    public void RPC_ApplyRagdollImpulse(Vector3 forceDirection, float forceMagnitude, int cameraIndex)
     {
         // 1. Включаем режим рэгдолла у всех на экранах
         LocalToggleRagdoll(true);
@@ -65,9 +67,17 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
         // 3. Отслеживание земли для подъема запускает ТОЛЬКО владелец этого персонажа
         if (HasInputAuthority)
         {
-            if (_camera != null) _cameraSwitcher.SwitchRagdollCameras(_camera);
+            _cameraSwitcher.SwitchRagdollCameras(cameraIndex);
             if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
             _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
+        }
+    }
+
+    public void SetCamera(CinemachineCamera camera)
+    {
+        if (_cameraSwitcher != null && camera != null)
+        {
+            _cameraSwitcher.SwitchRagdollCameras(camera);
         }
     }
 

@@ -208,6 +208,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 495851284
       objectReference: {fileID: 0}
+    - target: {fileID: 4476210023195399611, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6180823362628730405, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
       propertyPath: m_Name
       value: obstacle_17_001_Net (3)
@@ -826,6 +830,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 3481690216
       objectReference: {fileID: 0}
+    - target: {fileID: 7353695694476188521, guid: 6405f58a1b2ff3943ba53ab5a710df5c, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -899,6 +907,10 @@ PrefabInstance:
     - target: {fileID: 7353695694476188521, guid: 6405f58a1b2ff3943ba53ab5a710df5c, type: 3}
       propertyPath: SortKey
       value: 2639254752
+      objectReference: {fileID: 0}
+    - target: {fileID: 7353695694476188521, guid: 6405f58a1b2ff3943ba53ab5a710df5c, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1354,6 +1366,7 @@ Transform:
   - {fileID: 975831263}
   - {fileID: 720425065}
   - {fileID: 1624782300}
+  - {fileID: 1184841124}
   - {fileID: 409573915}
   - {fileID: 1787758756}
   m_Father: {fileID: 0}
@@ -1373,6 +1386,7 @@ MonoBehaviour:
   _allRagdollCameras:
   - {fileID: 4906622205224633438}
   - {fileID: 160999137}
+  - {fileID: 1184841125}
 --- !u!1 &409573914
 GameObject:
   m_ObjectHideFlags: 0
@@ -1464,6 +1478,10 @@ PrefabInstance:
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: SortKey
       value: 1797461063
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1592,6 +1610,10 @@ PrefabInstance:
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: SortKey
       value: 1001652745
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1914,6 +1936,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 3767306225
       objectReference: {fileID: 0}
+    - target: {fileID: 4476210023195399611, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6180823362628730405, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
       propertyPath: m_Name
       value: obstacle_17_001_Net (1)
@@ -2000,6 +2026,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 1110726259
       objectReference: {fileID: 0}
+    - target: {fileID: 9123860114737625258, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2065,6 +2095,10 @@ PrefabInstance:
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: SortKey
       value: 3886979765
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2528,6 +2562,10 @@ PrefabInstance:
     - target: {fileID: 4476210023195399611, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
       propertyPath: SortKey
       value: 720631143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4476210023195399611, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6180823362628730405, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
       propertyPath: m_Name
@@ -3492,6 +3530,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 4168130483
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3558,6 +3600,10 @@ PrefabInstance:
       propertyPath: SortKey
       value: 3205873692
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3568,6 +3614,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3082206063374876829, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
   m_PrefabInstance: {fileID: 1177133041}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1184841123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1184841124}
+  - component: {fileID: 1184841125}
+  m_Layer: 0
+  m_Name: PunchRagdollCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1184841124
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184841123}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0712889, y: -0.8619785, z: 0.1265174, w: 0.48569995}
+  m_LocalPosition: {x: 10.29, y: 3.61, z: 72.63}
+  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 317024844}
+  m_LocalEulerAnglesHint: {x: 16.7, y: -121.2, z: 0}
+--- !u!114 &1184841125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184841123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 1
+  Lens:
+    FieldOfView: 60
+    OrthographicSize: 10
+    NearClipPlane: 0.2
+    FarClipPlane: 500
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
 --- !u!1 &1230467419
 GameObject:
   m_ObjectHideFlags: 0
@@ -5494,6 +5615,10 @@ PrefabInstance:
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: SortKey
       value: 2676506847
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20608,6 +20733,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 563581346299483943, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: _cameraIndex
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.9
@@ -20746,6 +20875,10 @@ PrefabInstance:
     - target: {fileID: 4476210023195399611, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
       propertyPath: SortKey
       value: 1423458063
+      objectReference: {fileID: 0}
+    - target: {fileID: 4476210023195399611, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6180823362628730405, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
       propertyPath: m_Name
@@ -22800,6 +22933,10 @@ PrefabInstance:
     - target: {fileID: 9123860114737625258, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
       propertyPath: SortKey
       value: 715485627
+      objectReference: {fileID: 0}
+    - target: {fileID: 9123860114737625258, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32708,6 +32845,10 @@ PrefabInstance:
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: SortKey
       value: 3817260950
+      objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

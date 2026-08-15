@@ -1235,9 +1235,9 @@ GameObject:
   - component: {fileID: 8303231778875462457}
   - component: {fileID: 409798498027658233}
   - component: {fileID: 966829259578284413}
-  - component: {fileID: 774643135011856057}
   - component: {fileID: 2056482010813976528}
   - component: {fileID: 2977677634176636625}
+  - component: {fileID: 7074510384146628416}
   m_Layer: 8
   m_Name: NP_CowWhite
   m_TagString: Player
@@ -1283,6 +1283,7 @@ MonoBehaviour:
   NetworkedBehaviours:
   - {fileID: 1541702326969973637}
   - {fileID: 661697440089560611}
+  - {fileID: 7074510384146628416}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &661697440089560611
 MonoBehaviour:
@@ -1301,6 +1302,8 @@ MonoBehaviour:
   jumpHeight: 1.2
   terminalVelocity: -53
   _normalCameraTarget: {fileID: 4843962174877007652}
+  antiImpactForce: 5
+  impactThreshold: 0.2
 --- !u!114 &1541702326969973637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1401,23 +1404,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInit
   _normalCameraTarget: {fileID: 4843962174877007652}
---- !u!114 &774643135011856057
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3594784808251990491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0252513184f210545b4139d6aba7ceac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerRagdoll
-  _ragdollHips: {fileID: 4246260704081879233}
-  _groundLayer:
-    serializedVersion: 2
-    m_Bits: 193
-  _standUpDistance: 0.5
 --- !u!114 &2056482010813976528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1442,6 +1428,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40eb5857ebbf0294497d4e64fbf1b1fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::YourGameNamespace.InputHandler
+--- !u!114 &7074510384146628416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594784808251990491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6749de820d7cf204599b03a744d5b14f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerRagdoll
+  ragdollHips: {fileID: 4246260704081879233}
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 193
+  standUpDistance: 0.3
 --- !u!1 &3689426444718533713
 GameObject:
   m_ObjectHideFlags: 0

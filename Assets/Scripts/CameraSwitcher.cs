@@ -11,6 +11,16 @@ public class CameraSwitcher : MonoBehaviour
 
         if (_activeCamera != null) _activeCamera.Priority = 20;
     }
+    
+    public void SwitchRagdollCameras( int cameraIndex)
+    {
+        ResetRagdollCameras();
+
+        if (cameraIndex >= 0 && cameraIndex < _allRagdollCameras.Length)
+        {
+            _allRagdollCameras[cameraIndex].Priority = 20;
+        }
+    }
 
     public void ResetRagdollCameras()
     {
