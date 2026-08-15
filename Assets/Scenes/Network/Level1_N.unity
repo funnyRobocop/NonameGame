@@ -1038,6 +1038,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: SortKey
+      value: 4109918821
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 219579858}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: timeOffset
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: Flags
       value: 262146
@@ -1053,7 +1077,7 @@ PrefabInstance:
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[0]'
       value: 
-      objectReference: {fileID: 219579858}
+      objectReference: {fileID: 0}
     - target: {fileID: 3136720899354624913, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: m_Name
       value: obstacle_8_001_Net (4)
@@ -1110,15 +1134,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &219579858 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4431039536553106632, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
   m_PrefabInstance: {fileID: 219579856}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
 --- !u!1001 &307745168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1127,6 +1151,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: SortKey
+      value: 540555221
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 307745170}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: timeOffset
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: Flags
       value: 262146
@@ -1142,7 +1190,7 @@ PrefabInstance:
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[0]'
       value: 
-      objectReference: {fileID: 307745170}
+      objectReference: {fileID: 0}
     - target: {fileID: 3136720899354624913, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: m_Name
       value: obstacle_8_001_Net (6)
@@ -1199,15 +1247,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &307745170 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4431039536553106632, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
   m_PrefabInstance: {fileID: 307745168}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
 --- !u!1 &313110259
 GameObject:
   m_ObjectHideFlags: 0
@@ -1860,76 +1908,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2143110333858597272, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
   m_PrefabInstance: {fileID: 676397200}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &686727622
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1923394601}
-    m_Modifications:
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13847351
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.066219
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 133.66711
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3298144251749804725, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3515807421168299127, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: moveDistance
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4810185048451303471, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_Name
-      value: obstacle_7_001 (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
---- !u!4 &686727623 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-  m_PrefabInstance: {fileID: 686727622}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &692106534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1941,6 +1919,18 @@ PrefabInstance:
     - target: {fileID: 4152888592480611032, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
       propertyPath: speed
       value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129507444097565086, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129507444097565086, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129507444097565086, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7778738847723347044, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2871,6 +2861,103 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
   m_PrefabInstance: {fileID: 961904367}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &969208562
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1923394601}
+    m_Modifications:
+    - target: {fileID: 279085301601503904, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_Name
+      value: obstacle_7_001_Net (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: SortKey
+      value: 2662809078
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 969208564}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13847351
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.066219
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 133.66711
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7259828674691211268, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: duration
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983843017800106881, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: speed
+      value: 1.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+--- !u!4 &969208563 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+  m_PrefabInstance: {fileID: 969208562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &969208564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7983843017800106881, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+  m_PrefabInstance: {fileID: 969208562}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5580101d988745f4b9b1ce185670defa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMover
 --- !u!1 &975831261
 GameObject:
   m_ObjectHideFlags: 0
@@ -3115,6 +3202,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: SortKey
+      value: 1060234431
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1160357181}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: speed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: timeOffset
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: Flags
       value: 262146
@@ -3130,7 +3241,7 @@ PrefabInstance:
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[0]'
       value: 
-      objectReference: {fileID: 1160357181}
+      objectReference: {fileID: 0}
     - target: {fileID: 3136720899354624913, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: m_Name
       value: obstacle_8_001_Net (3)
@@ -3187,15 +3298,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1160357181 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4431039536553106632, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
   m_PrefabInstance: {fileID: 1160357179}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
 --- !u!1001 &1168852553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3659,6 +3770,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_25_001_Net (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: SortKey
+      value: 3492917159
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1447709129}
     - target: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.2182465
@@ -3709,6 +3836,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
   m_PrefabInstance: {fileID: 1447709127}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1447709129 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4838489518989840013, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+  m_PrefabInstance: {fileID: 1447709127}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
 --- !u!1001 &1467948369
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4179,6 +4317,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: SortKey
+      value: 3015842588
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1597800642}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: timeOffset
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: Flags
       value: 262146
@@ -4194,7 +4356,7 @@ PrefabInstance:
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[0]'
       value: 
-      objectReference: {fileID: 1597800642}
+      objectReference: {fileID: 0}
     - target: {fileID: 3136720899354624913, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: m_Name
       value: obstacle_8_001_Net (2)
@@ -4251,15 +4413,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1597800642 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4431039536553106632, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
   m_PrefabInstance: {fileID: 1597800640}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
 --- !u!1 &1624782299
 GameObject:
   m_ObjectHideFlags: 0
@@ -4414,6 +4576,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_25_001_Net (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: SortKey
+      value: 585765523
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1657212272}
     - target: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.2182465
@@ -4464,6 +4642,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
   m_PrefabInstance: {fileID: 1657212270}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1657212272 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4838489518989840013, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+  m_PrefabInstance: {fileID: 1657212270}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
 --- !u!1 &1666986921
 GameObject:
   m_ObjectHideFlags: 0
@@ -4618,6 +4807,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: SortKey
+      value: 3579601745
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1715315156}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+      propertyPath: timeOffset
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: Flags
       value: 262146
@@ -4633,7 +4846,7 @@ PrefabInstance:
     - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[0]'
       value: 
-      objectReference: {fileID: 1715315156}
+      objectReference: {fileID: 0}
     - target: {fileID: 3136720899354624913, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: m_Name
       value: obstacle_8_001_Net (5)
@@ -4690,15 +4903,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1715315156 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+  m_CorrespondingSourceObject: {fileID: 4431039536553106632, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
   m_PrefabInstance: {fileID: 1715315154}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
 --- !u!1001 &1719588207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5029,6 +5242,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_25_001_Net (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: SortKey
+      value: 2667965490
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1794165132}
     - target: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.94133
@@ -5079,6 +5308,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
   m_PrefabInstance: {fileID: 1794165130}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1794165132 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4838489518989840013, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+  m_PrefabInstance: {fileID: 1794165130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
 --- !u!1 &1870925426
 GameObject:
   m_ObjectHideFlags: 0
@@ -5242,6 +5482,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1892428246197012912}
   - {fileID: 2687319105806730757}
   - {fileID: 1551782899}
   - {fileID: 1719588208}
@@ -5266,8 +5507,8 @@ Transform:
   - {fileID: 723317626}
   - {fileID: 876669283}
   - {fileID: 961904368}
-  - {fileID: 156547502788507326}
-  - {fileID: 686727623}
+  - {fileID: 1342351596843284539}
+  - {fileID: 969208563}
   - {fileID: 8144758943081341070}
   - {fileID: 1597800641}
   - {fileID: 1160357180}
@@ -5888,11 +6129,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1999121201157680403}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &156547502788507326 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-  m_PrefabInstance: {fileID: 3805480094139250554}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &159630285898048223
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8279,22 +8515,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
-    - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: Flags
       value: 262146
       objectReference: {fileID: 0}
-    - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: SortKey
-      value: 3619970938
+      value: 1216001476
       objectReference: {fileID: 0}
-    - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2124616661202536702, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+    - target: {fileID: 617316036525934473, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[0]'
       value: 
-      objectReference: {fileID: 1165030128874977093}
+      objectReference: {fileID: 1011008821006114931}
     - target: {fileID: 3136720899354624913, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
       propertyPath: m_Name
       value: obstacle_8_001_Net
@@ -8344,6 +8580,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+--- !u!114 &1011008821006114931 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4431039536553106632, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
+  m_PrefabInstance: {fileID: 1011008821006114930}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
 --- !u!64 &1019013939932654261
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8881,17 +9128,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1219781345870053771, guid: 6836e65d554343b40a3010bd06718962, type: 3}
---- !u!114 &1165030128874977093 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1242211973253331688, guid: 7673c681791820e42bdbd0a4d7d998bc, type: 3}
-  m_PrefabInstance: {fileID: 1011008821006114930}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
 --- !u!64 &1166389628941389027
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9914,6 +10150,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7dcf33cd79c0d2541baef177a6a8d303, type: 3}
+--- !u!4 &1342351596843284539 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+  m_PrefabInstance: {fileID: 2596898609167764392}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1345902667823266131
 GameObject:
   m_ObjectHideFlags: 0
@@ -11918,6 +12159,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 313110260}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1892428246197012912 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+  m_PrefabInstance: {fileID: 4528577161254572336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &1894631245747238983
 Animator:
   serializedVersion: 7
@@ -14239,6 +14485,94 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.000022888184, y: 0.25325802, z: -0.000001847744}
     m_Extent: {x: 1.0574838, y: 0.57754993, z: 0.46521035}
   m_DirtyAABB: 0
+--- !u!1001 &2596898609167764392
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1923394601}
+    m_Modifications:
+    - target: {fileID: 279085301601503904, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_Name
+      value: obstacle_7_001_Net
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: SortKey
+      value: 1207988104
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1055794788658554796, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2596898609167764393}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13847351
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.066219
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 130.49306
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1427634349685951482, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983843017800106881, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+      propertyPath: speed
+      value: 2.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+--- !u!114 &2596898609167764393 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7983843017800106881, guid: 4ff51dd77684f2e4d9c1fdc6019bb562, type: 3}
+  m_PrefabInstance: {fileID: 2596898609167764392}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5580101d988745f4b9b1ce185670defa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMover
 --- !u!33 &2601832522427106862
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -16770,6 +17104,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle_25_001_Net
       objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: SortKey
+      value: 4216333738
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 3504121414425631504}
     - target: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.94133
@@ -16815,6 +17165,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+--- !u!114 &3504121414425631504 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4838489518989840013, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+  m_PrefabInstance: {fileID: 3504121414425631503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
 --- !u!64 &3531189821482942623
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17621,63 +17982,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 12.000003, y: 1.0000011, z: 2.0000014}
   m_Center: {x: -0.0000019073486, y: -0.0000004246831, z: 0.0000009536743}
---- !u!1001 &3805480094139250554
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1923394601}
-    m_Modifications:
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.13847351
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.066219
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 130.49306
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.000000021855694
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2769496419574796097, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4810185048451303471, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
-      propertyPath: m_Name
-      value: obstacle_7_001
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2663ea9982137224c855a9f15d45b7a7, type: 3}
 --- !u!33 &3808078953749007108
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20240,6 +20544,79 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &4528577161254572336
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1923394601}
+    m_Modifications:
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 59.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1652450847409288118, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4329981745981704644, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: m_Name
+      value: obstacle_22_001_Net
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161936608076261884, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: Flags
+      value: 262146
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161936608076261884, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: SortKey
+      value: 3838957390
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161936608076261884, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6161936608076261884, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[0]'
+      value: 
+      objectReference: {fileID: 7774579278297739782}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
 --- !u!64 &4538338021594590644
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -22308,6 +22685,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 6129507444097565086, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129507444097565086, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6129507444097565086, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7778738847723347044, guid: 5aa3fcda2d649ab44a46efe02dbeeb4d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.13847351
@@ -31431,6 +31820,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7774579278297739782 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1627181316650218175, guid: 0f3f3ecabe8fc944cbafaff0c6b98abd, type: 3}
+  m_PrefabInstance: {fileID: 4528577161254572336}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d9cb264f359b7c44917f26c00049c32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkPunchGlove
 --- !u!1 &7793769683702009547
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 3010875792002033141}
   - component: {fileID: 1849888916111857413}
   - component: {fileID: 7627976467185476077}
-  - component: {fileID: 6482052648675650318}
   - component: {fileID: 7657718205724705998}
+  - component: {fileID: 4552763272335427706}
   - component: {fileID: 4345160812857305440}
-  - component: {fileID: 1242211973253331688}
-  - component: {fileID: 2124616661202536702}
+  - component: {fileID: 4431039536553106632}
+  - component: {fileID: 617316036525934473}
   m_Layer: 6
   m_Name: obstacle_8_002
   m_TagString: Untagged
@@ -31,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 274979445066303563}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -96,28 +96,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6482052648675650318
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274979445066303563}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -7149419255685233061, guid: cc1a3130bc5dcd744aa6e7116426d78c, type: 3}
 --- !u!95 &7657718205724705998
 Animator:
   serializedVersion: 7
@@ -140,6 +118,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &4552763272335427706
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274979445066303563}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.212389, y: 0.44932836, z: 4.2246647}
+  m_Center: {x: 0.00000011920932, y: 0.00000083295475, z: 1.8876705}
 --- !u!54 &4345160812857305440
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -167,7 +166,7 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1242211973253331688
+--- !u!114 &4431039536553106632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,15 +175,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 274979445066303563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
-  mode: 1
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
+  targetAngle: 90
   rotationAxis: {x: 1, y: 0, z: 0}
-  speed: 50
-  maxAngle: 90
+  cycleDuration: 4
+  riseDuration: 0.15
+  stayDuration: 0.8
+  fallDuration: 0.8
   timeOffset: 0
---- !u!114 &2124616661202536702
+--- !u!114 &617316036525934473
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
