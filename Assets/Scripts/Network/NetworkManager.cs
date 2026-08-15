@@ -1,7 +1,6 @@
 using UnityEngine;
 using Fusion;
 using UnityEngine.SceneManagement;
-using Mono.Cecil.Cil;
 
 public class NetworkManager : SimulationBehaviour, IPlayerJoined
 {
