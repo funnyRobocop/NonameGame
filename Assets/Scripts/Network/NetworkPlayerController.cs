@@ -209,8 +209,11 @@ public class NetworkPlayerController : NetworkBehaviour
         var allRigidbodies = GetComponentsInChildren<Rigidbody>();
         foreach (var rb in allRigidbodies)
         {
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            if (!rb.isKinematic)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
         }
 
         // 3. Отключаем CharacterController, чтобы он разрешил мгновенную смену координат

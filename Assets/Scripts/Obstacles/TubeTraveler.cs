@@ -27,17 +27,13 @@ public class TubeTraveler : MonoBehaviour
 
         while (_progress < 1f)
         {
-            // Увеличиваем прогресс движения в зависимости от заданной скорости
             _progress += (_speed / splineLength) * Time.fixedDeltaTime;
             _progress = Mathf.Clamp01(_progress);
 
-            // узнаем точную мировую позицию на сплайне по проценту прогресса
             Vector3 targetPos = _splineContainer.EvaluatePosition(_progress);
 
-            // Двигаем корень игрока по этой точке
-            transform.position = targetPos;
+            //transform.position = targetPos;
 
-            // Подтягиваем кость таза рэгдолла в центр
             if (_hipsTransform != null)
             {
                 _hipsTransform.position = targetPos;

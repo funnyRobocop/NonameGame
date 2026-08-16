@@ -8,6 +8,8 @@ public class NetworkKillzone : NetworkBehaviour
         // Смерть обрабатываем строго на Сервере (Хосте)
         if (!Runner.IsServer) return;
 
+        Debug.Log($"[Killzone]");
+
         // Ищем сетевой контроллер. Если упала кость рэгдолла, 
         // метод GetComponentInParent найдет скрипт на самом верхнем корневом объекте коровы
         var playerController = other.GetComponent<NetworkPlayerController>() ?? other.GetComponentInParent<NetworkPlayerController>();

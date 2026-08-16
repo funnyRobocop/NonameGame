@@ -1234,9 +1234,6 @@ GameObject:
   - component: {fileID: 1541702326969973637}
   - component: {fileID: 8303231778875462457}
   - component: {fileID: 409798498027658233}
-  - component: {fileID: 966829259578284413}
-  - component: {fileID: 2056482010813976528}
-  - component: {fileID: 2977677634176636625}
   - component: {fileID: 7074510384146628416}
   m_Layer: 8
   m_Name: NP_CowWhite
@@ -1391,43 +1388,6 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.93, z: 0}
---- !u!114 &966829259578284413
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3594784808251990491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6336898633aa5eb4a8d79b8557a78228, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerInit
-  _normalCameraTarget: {fileID: 4843962174877007652}
---- !u!114 &2056482010813976528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3594784808251990491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc26f52198642b444bd2911ca886d4c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlatformConnector
---- !u!114 &2977677634176636625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3594784808251990491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40eb5857ebbf0294497d4e64fbf1b1fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::YourGameNamespace.InputHandler
 --- !u!114 &7074510384146628416
 MonoBehaviour:
   m_ObjectHideFlags: 0
