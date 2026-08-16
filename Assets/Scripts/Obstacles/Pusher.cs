@@ -18,7 +18,7 @@ public class Pusher : MonoBehaviour
                 var strikeDirection = (other.transform.position - transform.position).normalized;
                 strikeDirection.y = _yForce;
 
-                _cameraSwitcher.SwitchRagdollCameras(_camera);
+                _cameraSwitcher.SwitchOnRagdollCamera(_camera);
                 ragdollComponent.ApplyRagdollImpulse(strikeDirection, _pushForce);
             }
         }

@@ -14,18 +14,20 @@ public class NetworkBumper : MonoBehaviour
                 
                 if (networkPlayer != null)
                 {
-                    // Вычисляем горизонтальное направление от центра столба к игроку
-                    Vector3 bounceDir = (other.transform.position - transform.position);
-                    bounceDir.y = 0f; // Обнуляем высоту, чтобы сначала получить чистый вектор вбок
-                    bounceDir = bounceDir.normalized;
+                    // ВАЖНО ДЛЯ МУЛЬТИПЛЕЕРА: Импульс отскока прикладывает ТОЛЬКО тот клиент, 
+                    // который физически управляет этой конкретной коровой (или Сервер)
+                    if (networkPlayer.HasInputAuthority || networkPlayer.Runner.IsServer)
+                    {
+                        Vector3 bounceDir = (other.transform.position - transform.position);
+                        bounceDir.y = 0f; 
+                        bounceDir = bounceDir.normalized;
+                        bounceDir.y = 0.4f; // Подброс вверх
 
-                    // Добавляем небольшой подброс вверх (как в Fall Guys), чтобы игрок эпично отлетал по дуге
-                    bounceDir.y = 0.4f; 
-
-                    // Передаем сетевой импульс игроку
-                    networkPlayer.ApplyNetworkKnockback(bounceDir.normalized, bounceForce);
-                    
-                    Debug.Log($"[Батут-Столб] Игрок получил импульс отскока: {bounceDir * bounceForce}");
+                        // Передаем импульс
+                        networkPlayer.ApplyNetworkKnockback(bounceDir.normalized, bounceForce);
+                        
+                        Debug.Log($"[Батут] Локальный расчет отскока выполнен успешно.");
+                    }
                 }
             }
         }

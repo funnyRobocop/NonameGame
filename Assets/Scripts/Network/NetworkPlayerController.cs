@@ -155,7 +155,10 @@ public class NetworkPlayerController : NetworkBehaviour
             movement.y = _verticalVelocity;
 
             // Двигаем Character Controller со строгим учетом сетевого шага
-            if (_isSpawnReady) _controller.Move(movement * Runner.DeltaTime);
+            if (_isSpawnReady && _controller.enabled)
+            {
+                _controller.Move(movement * Runner.DeltaTime);
+            }
 
             if (_animator != null)
             {
@@ -177,36 +180,52 @@ public class NetworkPlayerController : NetworkBehaviour
         _lastCheckpointPosition = newPosition;
     }
 
-    // Метод телепортации назад (вызывается сервером при падении в Killzone)
-    public void RespawnAtLastCheckpoint()
+    // Этот метод вызывается на сервере (внутри NetworkKillzone)
+    public void RespawnAtCheckpoint()
     {
-        if (!Runner.IsServer) return;
-
-        // 1. Временно отключаем физический контроллер, чтобы он не заблокировал телепортацию
-        if (_controller != null) _controller.enabled = false;
-
-        // 2. Если у вас включен скрипт регдолла, принудительно выключаем его перед возрождением
-        if (_ragdoll != null) _ragdoll.ToggleRagdoll(false);
-
-        // 3. Обнуляем скорости, чтобы игрок не продолжал падать/лететь после спавна
-        _verticalVelocity = 0f;
-
-        // 4. Переносим корень игрока на координаты сохраненного чекпоинта
-        // Если чекпоинтов еще не было, возвращаем на стартовую позицию (её можно забить в Spawned)
-        if (_lastCheckpointPosition != Vector3.zero)
+        if (Runner.IsServer)
         {
-            transform.position = _lastCheckpointPosition;
+            // Запускаем безопасную цепочку возрождения через корутину
+            StartCoroutine(ServerRespawnRoutine());
         }
-        
-        // 5. Включаем CharacterController обратно в следующем кадре
-        StartCoroutine(EnableControllerDelay());
     }
 
-    private IEnumerator EnableControllerDelay()
+    private IEnumerator ServerRespawnRoutine()
     {
+        // 1. Принудительно выключаем рэгдолл через готовый RPC на всех экранах
+        var ragdoll = GetComponent<NetworkPlayerRagdoll>();
+        if (ragdoll != null)
+        {
+            // Вызываем RPC_StandUp или метод принудительного выключения физики костей
+            // Чтобы кости перестали жить своей жизнью до телепортации
+            ragdoll.LocalToggleRagdoll(false); 
+        }
+
+        // Ждем один физический кадр, чтобы Unity успела переключить isKinematic на костях скелета
         yield return new WaitForFixedUpdate();
+
+        // 2. Полностью обнуляем физическую скорость на корне и костях, чтобы убрать инерцию падения
+        _verticalVelocity = 0f;
+        var allRigidbodies = GetComponentsInChildren<Rigidbody>();
+        foreach (var rb in allRigidbodies)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        // 3. Отключаем CharacterController, чтобы он разрешил мгновенную смену координат
+        if (_controller != null) _controller.enabled = false;
+
+        // 4. Переносим корову на сохраненный чекпоинт
+        transform.position = _lastCheckpointPosition;
+
+        // Даем кадру Unity зафиксировать трансформ
+        yield return new WaitForFixedUpdate();
+
+        // 5. Включаем CharacterController обратно
         if (_controller != null) _controller.enabled = true;
-        Debug.Log($"[Сервер] Игрок {Object.InputAuthority} успешно возрожден на чекпоинте.");
+
+        Debug.Log($"[Сеть] Физический респавн рэгдолла завершен. Точка: {_lastCheckpointPosition}");
     }
 
     public void ApplyNetworkKnockback(Vector3 direction, float force)

@@ -212,8 +212,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3930190585807338839}
-  - component: {fileID: 7168914266529589516}
   - component: {fileID: 1832700580710679240}
+  - component: {fileID: 5281068778678189028}
   m_Layer: 0
   m_Name: Entrance
   m_TagString: Untagged
@@ -236,21 +236,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4324644551475195666}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7168914266529589516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 780782501446085339}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c64427e4aa29734982298500dc36ca9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TubeEntrance
-  _speed: 20
-  _spline: {fileID: 134299653449285202}
-  _camera: {fileID: 0}
 --- !u!135 &1832700580710679240
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -272,6 +257,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5281068778678189028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780782501446085339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d066df546de37c4684ae1863a9b8b4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkTubeEntrance
+  _speed: 15
+  _spline: {fileID: 134299653449285202}
+  _cameraIndex: 0
 --- !u!1 &2439834705563705883
 GameObject:
   m_ObjectHideFlags: 0

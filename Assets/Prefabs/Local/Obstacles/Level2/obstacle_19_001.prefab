@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5910062513757227322}
   - component: {fileID: 713701133534375396}
   - component: {fileID: 4105222884134744970}
-  - component: {fileID: 4714744185720161311}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -83,20 +82,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4714744185720161311
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3001510572282341679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1928f35a891d9544d8ba44c25f8fa268, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bouncer
-  pushForce: 25
-  yForce: 0
 --- !u!1 &5513067211934249743
 GameObject:
   m_ObjectHideFlags: 0

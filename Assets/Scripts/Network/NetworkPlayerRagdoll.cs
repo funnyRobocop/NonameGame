@@ -67,21 +67,13 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
         // 3. Отслеживание земли для подъема запускает ТОЛЬКО владелец этого персонажа
         if (HasInputAuthority)
         {
-            _cameraSwitcher.SwitchRagdollCameras(cameraIndex);
+            _cameraSwitcher.SwitchOnRagdollCamera(cameraIndex);
             if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
             _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
         }
     }
 
-    public void SetCamera(CinemachineCamera camera)
-    {
-        if (_cameraSwitcher != null && camera != null)
-        {
-            _cameraSwitcher.SwitchRagdollCameras(camera);
-        }
-    }
-
-    private void LocalToggleRagdoll(bool isRagdoll)
+    public void LocalToggleRagdoll(bool isRagdoll)
     {
         _isRagdollActive = isRagdoll;
 
@@ -107,7 +99,7 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
             else
             {
                 if (_cameraSwitcher != null)
-                    _cameraSwitcher.ResetRagdollCameras();
+                    _cameraSwitcher.SwitchOffAllRagdollCameras();
             }
         }
     }

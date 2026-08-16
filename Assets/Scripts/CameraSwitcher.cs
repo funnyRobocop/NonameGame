@@ -5,16 +5,16 @@ public class CameraSwitcher : MonoBehaviour
 {
     [SerializeField] private CinemachineCamera[] _allRagdollCameras;
 
-    public void SwitchRagdollCameras( CinemachineCamera _activeCamera)
+    public void SwitchOnRagdollCamera( CinemachineCamera _activeCamera)
     {
-        ResetRagdollCameras();
+        SwitchOffAllRagdollCameras();
 
         if (_activeCamera != null) _activeCamera.Priority = 20;
     }
     
-    public void SwitchRagdollCameras( int cameraIndex)
+    public void SwitchOnRagdollCamera( int cameraIndex)
     {
-        ResetRagdollCameras();
+        SwitchOffAllRagdollCameras();
 
         if (cameraIndex >= 0 && cameraIndex < _allRagdollCameras.Length)
         {
@@ -22,7 +22,7 @@ public class CameraSwitcher : MonoBehaviour
         }
     }
 
-    public void ResetRagdollCameras()
+    public void SwitchOffAllRagdollCameras()
     {
         foreach (var cam in _allRagdollCameras)
         {

@@ -70,7 +70,7 @@ public class PlayerRagdoll : MonoBehaviour
         else
         {
             if (_cameraSwitcher != null)
-                _cameraSwitcher.ResetRagdollCameras();
+                _cameraSwitcher.SwitchOffAllRagdollCameras();
         }
     }
 

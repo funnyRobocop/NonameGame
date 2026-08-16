@@ -20,7 +20,7 @@ public class TubeEntrance : MonoBehaviour
             if (ragdoll == null)
                 return;
             
-            _cameraSwitcher.SwitchRagdollCameras(_camera);
+            _cameraSwitcher.SwitchOnRagdollCamera(_camera);
             ragdoll.ToggleRagdoll(true);
 
             var traveler = other.gameObject.AddComponent<TubeTraveler>();
