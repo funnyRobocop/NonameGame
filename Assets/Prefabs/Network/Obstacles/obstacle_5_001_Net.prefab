@@ -984,11 +984,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
   mode: 1
-  rotationAxis: {x: 1, y: 0, z: 0}
+  rotationAxis: {x: 0, y: 0, z: 1}
   speed: 50
   maxAngle: 90
   timeOffset: 0
-  _rigidbody: {fileID: 4264385231579838925}
 --- !u!114 &9123860114737625258
 MonoBehaviour:
   m_ObjectHideFlags: 0
