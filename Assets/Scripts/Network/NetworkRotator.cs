@@ -2,45 +2,56 @@ using UnityEngine;
 using Fusion;
 
 public class NetworkRotator : NetworkBehaviour
+{
+    public enum RotationMode { Constant, Pendulum }
+
+    [Header("Тип движения")]
+    [SerializeField] private RotationMode mode = RotationMode.Constant;
+
+    [Header("Настройки вращения")]
+    [SerializeField] private Vector3 rotationAxis = Vector3.up; 
+    [SerializeField] private float speed = 50f;                 
+    [SerializeField] private float maxAngle = 90f;              
+    [SerializeField] private float timeOffset = 0f;             
+
+    private Quaternion _startRotation;
+    private Rigidbody _rigidbody;
+
+    public override void Spawned()
     {
-        public enum RotationMode { Constant, Pendulum }
-
-        [Header("Тип движения")]
-        [SerializeField] private RotationMode mode = RotationMode.Constant;
-
-        [Header("Настройки вращения")]
-        [SerializeField] private Vector3 rotationAxis = Vector3.up; // Ось вращения (Y для вентилятора, X/Z для маятника)
-        [SerializeField] private float speed = 50f;                 // Скорость вращения
-        [SerializeField] private float maxAngle = 90f;              // Максимальный угол (только для маятника)
+        _startRotation = transform.localRotation;
         
-        [Header("Смещение фазы (Очередь)")]
-        [SerializeField] private float timeOffset = 0f;             // Позволяет пускать ловушки не одновременно
-
-        private Quaternion _startRotation;
-
-        public override void Spawned()
+        _rigidbody = GetComponent<Rigidbody>();
+        
+        if (_rigidbody == null)
         {
-            // Запоминаем стартовый поворот объекта при создании в сети
-            _startRotation = transform.localRotation;
-        }
-
-        public override void FixedUpdateNetwork()
-        {
-            // Runner.SimulationTime — это точное серверное время в секундах
-            float syncedTime = Runner.SimulationTime + timeOffset;
-
-            if (mode == RotationMode.Constant)
-            {
-                // ЛОГИКА ВЕНТИЛЯТОРА: Бесконечное плавное кручение в одну сторону
-                float currentAngle = syncedTime * speed;
-                transform.localRotation = _startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
-            }
-            else if (mode == RotationMode.Pendulum)
-            {
-                // ЛОГИКА КУВАЛДЫ: Качание туда-сюда с использованием синуса
-                // Mathf.Sin возвращает значения от -1 до 1, плавно замедляясь в крайних точках
-                float currentAngle = Mathf.Sin(syncedTime * (speed * 0.1f)) * maxAngle;
-                transform.localRotation = _startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
-            }
+            Debug.LogError($"[Сбой] На объекте {gameObject.name} отсутствует Rigidbody! Сетевое вращение будет дергаться.");
         }
     }
+
+    public override void FixedUpdateNetwork()
+    {
+        float syncedTime = Runner.SimulationTime + timeOffset;
+        Quaternion targetRotation = _startRotation;
+
+        if (mode == RotationMode.Constant)
+        {
+            float currentAngle = syncedTime * speed;
+            targetRotation = _startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
+        }
+        else if (mode == RotationMode.Pendulum)
+        {
+            float currentAngle = Mathf.Sin(syncedTime * (speed * 0.1f)) * maxAngle;
+            targetRotation = _startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
+        }
+
+        if (_rigidbody != null)
+        {
+            _rigidbody.MoveRotation(targetRotation);
+        }
+        else
+        {
+            transform.localRotation = targetRotation;
+        }
+    }
+}
