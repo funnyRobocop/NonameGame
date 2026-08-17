@@ -254,6 +254,24 @@ public class NetworkPlayerController : NetworkBehaviour
     {
         _platformMovement = movement;
     }
+
+    public void ApplyNetworkTrampolineBounce(float force)
+    {
+        // Менять [Networked] параметры во Fusion разрешено только владельцу ввода или серверу
+        if (HasInputAuthority || Runner.IsServer)
+        {
+            // Мы напрямую перезаписываем вертикальную скорость! 
+            // Вместо плавного прибавления, мы даем резкий мощный пинок строго вверх
+            _verticalVelocity = force;
+
+            // Включаем анимацию прыжка/полета в аниматоре
+            if (_animator != null)
+            {
+                _animator.SetBool("Jump", true);
+                _animator.SetBool("FreeFall", false);
+            }
+        }
+    }
     
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {

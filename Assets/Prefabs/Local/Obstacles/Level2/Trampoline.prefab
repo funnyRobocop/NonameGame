@@ -45,8 +45,8 @@ GameObject:
   - component: {fileID: 1517793981574011021}
   - component: {fileID: 3552744064854382374}
   - component: {fileID: 5498438997671476630}
-  - component: {fileID: 3837202963190363818}
   - component: {fileID: 9219318105057880797}
+  - component: {fileID: 3955020314084238245}
   m_Layer: 0
   m_Name: trampoline_2_002
   m_TagString: Untagged
@@ -153,21 +153,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8398820094230982227, guid: 7fd95787f5538924683898bb0080cd30, type: 3}
---- !u!114 &3837202963190363818
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3415672853011448442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9c2325d555d1c54493d649c2510cdbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Trampoline
-  bounceForce: 18
-  squashScaleY: 0.43
-  duration: 0.1
 --- !u!136 &9219318105057880797
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -191,6 +176,22 @@ CapsuleCollider:
   m_Height: 0
   m_Direction: 1
   m_Center: {x: 0.000008109198, y: -0.5, z: -0.0000032484531}
+--- !u!114 &3955020314084238245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3415672853011448442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3449997ac646cef40b0edf91841129d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkTrampoline
+  bounceForce: 18
+  visualModel: {fileID: 1517793981574011021}
+  squashScaleY: 0.43
+  duration: 0.1
 --- !u!1 &4837790863671851729
 GameObject:
   m_ObjectHideFlags: 0
