@@ -22,10 +22,13 @@ public class NetworkPlayerController : NetworkBehaviour
     [SerializeField] private float impactThreshold = 0.2f;
     [SerializeField] float pushPower = 7f; 
     
-    // Синхронизируем вертикальную скорость между клиентами через атрибут Fusion 2
     [Networked] private float _verticalVelocity { get; set; }
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
     [Networked] private Vector3 _impactForce { get; set; }
+
+    [Header("Сетевой статус финиша")]
+    [Networked] public NetworkBool IsFinished { get; set; }
+    [Networked] public int FinishPlace { get; set; }
     
     private bool _isJumpPressedPrevious = false; // Для отслеживания одиночного клика Пробела
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
@@ -76,6 +79,18 @@ public class NetworkPlayerController : NetworkBehaviour
     public override void FixedUpdateNetwork()
     {
         if (!_isSpawnReady) return;
+
+        // Если игрок уже финишировал — полностью блокируем считывание WASD, кнопок и прыжков
+        if (IsFinished)
+        {
+            // Принудительно держим скорость нулевой, но сохраняем прижимание к земле
+            if (_controller != null && _controller.isGrounded)
+            {
+                _verticalVelocity = -3.3f;
+                _controller.Move(new Vector3(0, _verticalVelocity, 0) * Runner.DeltaTime);
+            }
+            return; 
+        }
 
         if (GetInput(out NetworkInputData data))
         {
@@ -316,6 +331,30 @@ public class NetworkPlayerController : NetworkBehaviour
                 rb.AddForce(force, ForceMode.Impulse);
                 Debug.Log($"[Сервер] Выполнен RPC пинок объекта: {targetNetObj.name}");
             }
+        }
+    }
+
+    public void SetPlayerFinished(int place)
+    {
+        if (Runner.IsServer)
+        {
+            IsFinished = true;
+            FinishPlace = place;
+            
+            // Включаем RPC, чтобы локальный клиент увидел UI победы и у него отключился ввод
+            RPC_OnLocalPlayerFinished(place);
+        }
+    }
+
+    // Этот RPC сработает на ПК у конкретного игрока, который добежал до финиша
+    [Rpc(RpcSources.StateAuthority, RpcTargets.InputAuthority)]
+    private void RPC_OnLocalPlayerFinished(int place)
+    {
+        Debug.Log($"[Финиш] Вы успешно финишировали! Ваше место: {place}");
+        
+        // Включаем анимацию празднования/Idle в аниматоре, если она есть
+        if (_animator != null)
+        {
         }
     }
 }
