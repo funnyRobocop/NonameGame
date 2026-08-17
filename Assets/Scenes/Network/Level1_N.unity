@@ -1593,6 +1593,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7096993136741073551, guid: 7dcf33cd79c0d2541baef177a6a8d303, type: 3}
+      propertyPath: SortKey
+      value: 1424382389
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -10561,6 +10565,18 @@ PrefabInstance:
     - target: {fileID: 3983017424881238052, guid: 7dcf33cd79c0d2541baef177a6a8d303, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096993136741073551, guid: 7dcf33cd79c0d2541baef177a6a8d303, type: 3}
+      propertyPath: Flags
+      value: 262402
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096993136741073551, guid: 7dcf33cd79c0d2541baef177a6a8d303, type: 3}
+      propertyPath: SortKey
+      value: 2372861050
+      objectReference: {fileID: 0}
+    - target: {fileID: 7096993136741073551, guid: 7dcf33cd79c0d2541baef177a6a8d303, type: 3}
+      propertyPath: NetworkedBehaviours.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -32816,6 +32832,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 3774628861005803023, guid: 9af3ad4aa8d80454eb44a0348bae3995, type: 3}
+      propertyPath: SortKey
+      value: 2983868082
+      objectReference: {fileID: 0}
     - target: {fileID: 4243574581479428505, guid: 9af3ad4aa8d80454eb44a0348bae3995, type: 3}
       propertyPath: m_Name
       value: banana_001

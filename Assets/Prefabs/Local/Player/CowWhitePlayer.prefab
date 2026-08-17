@@ -1989,6 +1989,14 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 5968931030567198845, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: LandingAudioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5968931030567198845, guid: 5e26fe163b44f0946944360da294e068, type: 3}
+      propertyPath: FootstepAudioClips.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7010859913281682799, guid: 5e26fe163b44f0946944360da294e068, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -20,6 +20,7 @@ public class NetworkPlayerController : NetworkBehaviour
     [SerializeField] private Transform _normalCameraTarget;
     [SerializeField] private float antiImpactForce = 5f; // Скорость затухания отскока
     [SerializeField] private float impactThreshold = 0.2f;
+    [SerializeField] float pushPower = 7f; 
     
     // Синхронизируем вертикальную скорость между клиентами через атрибут Fusion 2
     [Networked] private float _verticalVelocity { get; set; }
@@ -252,5 +253,51 @@ public class NetworkPlayerController : NetworkBehaviour
     public void SetNetworkPlatformMovement(Vector3 movement)
     {
         _platformMovement = movement;
+    }
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        // Проверяем, есть ли у объекта твердое физическое тело
+        Rigidbody body = hit.collider.attachedRigidbody;
+        if (body == null || body.isKinematic) return;
+
+        // Игнорируем, если игрок наступил на мяч сверху
+        if (hit.moveDirection.y < -0.3f) return;
+
+        // Ищем сетевой объект на мяче
+        NetworkObject netObj = body.GetComponent<NetworkObject>();
+        if (netObj != null)
+        {
+            // Направление и сила удара
+            Vector3 pushDir = new Vector3(hit.moveDirection.x, 0, hit.moveDirection.z).normalized;
+
+            // Силу к независимому Rigidbody прикладывает строго СЕРВЕР (StateAuthority)
+            if (Runner.IsServer)
+            {
+                // Если вы Хост/Сервер — пинаем мяч напрямую
+                body.AddForce(pushDir * pushPower, ForceMode.Impulse);
+            }
+            else if (HasInputAuthority)
+            {
+                // Если вы обычный клиент — отправляем быстрый RPC-запрос серверу с просьбой пнуть этот конкретный мяч
+                RPC_RequestPushObject(netObj, pushDir * pushPower);
+            }
+        }
+    }
+
+    // Сетевой RPC-метод для отправки пинка от клиента на сервер
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    private void RPC_RequestPushObject(NetworkObject targetNetObj, Vector3 force)
+    {
+        if (targetNetObj != null)
+        {
+            Rigidbody rb = targetNetObj.GetComponent<Rigidbody>();
+            if (rb != null && !rb.isKinematic)
+            {
+                // Сервер послушно прикладывает силу к мячу на своем экране
+                rb.AddForce(force, ForceMode.Impulse);
+                Debug.Log($"[Сервер] Выполнен RPC пинок объекта: {targetNetObj.name}");
+            }
+        }
     }
 }
