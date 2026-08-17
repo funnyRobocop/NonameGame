@@ -12,16 +12,15 @@ public class NetworkRotator : NetworkBehaviour
     [SerializeField] private Vector3 rotationAxis = Vector3.up; 
     [SerializeField] private float speed = 50f;                 
     [SerializeField] private float maxAngle = 90f;              
-    [SerializeField] private float timeOffset = 0f;             
-
-    private Quaternion _startRotation;
+    [SerializeField] private float timeOffset = 0f;
+    
     private Rigidbody _rigidbody;
+    private Quaternion _startRotation;
 
     public override void Spawned()
     {
         _startRotation = transform.localRotation;
-        
-        _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
         
         if (_rigidbody == null)
         {
@@ -44,14 +43,7 @@ public class NetworkRotator : NetworkBehaviour
             float currentAngle = Mathf.Sin(syncedTime * (speed * 0.1f)) * maxAngle;
             targetRotation = _startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
         }
-
-        if (_rigidbody != null)
-        {
-            _rigidbody.MoveRotation(targetRotation);
-        }
-        else
-        {
-            transform.localRotation = targetRotation;
-        }
+        
+        _rigidbody.MoveRotation(targetRotation);
     }
 }

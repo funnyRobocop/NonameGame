@@ -4,28 +4,38 @@ using Fusion;
 public class NetworkMover : NetworkBehaviour
 {
     [Header("Настройки перемещения")]
-    [SerializeField] private Vector3 moveOffset = new Vector3(0f, 0f, 5f); // На сколько метров сдвигаться
+    [SerializeField] private Vector3 moveOffset = new Vector3(0f, 0f, 5f); // Смещение относительно старта
     [SerializeField] private float speed = 2f;                             // Скорость движения
-    [SerializeField] private float timeOffset = 0f;                        // Задержка фазы времени
+    [SerializeField] private float timeOffset = 0f;                        // Смещение фазы времени
 
-    private Vector3 _startLocalPos;
+    private Vector3 _startWorldPos;
+    private Rigidbody _rigidbody;
 
     public override void Spawned()
     {
-        _startLocalPos = transform.localPosition;
+        _startWorldPos = transform.position;        
+        _rigidbody = gameObject.GetComponent<Rigidbody>();
+
+        if (_rigidbody == null)
+        {
+            Debug.LogError($"[Сбой] На объекте {gameObject.name} отсутствует Rigidbody! Движение будет дергаться, а игрок — соскальзывать.");
+        }
     }
 
     public override void FixedUpdateNetwork()
     {
+        // Получаем синхронизированное время сервера
         float syncedTime = Runner.SimulationTime + timeOffset;
 
-        // Используем Mathf.PingPong для циклического движения туда-обратно от 0 до 1
+        // Циклическое движение туда-обратно в диапазоне от 0 до 1
         float pingPong = Mathf.PingPong(syncedTime * speed, 1f);
         
-        // Плавное сглаживание углов (Ease In Out), чтобы объект не менял направление слишком резко
+        // Математическое сглаживание в крайних точках (плавный разгон и торможение)
         float smoothPingPong = Mathf.SmoothStep(0f, 1f, pingPong);
 
-        // Вычисляем новую локальную позицию
-        transform.localPosition = _startLocalPos + (moveOffset * smoothPingPong);
+        // Вычисляем целевую мировую координату для этого сетевого тика
+        Vector3 targetWorldPosition = _startWorldPos + (moveOffset * smoothPingPong);
+        
+        _rigidbody.MovePosition(targetWorldPosition);
     }
 }

@@ -160,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
   rotationSpeed: 50
   clockWise: 1
+  lerpSpeed: 10
   rotationCenter: {fileID: 3082206063374876829}
 --- !u!64 &5647302675672516364
 MeshCollider:
@@ -344,6 +345,7 @@ MonoBehaviour:
   speed: 50
   maxAngle: 360
   timeOffset: 0
+  _rigidbody: {fileID: 3885881563079863467}
 --- !u!114 &4615699121813891613
 MonoBehaviour:
   m_ObjectHideFlags: 0

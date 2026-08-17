@@ -244,6 +244,7 @@ MonoBehaviour:
   moveOffset: {x: 6, y: 0, z: 0}
   speed: 2
   timeOffset: 0
+  _rigidbody: {fileID: 7173776962195093604}
 --- !u!114 &1055794788658554796
 MonoBehaviour:
   m_ObjectHideFlags: 0

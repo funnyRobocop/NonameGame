@@ -63,16 +63,20 @@ public class NetworkMovingPlatform : NetworkBehaviour
         if (_detectedPlayer == null) return;
 
         CalculateTargetPlatformVelocity();
-        
+
         _currentPlatformVelocity = Vector3.Lerp(_currentPlatformVelocity, _targetPlatformVelocity, Runner.DeltaTime * lerpSpeed);
 
         if (_currentPlatformVelocity.magnitude > 0.001f)
         {
             // ВАЖНО: Умножаем скорость на Runner.DeltaTime СТРОГО в момент передачи в игрока!
             // Это гарантирует математическую точность сетевого кадра
-            Vector3 platformMovementThisTick = _currentPlatformVelocity * Runner.DeltaTime;
+            Vector3 platformMovementThisTick = _targetPlatformVelocity * Runner.DeltaTime;
             
             _detectedPlayer.SetNetworkPlatformMovement(platformMovementThisTick);
+
+                        float directionSign = clockWise ? 1f : -1f;
+            Quaternion rotDelta = Quaternion.Euler(0, rotationSpeed * directionSign * Runner.DeltaTime, 0);
+            _detectedPlayer.transform.rotation = rotDelta * _detectedPlayer.transform.rotation;
         }
     }
 }

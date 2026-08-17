@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3418603963683156245}
-  - component: {fileID: 716457363594681340}
-  - component: {fileID: 4072136624811980723}
-  - component: {fileID: 7297394286762488799}
+  - component: {fileID: 1059684839774811998}
+  - component: {fileID: 7774983232906115665}
   m_Layer: 0
   m_Name: Trigger
   m_TagString: Untagged
@@ -34,49 +33,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2143110333858597272}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &716457363594681340
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5589221218925356936}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 1
-  m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &4072136624811980723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5589221218925356936}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1928f35a891d9544d8ba44c25f8fa268, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Bouncer
-  pushForce: 25
-  yForce: 0
---- !u!65 &7297394286762488799
-BoxCollider:
+--- !u!136 &1059684839774811998
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,9 +51,24 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.65365446, y: 0.5, z: 10.6}
+  serializedVersion: 2
+  m_Radius: 0.22
+  m_Height: 10.57
+  m_Direction: 2
   m_Center: {x: 0.0000019222498, y: 0.5730852, z: 0.00000834465}
+--- !u!114 &7774983232906115665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5589221218925356936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab5ff35f9a55ca4d8a1551d421c2149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkBumper
+  bounceForce: 15
 --- !u!1 &6180823362628730405
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,6 +84,7 @@ GameObject:
   - component: {fileID: 5800032824765678542}
   - component: {fileID: 4476210023195399611}
   - component: {fileID: 2414197916914713718}
+  - component: {fileID: 1037637651570638541}
   m_Layer: 0
   m_Name: obstacle_17_001_Net
   m_TagString: Untagged
@@ -275,3 +249,30 @@ CapsuleCollider:
   m_Height: 1.3
   m_Direction: 1
   m_Center: {x: 0.0000019222498, y: 0.5730852, z: 0.00000071525574}
+--- !u!54 &1037637651570638541
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6180823362628730405}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 1
+  m_Constraints: 0
+  m_CollisionDetection: 0
