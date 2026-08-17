@@ -3329,6 +3329,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
+--- !u!114 &1086059568 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3650111083036516449, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+  m_PrefabInstance: {fileID: 3504121414425631503}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1 &1139220272
 GameObject:
   m_ObjectHideFlags: 0
@@ -4760,6 +4771,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
+--- !u!114 &1616518612 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3650111083036516449, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
+  m_PrefabInstance: {fileID: 1794165130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1 &1624782299
 GameObject:
   m_ObjectHideFlags: 0
@@ -5036,7 +5058,7 @@ Transform:
   m_GameObject: {fileID: 1666986921}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -503, z: 0}
+  m_LocalPosition: {x: 0, y: -506, z: 0}
   m_LocalScale: {x: 1000, y: 1000, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5618,7 +5640,7 @@ PrefabInstance:
     - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[1]'
       value: 
-      objectReference: {fileID: 1794165133}
+      objectReference: {fileID: 1616518612}
     - target: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.94133
@@ -5680,17 +5702,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
---- !u!114 &1794165133 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3650111083036516449, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
-  m_PrefabInstance: {fileID: 1794165130}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!114 &1808742222 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1098736139121184146, guid: 0c13f97bc8131b749bcb9a21443cd6cc, type: 3}
@@ -17529,7 +17540,7 @@ PrefabInstance:
     - target: {fileID: 5341842002584791297, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: 'NetworkedBehaviours.Array.data[1]'
       value: 
-      objectReference: {fileID: 3504121414425631505}
+      objectReference: {fileID: 1086059568}
     - target: {fileID: 6037009093057580828, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.94133
@@ -17586,17 +17597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
---- !u!114 &3504121414425631505 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3650111083036516449, guid: 36aa257fd66fc524c968c9502726d597, type: 3}
-  m_PrefabInstance: {fileID: 3504121414425631503}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!64 &3531189821482942623
 MeshCollider:
   m_ObjectHideFlags: 0

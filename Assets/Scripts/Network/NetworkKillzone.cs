@@ -5,7 +5,6 @@ public class NetworkKillzone : NetworkBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        // Смерть обрабатываем строго на Сервере (Хосте)
         if (!Runner.IsServer) return;
 
         Debug.Log($"[Killzone]");
@@ -18,7 +17,6 @@ public class NetworkKillzone : NetworkBehaviour
         {
             Debug.Log($"[Killzone] Сервер зафиксировал падение объекта: {other.gameObject.name}. Отправляем игрока на чекпоинт.");
             
-            // Вызываем безопасный сетевой респавн
             playerController.RespawnAtCheckpoint();
         }
     }

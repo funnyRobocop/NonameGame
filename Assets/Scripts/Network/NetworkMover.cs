@@ -18,7 +18,7 @@ public class NetworkMover : NetworkBehaviour
 
         if (_rigidbody == null)
         {
-            Debug.LogError($"[Сбой] На объекте {gameObject.name} отсутствует Rigidbody! Движение будет дергаться, а игрок — соскальзывать.");
+            Debug.LogError($"[Сбой] На объекте {gameObject.name} отсутствует Rigidbody!");
         }
     }
 

@@ -5,7 +5,6 @@ public class NetworkCheckpoint : NetworkBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        // Обработку триггера запускаем ТОЛЬКО на Сервере/Хосте
         if (!Runner.IsServer) return;
 
         if (other.CompareTag("Player"))

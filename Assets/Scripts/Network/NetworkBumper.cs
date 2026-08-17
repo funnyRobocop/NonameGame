@@ -4,7 +4,7 @@ using UnityEngine;
 public class NetworkBumper : MonoBehaviour
     {
         [Header("Настройки отскока")]
-        [SerializeField] private float bounceForce = 15f; // Сила отталкивания от столба
+        [SerializeField] private float bounceForce = 15f;
 
         private void OnTriggerEnter(Collider other)
         {
@@ -14,16 +14,13 @@ public class NetworkBumper : MonoBehaviour
                 
                 if (networkPlayer != null)
                 {
-                    // ВАЖНО ДЛЯ МУЛЬТИПЛЕЕРА: Импульс отскока прикладывает ТОЛЬКО тот клиент, 
-                    // который физически управляет этой конкретной коровой (или Сервер)
                     if (networkPlayer.HasInputAuthority || networkPlayer.Runner.IsServer)
                     {
                         Vector3 bounceDir = (other.transform.position - transform.position);
                         bounceDir.y = 0f; 
                         bounceDir = bounceDir.normalized;
-                        bounceDir.y = 0.4f; // Подброс вверх
+                        bounceDir.y = 0.4f;
 
-                        // Передаем импульс
                         networkPlayer.ApplyNetworkKnockback(bounceDir.normalized, bounceForce);
                         
                         Debug.Log($"[Батут] Локальный расчет отскока выполнен успешно.");

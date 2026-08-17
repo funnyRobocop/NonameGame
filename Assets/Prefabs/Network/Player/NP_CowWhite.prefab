@@ -1296,7 +1296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerController
   speed: 6
   gravity: -24
-  jumpHeight: 1.2
+  jumpHeight: 1.5
   terminalVelocity: -53
   _normalCameraTarget: {fileID: 4843962174877007652}
   antiImpactForce: 5

@@ -4,8 +4,7 @@ using Fusion;
 public class NetworkMovingPlatform : NetworkBehaviour
 {
     [Header("Настройки вращения")]
-    [SerializeField] private float rotationSpeed = 50f; // Скорость из NetworkRotator
-    [SerializeField] private bool clockWise = true;      
+    [SerializeField] private float rotationSpeed = 50f; // Скорость из NetworkRotator 
     [SerializeField] private float lerpSpeed = 10f;     // Скорость сглаживания
 
     [Header("Центр Вращения")]
@@ -40,7 +39,6 @@ public class NetworkMovingPlatform : NetworkBehaviour
         if (currentRadius > 0.1f)
         {
             Vector3 movementDirection = Vector3.Cross(upAxis, projectedOffset.normalized).normalized;
-            if (!clockWise) movementDirection = -movementDirection;
 
             float linearVelocity = (rotationSpeed * Mathf.Deg2Rad) * currentRadius;
             
@@ -68,14 +66,11 @@ public class NetworkMovingPlatform : NetworkBehaviour
 
         if (_currentPlatformVelocity.magnitude > 0.001f)
         {
-            // ВАЖНО: Умножаем скорость на Runner.DeltaTime СТРОГО в момент передачи в игрока!
-            // Это гарантирует математическую точность сетевого кадра
-            Vector3 platformMovementThisTick = _targetPlatformVelocity * Runner.DeltaTime;
+            Vector3 platformMovementThisTick = _currentPlatformVelocity * Runner.DeltaTime;
             
             _detectedPlayer.SetNetworkPlatformMovement(platformMovementThisTick);
 
-                        float directionSign = clockWise ? 1f : -1f;
-            Quaternion rotDelta = Quaternion.Euler(0, rotationSpeed * directionSign * Runner.DeltaTime, 0);
+            Quaternion rotDelta = Quaternion.Euler(0, rotationSpeed * Runner.DeltaTime, 0);
             _detectedPlayer.transform.rotation = rotDelta * _detectedPlayer.transform.rotation;
         }
     }
