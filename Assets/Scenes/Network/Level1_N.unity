@@ -1046,6 +1046,17 @@ Transform:
   - {fileID: 7552397707500069319}
   m_Father: {fileID: 940703019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &203701552 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7029069411487377349, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+  m_PrefabInstance: {fileID: 552363618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1001 &219579856
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1163,6 +1174,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bf4442dcaec67847bc290b4588cdeff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkGateTrap
+--- !u!114 &251793875 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7029069411487377349, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+  m_PrefabInstance: {fileID: 1878821872}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1001 &307745168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1481,8 +1503,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1853674288}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1624,8 +1650,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 203701552}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1636,6 +1666,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3082206063374876829, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
   m_PrefabInstance: {fileID: 552363618}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &576734353 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7029069411487377349, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+  m_PrefabInstance: {fileID: 1176580050}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1001 &637119973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2113,8 +2154,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1014549878}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3239,6 +3284,17 @@ Transform:
   - {fileID: 1635089484958298813}
   m_Father: {fileID: 940703019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1014549878 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7029069411487377349, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+  m_PrefabInstance: {fileID: 707830681}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1 &1139220272
 GameObject:
   m_ObjectHideFlags: 0
@@ -3604,8 +3660,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 576734353}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3674,8 +3734,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1781627051}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3995,6 +4059,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
+--- !u!114 &1418368572 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7029069411487377349, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+  m_PrefabInstance: {fileID: 8010851084619818068}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1001 &1447709127
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5447,6 +5522,17 @@ Transform:
   - {fileID: 4161735599907720205}
   m_Father: {fileID: 940703019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1781627051 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7029069411487377349, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+  m_PrefabInstance: {fileID: 1177133041}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1 &1787758755
 GameObject:
   m_ObjectHideFlags: 0
@@ -5568,6 +5654,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
+--- !u!114 &1853674288 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7029069411487377349, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+  m_PrefabInstance: {fileID: 447948825}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e02fab13a3e5114ba14811045833167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkMovingPlatform
 --- !u!1 &1870925426
 GameObject:
   m_ObjectHideFlags: 0
@@ -5694,8 +5791,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 251793875}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -32940,8 +33041,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
       propertyPath: NetworkedBehaviours.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4615699121813891613, guid: 26917d32e22e2c34688eb3fcae2dcc0e, type: 3}
+      propertyPath: 'NetworkedBehaviours.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1418368572}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

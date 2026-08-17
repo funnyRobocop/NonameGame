@@ -28,6 +28,7 @@ public class NetworkPlayerController : NetworkBehaviour
     
     private bool _isJumpPressedPrevious = false; // Для отслеживания одиночного клика Пробела
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
+    private Vector3 _platformMovement = Vector3.zero;
 
     public override void Spawned()
     {
@@ -154,11 +155,17 @@ public class NetworkPlayerController : NetworkBehaviour
             // Добавляем высчитанную вертикальную скорость гравитации/прыжка в итоговый вектор
             movement.y = _verticalVelocity;
 
+            Vector3 finalMovement = movement;
+            finalMovement *= Runner.DeltaTime;
+            finalMovement += _platformMovement;
+
             // Двигаем Character Controller со строгим учетом сетевого шага
             if (_isSpawnReady && _controller.enabled)
             {
-                _controller.Move(movement * Runner.DeltaTime);
+                _controller.Move(finalMovement);
             }
+            
+             _platformMovement = Vector3.zero;
 
             if (_animator != null)
             {
@@ -232,13 +239,18 @@ public class NetworkPlayerController : NetworkBehaviour
     }
 
     public void ApplyNetworkKnockback(Vector3 direction, float force)
-{
-    // Во Fusion изменять [Networked] переменные напрямую разрешено только Серверу (StateAuthority)
-    // или владельцу ввода (InputAuthority), если включен специальный режим. 
-    // Самый надежный способ для прототипа — прикладывать силу на стороне того, кто управляет телом
-    if (HasInputAuthority || Runner.IsServer)
     {
-        _impactForce += direction * force;
+        // Во Fusion изменять [Networked] переменные напрямую разрешено только Серверу (StateAuthority)
+        // или владельцу ввода (InputAuthority), если включен специальный режим. 
+        // Самый надежный способ для прототипа — прикладывать силу на стороне того, кто управляет телом
+        if (HasInputAuthority || Runner.IsServer)
+        {
+            _impactForce += direction * force;
+        }
     }
-}
+
+    public void SetNetworkPlatformMovement(Vector3 movement)
+    {
+        _platformMovement = movement;
+    }
 }
