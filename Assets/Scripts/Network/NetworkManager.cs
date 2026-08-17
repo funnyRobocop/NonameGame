@@ -8,29 +8,6 @@ public class NetworkManager : SimulationBehaviour, IPlayerJoined
     [SerializeField] private NetworkObject playerPrefab;
     [SerializeField] private Transform spawnPoint;
 
-    private void Start()
-    {
-        // Автоматически запускаем Fusion при старте сцены в режиме Host (Вы сервер и игрок одновременно)
-        // Если тестируете вдвоем, для второго игрока в меню запуска нужно будет выбирать Client
-        StartMatchmaking();
-    }
-
-    private async void StartMatchmaking()
-    {
-        NetworkRunner runner = gameObject.GetComponent<NetworkRunner>();
-        if (runner == null) runner = gameObject.AddComponent<NetworkRunner>();
-
-        var args = new StartGameArgs()
-        {
-            GameMode = GameMode.Host, 
-            SessionName = "Room",
-            Scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex),
-            SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
-        };
-
-        await runner.StartGame(args);
-    }
-
     // вызывается Fusion 2 автоматически на сервере, когда любой игрок входит в комнату
     void IPlayerJoined.PlayerJoined(PlayerRef player)
     {
