@@ -1235,6 +1235,7 @@ GameObject:
   - component: {fileID: 409798498027658233}
   - component: {fileID: 7074510384146628416}
   - component: {fileID: 7855967594222113970}
+  - component: {fileID: 670264376838079973}
   m_Layer: 8
   m_Name: NP_CowWhite
   m_TagString: Player
@@ -1281,6 +1282,7 @@ MonoBehaviour:
   - {fileID: 7855967594222113970}
   - {fileID: 661697440089560611}
   - {fileID: 7074510384146628416}
+  - {fileID: 670264376838079973}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &661697440089560611
 MonoBehaviour:
@@ -1301,6 +1303,10 @@ MonoBehaviour:
   _normalCameraTarget: {fileID: 4843962174877007652}
   antiImpactForce: 5
   impactThreshold: 0.2
+  pushPower: 7
+  _IsFinished:
+    RawValue: 0
+  _FinishPlace: 0
 --- !u!95 &8303231778875462457
 Animator:
   serializedVersion: 7
@@ -1405,6 +1411,18 @@ MonoBehaviour:
     MinImpactfulCollisionAlignment: 0.3
     ImpactStartCorrectionTime: 0.1
     ImpactCorrectionTimeComplete: 0.3
+--- !u!114 &670264376838079973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3594784808251990491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40eb5857ebbf0294497d4e64fbf1b1fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputHandler
 --- !u!1 &3689426444718533713
 GameObject:
   m_ObjectHideFlags: 0

@@ -1731,6 +1731,8 @@ GameObject:
   - component: {fileID: 1776123699}
   - component: {fileID: 1776123698}
   - component: {fileID: 1776123697}
+  - component: {fileID: 1776123700}
+  - component: {fileID: 1776123701}
   m_Layer: 0
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -1753,7 +1755,7 @@ MonoBehaviour:
   hostButton: {fileID: 1066355107}
   clientButton: {fileID: 45843277}
   roomNameInputField: {fileID: 326644056}
-  gameSceneIndex: 1
+  gameSceneIndex: 3
 --- !u!114 &1776123698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1781,6 +1783,32 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1776123700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776123696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf232bc2b5cc462408d7a98855c6a0d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkManager
+  playerPrefab: {fileID: 3285547052466829157, guid: 03efd17e1b5c9f342af5385a2564b7c2, type: 3}
+  spawnPoint: {fileID: 0}
+--- !u!114 &1776123701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1776123696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8edbe7108d8a43ab838cf8b8d9453df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Unity::Fusion.RunnerEnableVisibility
 --- !u!1 &1831806931
 GameObject:
   m_ObjectHideFlags: 0

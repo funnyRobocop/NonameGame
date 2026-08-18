@@ -5,32 +5,59 @@ using Fusion;
 using Fusion.Sockets;
 using UnityEngine.InputSystem;
 
-public class InputHandler : MonoBehaviour, INetworkRunnerCallbacks
+public class InputHandler : NetworkBehaviour, IBeforeUpdate, INetworkRunnerCallbacks
 {
+    private NetworkInputData _localInputData;
+
+    public override void Spawned()
+    {
+        if (HasInputAuthority)
+        {
+            Runner.AddCallbacks(this);
+            
+            Debug.Log($"[ЯДРО СЕТИ] Ввод принудительно зарегистрирован в колбэках Раннера!");
+        }
+    }
+
+    public override void Despawned(NetworkRunner runner, bool hasKey)
+    {
+        if (HasInputAuthority)
+        {
+            runner.RemoveCallbacks(this);
+        }
+    }
+
+    void IBeforeUpdate.BeforeUpdate()
+    {
+        if (!HasInputAuthority) return;
+
+        var keyboard = Keyboard.current;
+        if (keyboard != null)
+        {
+            Vector2 moveVector = Vector2.zero;
+
+            if (keyboard[Key.W].isPressed) moveVector.y += 1f;
+            if (keyboard[Key.S].isPressed) moveVector.y -= 1f;
+            if (keyboard[Key.A].isPressed) moveVector.x -= 1f;
+            if (keyboard[Key.D].isPressed) moveVector.x += 1f;
+
+            _localInputData.MoveDirection = moveVector.normalized;
+            _localInputData.JumpPressed = keyboard[Key.Space].isPressed;
+            //_localInputData.SprintPressed = keyboard[Key.LeftShift].isPressed;
+        }
+    }
+
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        NetworkInputData inputData = new NetworkInputData();
-        Vector2 moveVector = Vector2.zero;
-        var keyboard = Keyboard.current;
+        if (!HasInputAuthority) return;
 
-        if (keyboard != null)
-        {
-            if (keyboard.wKey.isPressed) moveVector.y += 1f;
-            if (keyboard.sKey.isPressed) moveVector.y -= 1f;
-            if (keyboard.aKey.isPressed) moveVector.x -= 1f;
-            if (keyboard.dKey.isPressed) moveVector.x += 1f;
-        }
+        Debug.Log("[ПОТОК ВВОДА] Данные успешно переданы в сетевой тик!");
 
-        inputData.MoveDirection = moveVector.normalized;
-        
-        if (keyboard != null)
-        {
-            inputData.JumpPressed = keyboard.spaceKey.isPressed;
-            inputData.SprintPressed = keyboard.leftShiftKey.isPressed;
-        }
-
-        input.Set(inputData);
-    }        
+        input.Set(_localInputData);
+        _localInputData.MoveDirection = Vector2.zero;
+        _localInputData.JumpPressed = false;
+        //_localInputData.SprintPressed = false;
+    }
 
     void INetworkRunnerCallbacks.OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
     {
@@ -81,7 +108,7 @@ public class InputHandler : MonoBehaviour, INetworkRunnerCallbacks
     }
 
     void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner)
-    {
+        {
     }
 
     void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)

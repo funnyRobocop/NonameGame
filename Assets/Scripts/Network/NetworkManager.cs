@@ -2,25 +2,39 @@ using UnityEngine;
 using Fusion;
 using UnityEngine.SceneManagement;
 
-public class NetworkManager : SimulationBehaviour, IPlayerJoined
+// Реализуем интерфейс глобальных сетевых событий Fusion 2
+public class NetworkManager : SimulationBehaviour, ISceneLoadDone
 {
     [Header("Настройки спавна")]
-    [SerializeField] private NetworkObject playerPrefab;
+    [SerializeField] private NetworkObject playerPrefab; 
     [SerializeField] private Transform spawnPoint;
 
-    // вызывается Fusion 2 автоматически на сервере, когда любой игрок входит в комнату
-    void IPlayerJoined.PlayerJoined(PlayerRef player)
+    public void SceneLoadDone(in SceneLoadDoneArgs sceneInfo)
     {
-        // Спавнить объекты в Host-режиме разрешено ТОЛЬКО серверу (StateAuthority)
+        // Спавнить сетевые объекты имеет право только Сервер (Host)
         if (Runner.IsServer)
         {
-            Vector3 spawnPos = spawnPoint != null ? spawnPoint.position : Vector3.up * 2f;
+            // Поскольку мы уехали из меню, ищем точку спавна на загруженной карте по имени
+            if (spawnPoint == null)
+            {
+                GameObject spawnerObj = GameObject.Find("PlayerSpawner");
+                if (spawnerObj != null)
+                {
+                    spawnPoint = spawnerObj.transform;
+                }
+            }
+
+            // Вычисляем координаты безопасного появления
+            Vector3 spawnPos = spawnPoint != null ? spawnPoint.position : Vector3.up * 5f;
             Quaternion spawnRot = spawnPoint != null ? spawnPoint.rotation : Quaternion.identity;
 
-            // Вместо GameObject.Instantiate во Fusion используется ТОЛЬКО Runner.Spawn!
-            // Последний аргумент (player) критически важен: он дает вошедшему игроку InputAuthority (право управлять)
-            Runner.Spawn(playerPrefab, spawnPos, spawnRot, player);
-            Debug.Log($"[Сеть] Игрок {player.PlayerId} зашел!" + spawnPos);
+            // Получаем ссылку на локального игрока
+            PlayerRef localPlayer = Runner.LocalPlayer;
+
+            Debug.Log($"[Глобальный Спавнер] Сцена карты готова. Создаем корову для игрока {localPlayer.PlayerId} в координатах {spawnPos}...");
+
+            // Спавним корову на сервере и передаем клиенту InputAuthority (права управления)
+            Runner.Spawn(playerPrefab, spawnPos, spawnRot, localPlayer);
         }
     }
 }
