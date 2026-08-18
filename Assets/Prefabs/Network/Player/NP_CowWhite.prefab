@@ -1235,7 +1235,7 @@ GameObject:
   - component: {fileID: 409798498027658233}
   - component: {fileID: 7074510384146628416}
   - component: {fileID: 7855967594222113970}
-  - component: {fileID: 670264376838079973}
+  - component: {fileID: 1614565406631903561}
   m_Layer: 8
   m_Name: NP_CowWhite
   m_TagString: Player
@@ -1282,7 +1282,7 @@ MonoBehaviour:
   - {fileID: 7855967594222113970}
   - {fileID: 661697440089560611}
   - {fileID: 7074510384146628416}
-  - {fileID: 670264376838079973}
+  - {fileID: 1614565406631903561}
   ForceRemoteRenderTimeframe: 0
 --- !u!114 &661697440089560611
 MonoBehaviour:
@@ -1411,7 +1411,7 @@ MonoBehaviour:
     MinImpactfulCollisionAlignment: 0.3
     ImpactStartCorrectionTime: 0.1
     ImpactCorrectionTimeComplete: 0.3
---- !u!114 &670264376838079973
+--- !u!114 &1614565406631903561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

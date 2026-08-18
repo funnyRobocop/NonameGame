@@ -65,6 +65,8 @@ public class NetworkPlayerController : NetworkBehaviour
         }
 
         StartCoroutine(DelayPhysicsAfterSpawn());
+        
+        Debug.Log($"HasInputAuthority = {Object.HasInputAuthority}, InputAuthority = {Object.InputAuthority}, LocalPlayer = {Runner.LocalPlayer}");
     }
 
     private IEnumerator DelayPhysicsAfterSpawn()

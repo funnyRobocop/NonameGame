@@ -1,133 +1,64 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputHandler : NetworkBehaviour, IBeforeUpdate, INetworkRunnerCallbacks
+public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
 {
-    private NetworkInputData _localInputData;
-
     public override void Spawned()
     {
-        if (HasInputAuthority)
+        if (Object.HasInputAuthority)
         {
             Runner.AddCallbacks(this);
-            
-            Debug.Log($"[ЯДРО СЕТИ] Ввод принудительно зарегистрирован в колбэках Раннера!");
         }
     }
 
-    public override void Despawned(NetworkRunner runner, bool hasKey)
+    public override void Despawned(NetworkRunner runner, bool hasState)
     {
-        if (HasInputAuthority)
-        {
+        if (runner != null)
             runner.RemoveCallbacks(this);
-        }
-    }
-
-    void IBeforeUpdate.BeforeUpdate()
-    {
-        if (!HasInputAuthority) return;
-
-        var keyboard = Keyboard.current;
-        if (keyboard != null)
-        {
-            Vector2 moveVector = Vector2.zero;
-
-            if (keyboard[Key.W].isPressed) moveVector.y += 1f;
-            if (keyboard[Key.S].isPressed) moveVector.y -= 1f;
-            if (keyboard[Key.A].isPressed) moveVector.x -= 1f;
-            if (keyboard[Key.D].isPressed) moveVector.x += 1f;
-
-            _localInputData.MoveDirection = moveVector.normalized;
-            _localInputData.JumpPressed = keyboard[Key.Space].isPressed;
-            //_localInputData.SprintPressed = keyboard[Key.LeftShift].isPressed;
-        }
     }
 
     public void OnInput(NetworkRunner runner, NetworkInput input)
     {
-        if (!HasInputAuthority) return;
+        if (!Object.HasInputAuthority) return;
 
-        Debug.Log("[ПОТОК ВВОДА] Данные успешно переданы в сетевой тик!");
+        var data = new NetworkInputData();
 
-        input.Set(_localInputData);
-        _localInputData.MoveDirection = Vector2.zero;
-        _localInputData.JumpPressed = false;
-        //_localInputData.SprintPressed = false;
-    }
-
-    void INetworkRunnerCallbacks.OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnPlayerJoined(NetworkRunner runner, PlayerRef player)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnPlayerLeft(NetworkRunner runner, PlayerRef player)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ReadOnlySpan<byte> data)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnInput(NetworkRunner runner, NetworkInput input)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnConnectedToServer(NetworkRunner runner)
+        var keyboard = Keyboard.current;
+        if (keyboard != null)
         {
+            Vector2 move = Vector2.zero;
+
+            if (keyboard[Key.W].isPressed) move.y += 1f;
+            if (keyboard[Key.S].isPressed) move.y -= 1f;
+            if (keyboard[Key.A].isPressed) move.x -= 1f;
+            if (keyboard[Key.D].isPressed) move.x += 1f;
+
+            data.MoveDirection = move.normalized;            
+            data.JumpPressed = keyboard[Key.Space].isPressed;
+        }
+
+        input.Set(data);
     }
 
-    void INetworkRunnerCallbacks.OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnSceneLoadDone(NetworkRunner runner)
-    {
-    }
-
-    void INetworkRunnerCallbacks.OnSceneLoadStart(NetworkRunner runner)
-    {
-    }
+    public void OnObjectExitAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){}
+    public void OnObjectEnterAOI(NetworkRunner runner, NetworkObject obj, PlayerRef player){}
+    public void OnPlayerJoined(NetworkRunner runner, PlayerRef player){}
+    public void OnPlayerLeft(NetworkRunner runner, PlayerRef player){}
+    public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason){}
+    public void OnDisconnectedFromServer(NetworkRunner runner, NetDisconnectReason reason){}
+    public void OnConnectRequest(NetworkRunner runner, NetworkRunnerCallbackArgs.ConnectRequest request, byte[] token) {}
+    public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason){}
+    public void OnReliableDataReceived(NetworkRunner runner, PlayerRef player, ReliableKey key, ReadOnlySpan<byte> data){}
+    public void OnReliableDataProgress(NetworkRunner runner, PlayerRef player, ReliableKey key, float progress){}
+    public void OnInputMissing(NetworkRunner runner, PlayerRef player, NetworkInput input){}
+    public void OnConnectedToServer(NetworkRunner runner){}
+    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList){}
+    public void OnCustomAuthenticationResponse(NetworkRunner runner, Dictionary<string, object> data){}
+    public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken){}
+    public void OnSceneLoadDone(NetworkRunner runner){}
+    public void OnSceneLoadStart(NetworkRunner runner){}
 }
