@@ -39,6 +39,10 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
 
             data.MoveDirection = move.normalized;            
             data.JumpPressed = keyboard[Key.Space].isPressed;
+            if (Camera.main != null)
+            {
+                data.CameraRotationY = Camera.main.transform.eulerAngles.y;
+            }
         }
 
         input.Set(data);

@@ -5,24 +5,17 @@ using System.Collections;
 
 public class NetworkPlayerController : NetworkBehaviour
 {
-    private CharacterController _controller;
+    private NetworkCharacterController _controller;
     private PlayerRagdoll _ragdoll;
     private Camera _mainCamera;
     private Animator _animator;
     
-    [Header("Настройки движения")]
-    [SerializeField] private float speed;
-    
     [Header("Настройки Физики Сети")]
-    [SerializeField] private float gravity;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float terminalVelocity; // Максимальная скорость падения
     [SerializeField] private Transform _normalCameraTarget;
     [SerializeField] private float antiImpactForce = 5f; // Скорость затухания отскока
     [SerializeField] private float impactThreshold = 0.2f;
     [SerializeField] float pushPower = 7f; 
     
-    [Networked] private float _verticalVelocity { get; set; }
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
     [Networked] private Vector3 _impactForce { get; set; }
 
@@ -30,13 +23,12 @@ public class NetworkPlayerController : NetworkBehaviour
     [Networked] public NetworkBool IsFinished { get; set; }
     [Networked] public int FinishPlace { get; set; }
     
-    private bool _isJumpPressedPrevious = false; // Для отслеживания одиночного клика Пробела
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
     private Vector3 _platformMovement = Vector3.zero;
 
     public override void Spawned()
     {
-        _controller = GetComponent<CharacterController>();
+        _controller = GetComponent<NetworkCharacterController>();
         _ragdoll = GetComponent<PlayerRagdoll>();
         _animator = GetComponent<Animator>();
         _mainCamera = Camera.main;
@@ -80,121 +72,78 @@ public class NetworkPlayerController : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (!_isSpawnReady) return;
+        if (!_isSpawnReady || _controller == null) return;
 
-        // Если игрок уже финишировал — полностью блокируем считывание WASD, кнопок и прыжков
         if (IsFinished)
         {
-            // Принудительно держим скорость нулевой, но сохраняем прижимание к земле
-            if (_controller != null && _controller.isGrounded)
-            {
-                _verticalVelocity = -3.3f;
-                _controller.Move(new Vector3(0, _verticalVelocity, 0) * Runner.DeltaTime);
-            }
             return; 
         }
 
         if (GetInput(out NetworkInputData data))
         {
-            // --- 1. РАСЧЕТ ГРАВИТАЦИИ И ПРИЖИМАНИЯ ---
-            if (_controller.isGrounded)
+            if (data.JumpPressed)
             {
-                // Когда корова на земле, держим скорость отрицательной, 
-                // чтобы она не «взлетала» на кочках и ступенях
-                if (_verticalVelocity < 0.0f)
-                {
-                    _verticalVelocity = -3.3f;
-                }
-
-                // --- 2. ЛОГИКА ПРЫЖКА ПО СЕТИ ---
-                // Проверяем: нажат ли Пробел СЕЙЧАС, и НЕ был ли он зажат в прошлом кадре 
-                // (чтобы исключить бесконечный взлет при удержании кнопки)
-                if (data.JumpPressed && !_isJumpPressedPrevious)
-                {
-                    // Математическая формула прыжка Unity: корень из (высота * -2 * гравитация)
-                    _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
-                    
-                    if (_animator != null)
-                    {
-                        _animator.SetBool("Jump", true); // Включаем анимацию прыжка
-                    }
-                }
+                _controller.Jump();
+                if (_animator != null) _animator.SetBool("Jump", true);
             }
             else
             {
-                // Сбрасываем анимацию прыжка, когда уже летим вниз
                 if (_animator != null) _animator.SetBool("Jump", false);
             }
 
-            // Применяем гравитацию во времени, если не достигли терминальной скорости падения
-            if (_verticalVelocity > terminalVelocity)
-            {
-                _verticalVelocity += gravity * Runner.DeltaTime;
-            }
-
-            // Запоминаем состояние кнопки для следующего физического кадра
-            _isJumpPressedPrevious = data.JumpPressed;
-
-            // --- 3. РАСЧЕТ ГОРИЗОНТАЛЬНОГО ДВИЖЕНИЯ WASD ---
-            Vector3 inputDirection = new Vector3(data.MoveDirection.x, 0.0f, data.MoveDirection.y).normalized;
-            Vector3 movement = Vector3.zero;
+            Vector3 finalMoveDirection = Vector3.zero;
             float currentMoveSpeed = 0f;
 
             if (data.MoveDirection != Vector2.zero)
             {
-                Vector3 cameraForward = _mainCamera.transform.forward;
-                cameraForward.y = 0f;
-                Vector3 cameraRight = _mainCamera.transform.right;
-                cameraRight.y = 0f;
+                // Математически восстанавливаем направление камеры из сетевого пакета!
+                // Создаем кватернион поворота на основе переданного угла Y
+                Quaternion cameraYRotation = Quaternion.Euler(0f, data.CameraRotationY, 0f);
 
-                Vector3 targetDirection = (cameraForward * inputDirection.z + cameraRight * inputDirection.x).normalized;
+                // Получаем векторы Вперед и Вправо для этого угла (они будут ОДИНАКОВЫМИ и на хосте, и на клиенте)
+                Vector3 camForward = cameraYRotation * Vector3.forward;
+                Vector3 camRight = cameraYRotation * Vector3.right;
 
+                // Считаем честное направление бега относительно сетевой камеры
+                Vector3 inputDir = new Vector3(data.MoveDirection.x, 0f, data.MoveDirection.y).normalized;
+                Vector3 targetDirection = (camForward * inputDir.z + camRight * inputDir.x).normalized;
+
+                // Плавный сетевой разворот
                 transform.forward = Vector3.Slerp(transform.forward, targetDirection, Runner.DeltaTime * 15f);
 
-                // Считаем горизонтальный шаг
-                movement = targetDirection * speed;
-                currentMoveSpeed = speed; 
+                finalMoveDirection = targetDirection;
+                currentMoveSpeed = _controller.maxSpeed; // Для аниматора оставляем
             }
 
-            // --- ОБРАБОТКА СЕТЕВОГО ОТСКОКА ---
             if (_impactForce.magnitude > impactThreshold)
             {
-                // Прибавляем вектор отскока прямо к базовому движению WASD
-                movement += _impactForce;
-                
-                // Плавно тушим силу отскока с каждым сетевым кадром (Runner.DeltaTime вместо Time.deltaTime)
+                finalMoveDirection += _impactForce;
                 _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Runner.DeltaTime * antiImpactForce);
             }
             else
             {
                 _impactForce = Vector3.zero;
             }
-
-            // Добавляем высчитанную вертикальную скорость гравитации/прыжка в итоговый вектор
-            movement.y = _verticalVelocity;
-
-            Vector3 finalMovement = movement;
-            finalMovement *= Runner.DeltaTime;
-            finalMovement += _platformMovement;
-
-            // Двигаем Character Controller со строгим учетом сетевого шага
-            if (_isSpawnReady && _controller.enabled)
+            
+            if (_platformMovement != Vector3.zero)
             {
-                _controller.Move(finalMovement);
+                finalMoveDirection += (_platformMovement / Runner.DeltaTime);
+            }
+
+            if (_controller.enabled)
+            {
+                _controller.Move(finalMoveDirection);
             }
             
              _platformMovement = Vector3.zero;
 
             if (_animator != null)
             {
-                _animator.SetFloat("Speed", currentMoveSpeed);
-                
+                _animator.SetFloat("Speed", currentMoveSpeed);                
                 float motionSpeedMultiplier = (data.MoveDirection != Vector2.zero) ? 1f : 0f;
-                _animator.SetFloat("MotionSpeed", motionSpeedMultiplier);
-                
-                // Передаем статус земли, чтобы включались анимации падения Fall/FreeFall, если мы летим долго
-                _animator.SetBool("Grounded", _controller.isGrounded);
-                _animator.SetBool("FreeFall", !_controller.isGrounded && _verticalVelocity < -1f);
+                _animator.SetFloat("MotionSpeed", motionSpeedMultiplier);                
+                _animator.SetBool("Grounded", _controller.Grounded);
+                //_animator.SetBool("FreeFall", !_controller.Grounded && _verticalVelocity < -1f);
             }
         }
     }
@@ -230,7 +179,7 @@ public class NetworkPlayerController : NetworkBehaviour
         yield return new WaitForFixedUpdate();
 
         // 2. Полностью обнуляем физическую скорость на корне и костях, чтобы убрать инерцию падения
-        _verticalVelocity = 0f;
+        //_verticalVelocity = 0f;
         var allRigidbodies = GetComponentsInChildren<Rigidbody>();
         foreach (var rb in allRigidbodies)
         {
@@ -279,7 +228,7 @@ public class NetworkPlayerController : NetworkBehaviour
         {
             // Мы напрямую перезаписываем вертикальную скорость! 
             // Вместо плавного прибавления, мы даем резкий мощный пинок строго вверх
-            _verticalVelocity = force;
+            //_verticalVelocity = force;
 
             // Включаем анимацию прыжка/полета в аниматоре
             if (_animator != null)
