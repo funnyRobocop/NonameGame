@@ -1297,9 +1297,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerController
   _normalCameraTarget: {fileID: 4843962174877007652}
-  antiImpactForce: 33
-  impactThreshold: 0.2
   pushPower: 5
+  speed: 6
   _IsFinished:
     RawValue: 0
   _FinishPlace: 0
@@ -1396,7 +1395,7 @@ MonoBehaviour:
   jumpImpulse: 8
   acceleration: 100
   braking: 100
-  maxSpeed: 8
+  maxSpeed: 6
   rotationSpeed: 0
 --- !u!1 &3689426444718533713
 GameObject:
