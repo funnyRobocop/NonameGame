@@ -1,21 +1,18 @@
 using UnityEngine;
 using Fusion;
+using Unity.VisualScripting;
 
 public class NetworkMovingPlatform : NetworkBehaviour
 {
     [Header("Настройки вращения")]
-    [SerializeField] private float rotationSpeed = 50f; // Скорость из NetworkRotator 
-    [SerializeField] private float lerpSpeed = 10f;     // Скорость сглаживания
+    [SerializeField] private float rotationSpeed = 50f; // Скорость из NetworkRotator
 
     [Header("Центр Вращения")]
-    [SerializeField] private Transform rotationCenter; 
-
-    private Vector3 _targetPlatformVelocity = Vector3.zero;
-    private Vector3 _currentPlatformVelocity = Vector3.zero;
+    [SerializeField] private Transform rotationCenter;
     private NetworkPlayerController _detectedPlayer;
 
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -24,12 +21,21 @@ public class NetworkMovingPlatform : NetworkBehaviour
             if (playerController != null && playerController.HasInputAuthority)
             {
                 _detectedPlayer = playerController;
+                Debug.Log("Stay");
             }
         }
     }
 
-    private void CalculateTargetPlatformVelocity()
+    void OnTriggerExit(Collider other)
     {
+        _detectedPlayer = null;
+                Debug.Log("OnTriggerExit");
+    }
+
+    public override void FixedUpdateNetwork()
+    {
+        if (_detectedPlayer == null) return;
+
         Vector3 upAxis = rotationCenter.up;
                 
         Vector3 toPlayer = _detectedPlayer.transform.position - rotationCenter.position;
@@ -41,37 +47,9 @@ public class NetworkMovingPlatform : NetworkBehaviour
             Vector3 movementDirection = Vector3.Cross(upAxis, projectedOffset.normalized).normalized;
 
             float linearVelocity = (rotationSpeed * Mathf.Deg2Rad) * currentRadius;
-            
-            _targetPlatformVelocity = movementDirection * linearVelocity;
-        }
-    }
+            Vector3 platformLinearVelocity = movementDirection * linearVelocity;
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            _targetPlatformVelocity = Vector3.zero;
-            _currentPlatformVelocity = Vector3.zero;
-            _detectedPlayer = null;
-        }
-    }
-
-    public override void FixedUpdateNetwork()
-    {
-        if (_detectedPlayer == null) return;
-
-        CalculateTargetPlatformVelocity();
-
-        _currentPlatformVelocity = Vector3.Lerp(_currentPlatformVelocity, _targetPlatformVelocity, Runner.DeltaTime * lerpSpeed);
-
-        if (_currentPlatformVelocity.magnitude > 0.001f)
-        {
-            Vector3 platformMovementThisTick = _currentPlatformVelocity * Runner.DeltaTime;
-            
-            _detectedPlayer.SetNetworkPlatformMovement(platformMovementThisTick);
-
-            Quaternion rotDelta = Quaternion.Euler(0, rotationSpeed * Runner.DeltaTime, 0);
-            _detectedPlayer.transform.rotation = rotDelta * _detectedPlayer.transform.rotation;
+            _detectedPlayer.SetNetworkPlatformMovement(platformLinearVelocity);
         }
     }
 }

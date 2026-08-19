@@ -9,17 +9,17 @@ public class NetworkMover : NetworkBehaviour
     [SerializeField] private float timeOffset = 0f;                        // Смещение фазы времени
 
     private Vector3 _startWorldPos;
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
 
     public override void Spawned()
     {
         _startWorldPos = transform.position;        
-        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        /*_rigidbody = gameObject.GetComponent<Rigidbody>();
 
         if (_rigidbody == null)
         {
             Debug.LogError($"[Сбой] На объекте {gameObject.name} отсутствует Rigidbody!");
-        }
+        }*/
     }
 
     public override void Render()

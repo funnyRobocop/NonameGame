@@ -1296,11 +1296,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8304d5b4cf811f1468a0620ac1ad164a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerController
-  speed: 6
   _normalCameraTarget: {fileID: 4843962174877007652}
-  antiImpactForce: 5
+  antiImpactForce: 33
   impactThreshold: 0.2
-  pushPower: 7
+  pushPower: 5
   _IsFinished:
     RawValue: 0
   _FinishPlace: 0
@@ -1393,8 +1392,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Fusion.Unity::Fusion.NetworkCharacterController
   _stateAuthorityChangeErrorCorrectionDelta: 0
-  gravity: -25
-  jumpImpulse: 10
+  gravity: -33
+  jumpImpulse: 8
   acceleration: 100
   braking: 100
   maxSpeed: 8

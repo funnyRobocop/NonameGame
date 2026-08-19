@@ -19,11 +19,9 @@ public class NetworkBumper : MonoBehaviour
                         Vector3 bounceDir = (other.transform.position - transform.position);
                         bounceDir.y = 0f; 
                         bounceDir = bounceDir.normalized;
-                        bounceDir.y = 0.4f;
+                        //bounceDir.y = 0.5f;
 
                         networkPlayer.ApplyNetworkKnockback(bounceDir.normalized, bounceForce);
-                        
-                        Debug.Log($"[Батут] Локальный расчет отскока выполнен успешно.");
                     }
                 }
             }

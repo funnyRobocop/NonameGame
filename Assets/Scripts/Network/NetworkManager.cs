@@ -58,9 +58,9 @@ public class NetworkManager : SimulationBehaviour, ISceneLoadDone, IPlayerJoined
         Vector3 spawnPos = _spawnPoint != null ? _spawnPoint.position : Vector3.up * 5f;
         Quaternion spawnRot = _spawnPoint != null ? _spawnPoint.rotation : Quaternion.identity;
 
-        Debug.Log($"[СЕТЕВОЙ СПАВН] Создание коровы для Player ID: {player.PlayerId} на точке {spawnPos}");
+        Debug.Log($"[СЕТЕВОЙ СПАВН] Создание игрока для Player ID: {player.PlayerId} на точке {spawnPos}");
 
-        // Спавним корову и отдаем права ввода (InputAuthority) конкретно зашедшему плееру
+        // Спавним игрока и отдаем права ввода (InputAuthority) конкретно зашедшему плееру
         Runner.Spawn(playerPrefab, spawnPos, spawnRot, player);
     }
 }

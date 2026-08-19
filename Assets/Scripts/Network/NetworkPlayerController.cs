@@ -5,30 +5,36 @@ using System.Collections;
 
 public class NetworkPlayerController : NetworkBehaviour
 {
-    private NetworkCharacterController _controller;
+    private NetworkCharacterController _networkController;
     private PlayerRagdoll _ragdoll;
     private Camera _mainCamera;
     private Animator _animator;
     
-    [Header("Настройки Физики Сети")]
     [SerializeField] private Transform _normalCameraTarget;
-    [SerializeField] private float antiImpactForce = 5f; // Скорость затухания отскока
-    [SerializeField] private float impactThreshold = 0.2f;
+
+    [Header("Настройки Физики Сети")]
     [SerializeField] float pushPower = 7f; 
+    [SerializeField] float speed = 8f;
     
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
-    [Networked] private Vector3 _impactForce { get; set; }
 
     [Header("Сетевой статус финиша")]
     [Networked] public NetworkBool IsFinished { get; set; }
     [Networked] public int FinishPlace { get; set; }
+
+    [Header("Для анимации")]
+    [Networked] private float _netSpeed { get; set; }
+    [Networked] private float _netMotionSpeed { get; set; }
+    [Networked] private NetworkBool _netGrounded { get; set; }
+    [Networked] private NetworkBool _netJumpTrigger { get; set; }
     
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
     private Vector3 _platformMovement = Vector3.zero;
+    private Vector3 _externalVelocityThisTick = Vector3.zero;
 
     public override void Spawned()
     {
-        _controller = GetComponent<NetworkCharacterController>();
+        _networkController = GetComponent<NetworkCharacterController>();
         _ragdoll = GetComponent<PlayerRagdoll>();
         _animator = GetComponent<Animator>();
         _mainCamera = Camera.main;
@@ -72,7 +78,7 @@ public class NetworkPlayerController : NetworkBehaviour
 
     public override void FixedUpdateNetwork()
     {
-        if (!_isSpawnReady || _controller == null) return;
+        if (!_isSpawnReady || _networkController == null) return;
 
         if (IsFinished)
         {
@@ -83,67 +89,63 @@ public class NetworkPlayerController : NetworkBehaviour
         {
             if (data.JumpPressed)
             {
-                _controller.Jump();
-                if (_animator != null) _animator.SetBool("Jump", true);
-            }
-            else
-            {
-                if (_animator != null) _animator.SetBool("Jump", false);
+                _networkController.Jump();
             }
 
-            Vector3 finalMoveDirection = Vector3.zero;
+            Vector3 inputDirection = new Vector3(data.MoveDirection.x, 0.0f, data.MoveDirection.y).normalized;
+            Vector3 moveVelocity = Vector3.zero;
             float currentMoveSpeed = 0f;
 
             if (data.MoveDirection != Vector2.zero)
             {
-                // Математически восстанавливаем направление камеры из сетевого пакета!
-                // Создаем кватернион поворота на основе переданного угла Y
                 Quaternion cameraYRotation = Quaternion.Euler(0f, data.CameraRotationY, 0f);
-
-                // Получаем векторы Вперед и Вправо для этого угла (они будут ОДИНАКОВЫМИ и на хосте, и на клиенте)
                 Vector3 camForward = cameraYRotation * Vector3.forward;
                 Vector3 camRight = cameraYRotation * Vector3.right;
 
-                // Считаем честное направление бега относительно сетевой камеры
-                Vector3 inputDir = new Vector3(data.MoveDirection.x, 0f, data.MoveDirection.y).normalized;
-                Vector3 targetDirection = (camForward * inputDir.z + camRight * inputDir.x).normalized;
-
-                // Плавный сетевой разворот
+                Vector3 targetDirection = (camForward * inputDirection.z + camRight * inputDirection.x).normalized;
                 transform.forward = Vector3.Slerp(transform.forward, targetDirection, Runner.DeltaTime * 15f);
 
-                finalMoveDirection = targetDirection;
-                currentMoveSpeed = _controller.maxSpeed; // Для аниматора оставляем
+                moveVelocity = targetDirection * speed;
+                currentMoveSpeed = speed;
             }
 
-            if (_impactForce.magnitude > impactThreshold)
+            if (_externalVelocityThisTick != Vector3.zero)
             {
-                finalMoveDirection += _impactForce;
-                _impactForce = Vector3.Lerp(_impactForce, Vector3.zero, Runner.DeltaTime * antiImpactForce);
+                moveVelocity += _externalVelocityThisTick;
+                
+                _externalVelocityThisTick = Vector3.zero;
+            }
+
+            _networkController.Move(moveVelocity);
+
+            _netSpeed = currentMoveSpeed;
+            _netMotionSpeed = (data.MoveDirection != Vector2.zero) ? 1f : 0f;
+            _netGrounded = _networkController.Grounded;
+
+            if (data.JumpPressed)
+            {
+                _netJumpTrigger = true;
+            }
+        }
+    }
+
+    public override void Render()
+    {
+        if (_animator != null)
+        {
+            // Читаем сглаженные сетевые переменные и применяем к аниматору у всех на экранах!
+            _animator.SetFloat("Speed", _netSpeed);
+            _animator.SetFloat("MotionSpeed", _netMotionSpeed);
+            _animator.SetBool("Grounded", _netGrounded);
+            
+            if (_netJumpTrigger)
+            {
+                _animator.SetBool("Jump", true);
+                if (HasInputAuthority || Runner.IsServer) _netJumpTrigger = false; // Сбрасываем триггер прыжка
             }
             else
             {
-                _impactForce = Vector3.zero;
-            }
-            
-            if (_platformMovement != Vector3.zero)
-            {
-                finalMoveDirection += (_platformMovement / Runner.DeltaTime);
-            }
-
-            if (_controller.enabled)
-            {
-                _controller.Move(finalMoveDirection);
-            }
-            
-             _platformMovement = Vector3.zero;
-
-            if (_animator != null)
-            {
-                _animator.SetFloat("Speed", currentMoveSpeed);                
-                float motionSpeedMultiplier = (data.MoveDirection != Vector2.zero) ? 1f : 0f;
-                _animator.SetFloat("MotionSpeed", motionSpeedMultiplier);                
-                _animator.SetBool("Grounded", _controller.Grounded);
-                //_animator.SetBool("FreeFall", !_controller.Grounded && _verticalVelocity < -1f);
+                _animator.SetBool("Jump", false);
             }
         }
     }
@@ -166,59 +168,56 @@ public class NetworkPlayerController : NetworkBehaviour
 
     private IEnumerator ServerRespawnRoutine()
     {
-        // 1. Принудительно выключаем рэгдолл через готовый RPC на всех экранах
-        var ragdoll = GetComponent<NetworkPlayerRagdoll>();
+        // 1. Принудительно выключаем рэгдолл
+        var ragdoll = GetComponent<PlayerRagdoll>();
         if (ragdoll != null)
         {
-            // Вызываем RPC_StandUp или метод принудительного выключения физики костей
-            // Чтобы кости перестали жить своей жизнью до телепортации
-            ragdoll.LocalToggleRagdoll(false); 
+            ragdoll.ToggleRagdoll(false); 
         }
 
-        // Ждем один физический кадр, чтобы Unity успела переключить isKinematic на костях скелета
         yield return new WaitForFixedUpdate();
 
-        // 2. Полностью обнуляем физическую скорость на корне и костях, чтобы убрать инерцию падения
-        //_verticalVelocity = 0f;
+        // 2. Обнуляем физические скорости костей
         var allRigidbodies = GetComponentsInChildren<Rigidbody>();
         foreach (var rb in allRigidbodies)
         {
-            if (!rb.isKinematic)
-            {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-            }
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
         }
 
-        // 3. Отключаем CharacterController, чтобы он разрешил мгновенную смену координат
-        if (_controller != null) _controller.enabled = false;
+        // 3. МАГИЯ ТЕЛЕПОРТАЦИИ ДЛЯ NETWORK CHARACTER CONTROLLER:
+        // Мы вызываем специальный метод контроллера, который мгновенно сбрасывает скорости 
+        // симуляции и переносит корову на чекпоинт на сервере и у всех клиентов одновременно!
+        if (_networkController != null)
+        {
+            _networkController.Teleport(_lastCheckpointPosition);
+        }
+        else
+        {
+            // На случай, если компонент потерялся
+            transform.position = _lastCheckpointPosition;
+        }
 
-        // 4. Переносим корову на сохраненный чекпоинт
-        transform.position = _lastCheckpointPosition;
+        _platformMovement = Vector3.zero;
 
-        // Даем кадру Unity зафиксировать трансформ
         yield return new WaitForFixedUpdate();
 
-        // 5. Включаем CharacterController обратно
-        if (_controller != null) _controller.enabled = true;
-
-        Debug.Log($"[Сеть] Физический респавн рэгдолла завершен. Точка: {_lastCheckpointPosition}");
+        Debug.Log($"[Сеть] Физический сетевой респавн завершен успешно! Точка: {_lastCheckpointPosition}");
     }
 
     public void ApplyNetworkKnockback(Vector3 direction, float force)
     {
-        // Во Fusion изменять [Networked] переменные напрямую разрешено только Серверу (StateAuthority)
-        // или владельцу ввода (InputAuthority), если включен специальный режим. 
-        // Самый надежный способ для прототипа — прикладывать силу на стороне того, кто управляет телом
-        if (HasInputAuthority || Runner.IsServer)
+        if (_networkController != null && _isSpawnReady)
         {
-            _impactForce += direction * force;
+            _networkController.Velocity += direction * force;
+            
+            Debug.Log($"[Импульс] К сетевой скорости прибавлен вектор: {direction * force}");
         }
     }
 
-    public void SetNetworkPlatformMovement(Vector3 movement)
+    public void SetNetworkPlatformMovement(Vector3 externalVelocity)
     {
-        _platformMovement = movement;
+        _externalVelocityThisTick = externalVelocity;
     }
 
     public void ApplyNetworkTrampolineBounce(float force)

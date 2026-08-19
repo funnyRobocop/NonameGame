@@ -13,7 +13,7 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
     [SerializeField] private float standUpDistance = 0.3f; 
 
     private CameraSwitcher _cameraSwitcher;
-    private CharacterController _controller;
+    private NetworkCharacterController _controller;
     private Animator _animator;
     private Rigidbody[] _ragdollRigidbones;
     private Collider[] _ragdollColliders;
@@ -31,7 +31,7 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
     
     void Awake()
     {
-        _controller = GetComponent<CharacterController>();
+        _controller = GetComponent<NetworkCharacterController>();
         _animator = GetComponent<Animator>();
         
         _ragdollRigidbones = GetComponentsInChildren<Rigidbody>();

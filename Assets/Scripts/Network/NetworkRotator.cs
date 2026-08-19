@@ -14,18 +14,18 @@ public class NetworkRotator : NetworkBehaviour
     [SerializeField] private float maxAngle = 90f;              
     [SerializeField] private float timeOffset = 0f;
     
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
     private Quaternion _startRotation;
 
     public override void Spawned()
     {
         _startRotation = transform.localRotation;
-        _rigidbody = gameObject.GetComponent<Rigidbody>();
+        /*_rigidbody = gameObject.GetComponent<Rigidbody>();
         
         if (_rigidbody == null)
         {
             Debug.LogError($"[Сбой] На объекте {gameObject.name} отсутствует Rigidbody! Сетевое вращение будет дергаться.");
-        }
+        }*/
     }
 
     public override void Render()
