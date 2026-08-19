@@ -28,7 +28,7 @@ public class NetworkRotator : NetworkBehaviour
         }
     }
 
-    public override void FixedUpdateNetwork()
+    public override void Render()
     {
         float syncedTime = Runner.SimulationTime + timeOffset;
         Quaternion targetRotation = _startRotation;
@@ -44,6 +44,7 @@ public class NetworkRotator : NetworkBehaviour
             targetRotation = _startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
         }
         
-        _rigidbody.MoveRotation(targetRotation);
+        //_rigidbody.MoveRotation(targetRotation);
+        transform.rotation = targetRotation;
     }
 }

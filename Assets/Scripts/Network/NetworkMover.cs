@@ -22,7 +22,7 @@ public class NetworkMover : NetworkBehaviour
         }
     }
 
-    public override void FixedUpdateNetwork()
+    public override void Render()
     {
         // Получаем синхронизированное время сервера
         float syncedTime = Runner.SimulationTime + timeOffset;
@@ -36,6 +36,7 @@ public class NetworkMover : NetworkBehaviour
         // Вычисляем целевую мировую координату для этого сетевого тика
         Vector3 targetWorldPosition = _startWorldPos + (moveOffset * smoothPingPong);
         
-        _rigidbody.MovePosition(targetWorldPosition);
+        //_rigidbody.MovePosition(targetWorldPosition);
+        transform.position = targetWorldPosition; // Обновляем позицию объекта для визуализации
     }
 }

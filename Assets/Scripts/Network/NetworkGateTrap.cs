@@ -15,20 +15,20 @@ public class NetworkGateTrap : NetworkBehaviour
     [SerializeField] private float timeOffset = 0f;     
 
     private Quaternion _startRotation;
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
 
     public override void Spawned()
     {
         _startRotation = transform.localRotation;
-        _rigidbody = GetComponent<Rigidbody>();
+        /*_rigidbody = GetComponent<Rigidbody>();
 
         if (_rigidbody == null)
         {
             Debug.LogWarning($"[Внимание] На платформе {gameObject.name} не найден Rigidbody!");
-        }
+        }*/
     }
 
-    public override void FixedUpdateNetwork()
+    public override void Render()
     {
         float syncedTime = Runner.SimulationTime + timeOffset;
         float timeInCycle = syncedTime % cycleDuration;
@@ -56,7 +56,7 @@ public class NetworkGateTrap : NetworkBehaviour
         float currentAngle = targetAngle * progress;
         Quaternion targetLocalRotation = _startRotation * Quaternion.AngleAxis(currentAngle, rotationAxis);
 
-        if (_rigidbody != null)
+        /*if (_rigidbody != null)
         {
             // Для MoveRotation переводим локальный поворот в мировой относительно родителя
             Quaternion targetWorldRotation = transform.parent != null ? transform.parent.rotation * targetLocalRotation : targetLocalRotation;
@@ -65,6 +65,8 @@ public class NetworkGateTrap : NetworkBehaviour
         else
         {
             transform.localRotation = targetLocalRotation;
-        }
+        }*/
+
+        transform.localRotation = targetLocalRotation;
     }
 }

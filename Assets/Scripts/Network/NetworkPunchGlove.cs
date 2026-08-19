@@ -12,20 +12,20 @@ public class NetworkPunchGlove : NetworkBehaviour
     [SerializeField] private float timeOffset = 0f;     
 
     private Vector3 _startWorldPos; // Для Rigidbody используем мировые координаты
-    private Rigidbody _rigidbody;
+    //private Rigidbody _rigidbody;
 
     public override void Spawned()
     {
         _startWorldPos = transform.position;
-        _rigidbody = GetComponent<Rigidbody>();
+        /*_rigidbody = GetComponent<Rigidbody>();
 
         if (_rigidbody == null)
         {
             Debug.LogWarning($"[Внимание] На перчатке {gameObject.name} не найден Rigidbody!");
-        }
+        }*/
     }
 
-    public override void FixedUpdateNetwork()
+    public override void Render()
     {
         float syncedTime = Runner.SimulationTime + timeOffset;
         float timeInCycle = syncedTime % cycleDuration;
@@ -53,13 +53,15 @@ public class NetworkPunchGlove : NetworkBehaviour
         // Вычисляем целевую мировую позицию перчатки (используем transform.forward для направления вылета)
         Vector3 targetWorldPos = _startWorldPos + (transform.forward * punchDistance * progress);
 
-        if (_rigidbody != null)
+        /*if (_rigidbody != null)
         {
             _rigidbody.MovePosition(targetWorldPos);
         }
         else
         {
             transform.position = targetWorldPos;
-        }
+        }*/
+
+        transform.position = targetWorldPos;
     }
 }
