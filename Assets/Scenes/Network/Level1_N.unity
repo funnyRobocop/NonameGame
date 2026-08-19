@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e306abf373cdbf45a093ec13f67d094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkTimer
-  roundDuration: 60
+  roundDuration: 6000
   timerText: {fileID: 636898892}
 --- !u!4 &417199137
 Transform:
