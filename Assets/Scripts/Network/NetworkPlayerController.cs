@@ -110,6 +110,8 @@ public class NetworkPlayerController : NetworkBehaviour
             if (data.JumpPressed && _networkController.Grounded && _dashActiveTimer.ExpiredOrNotRunning(Runner)) 
             {
                 _networkController.Jump();
+                _netJumpTrigger = true;
+                data.JumpPressed = false;
             }
 
             Vector3 finalMoveVelocity = Vector3.zero;

@@ -7,6 +7,9 @@ using UnityEngine.InputSystem;
 
 public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
 {
+
+    private bool _wasSpacePressedLastFrame = false;
+
     public override void Spawned()
     {
         if (Object.HasInputAuthority)
@@ -38,13 +41,25 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
             if (keyboard[Key.D].isPressed) move.x += 1f;
 
             data.MoveDirection = move.normalized;            
-            data.JumpPressed = keyboard[Key.Space].isPressed;
-             data.DashPressed = keyboard[Key.LeftShift].isPressed;
-             
-            if (Camera.main != null)
+            data.DashPressed = keyboard[Key.LeftShift].isPressed;
+
+            bool isSpaceCurrentlyPressed = keyboard[Key.Space].isPressed;
+
+             if (isSpaceCurrentlyPressed && !_wasSpacePressedLastFrame)
             {
-                data.CameraRotationY = Camera.main.transform.eulerAngles.y;
+                data.JumpPressed = true;
             }
+            else
+            {
+                data.JumpPressed = false;
+            }
+
+            _wasSpacePressedLastFrame = isSpaceCurrentlyPressed;
+        }
+             
+        if (Camera.main != null)
+        {
+            data.CameraRotationY = Camera.main.transform.eulerAngles.y;
         }
 
         input.Set(data);
