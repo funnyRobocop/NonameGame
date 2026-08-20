@@ -1300,8 +1300,8 @@ MonoBehaviour:
   _normalCameraTarget: {fileID: 4843962174877007652}
   pushPower: 5
   speed: 6
-  dashForce: 15
-  dashCooldown: 1.5
+  dashSpeed: 20
+  dashDuration: 0.28
   _IsFinished:
     RawValue: 0
   _FinishPlace: 0

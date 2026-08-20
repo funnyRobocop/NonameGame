@@ -17,11 +17,13 @@ public class NetworkPlayerController : NetworkBehaviour
     [SerializeField] float speed = 8f;
 
     [Header("Настройки Сетевого Рывка (Dash)")]
-    [SerializeField] private float dashForce = 15f;
-    [SerializeField] private float dashCooldown = 1.5f;
+    [SerializeField] private float dashSpeed = 20f;
+    [SerializeField] private float dashDuration = 0.28f;
     
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
-    [Networked] private TickTimer _dashCooldownTimer { get; set; }
+    [Networked] private TickTimer _dashActiveTimer { get; set; } 
+    [Networked] private Vector3 _dashDirection { get; set; }
+    [Networked] private NetworkBool _hasDashedInAir { get; set; } 
 
     [Header("Сетевой статус финиша")]
     [Networked] public NetworkBool IsFinished { get; set; }
@@ -37,6 +39,7 @@ public class NetworkPlayerController : NetworkBehaviour
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
     private Vector3 _platformMovement = Vector3.zero;
     private Vector3 _externalVelocityThisTick = Vector3.zero;
+    private float _baseMaxSpeedInInspector;
 
     public override void Spawned()
     {
@@ -68,6 +71,12 @@ public class NetworkPlayerController : NetworkBehaviour
             _lastCheckpointPosition = transform.position;    
         }
 
+        if (_networkController != null)
+        {
+            // Шаг 1. Запоминаем ту максимальную скорость, которую вы выставили в инспекторе (например 6 или 8)
+            _baseMaxSpeedInInspector = _networkController.maxSpeed;
+        }
+
         StartCoroutine(DelayPhysicsAfterSpawn());
         
         Debug.Log($"HasInputAuthority = {Object.HasInputAuthority}, InputAuthority = {Object.InputAuthority}, LocalPlayer = {Runner.LocalPlayer}");
@@ -93,59 +102,75 @@ public class NetworkPlayerController : NetworkBehaviour
 
         if (GetInput(out NetworkInputData data))
         {
-            if (data.JumpPressed)
+            if (_networkController.Grounded)
+            {
+                _hasDashedInAir = false;
+            }
+
+            if (data.JumpPressed && _networkController.Grounded && _dashActiveTimer.ExpiredOrNotRunning(Runner)) 
             {
                 _networkController.Jump();
             }
 
-            Vector3 inputDirection = new Vector3(data.MoveDirection.x, 0.0f, data.MoveDirection.y).normalized;
-            Vector3 moveVelocity = Vector3.zero;
+            Vector3 finalMoveVelocity = Vector3.zero;
             float currentMoveSpeed = 0f;
-            Vector3 dashDirection = transform.forward;
 
-            if (data.MoveDirection != Vector2.zero)
+            // --- 1. ПРОВЕРКА СОСТОЯНИЯ АКТИВНОГО РЫВКА ---
+            if (!_dashActiveTimer.ExpiredOrNotRunning(Runner))
             {
-                Quaternion cameraYRotation = Quaternion.Euler(0f, data.CameraRotationY, 0f);
-                Vector3 camForward = cameraYRotation * Vector3.forward;
-                Vector3 camRight = cameraYRotation * Vector3.right;
+                // МАГИЯ УВЕЛИЧЕНИЯ ЛИМИТA: Пока корова летит в рывке, мы разжимаем тиски NCC 
+                // и выставляем максимальную скорость равной dashSpeed (20)!
+                _networkController.maxSpeed = dashSpeed;
 
-                Vector3 targetDirection = (camForward * inputDirection.z + camRight * inputDirection.x).normalized;
-                transform.forward = Vector3.Slerp(transform.forward, targetDirection, Runner.DeltaTime * 15f);
+                // Направляем вектор полета строго вперед
+                finalMoveVelocity = _dashDirection * dashSpeed;
+                currentMoveSpeed = dashSpeed;
+            }
+            else
+            {
+                // --- КРИТИЧЕСКИЙ ШАГ: РЫВОК ЗАВЕРШЕН, ВОЗВРАЩАЕМ ЛИМИТ СКОРОСТИ НАЗАД ---
+                // Как только таймер иссяк — мгновенно возвращаем NCC его родную скорость бега (например 6)
+                _networkController.maxSpeed = _baseMaxSpeedInInspector;
 
-                moveVelocity = targetDirection * speed;
-                currentMoveSpeed = speed;
+                // Обычный расчет WASD бега
+                Vector3 inputDirection = new Vector3(data.MoveDirection.x, 0.0f, data.MoveDirection.y).normalized;
 
-                dashDirection = targetDirection;
+                if (data.MoveDirection != Vector2.zero)
+                {
+                    Quaternion cameraYRotation = Quaternion.Euler(0f, data.CameraRotationY, 0f);
+                    Vector3 camForward = cameraYRotation * Vector3.forward;
+                    Vector3 camRight = cameraYRotation * Vector3.right;
+
+                    Vector3 targetDirection = (camForward * inputDirection.z + camRight * inputDirection.x).normalized;
+                    transform.forward = Vector3.Slerp(transform.forward, targetDirection, Runner.DeltaTime * 15f);
+
+                    finalMoveVelocity = targetDirection * speed;
+                    currentMoveSpeed = speed;
+                }
+
+                // --- 2. АКТИВАЦИЯ РЫВКА В ВОЗДУХЕ ---
+                if (data.DashPressed && !_networkController.Grounded && !_hasDashedInAir)
+                {
+                    _hasDashedInAir = true;
+
+                    // Включаем таймер полета рыбкой на 0.28 секунды
+                    _dashActiveTimer = TickTimer.CreateFromSeconds(Runner, dashDuration);
+
+                    // Фиксируем направление броска
+                    _dashDirection = (data.MoveDirection != Vector2.zero) ? finalMoveVelocity.normalized : transform.forward;
+
+                    // Мгновенно расширяем лимит скорости до взрывного значения
+                    _networkController.maxSpeed = dashSpeed;
+                    finalMoveVelocity = _dashDirection * dashSpeed;
+                    currentMoveSpeed = dashSpeed;
+
+                    _netDashTrigger = true;
+                    
+                    Debug.Log($"[Рывок 2.1] Лимит MaxSpeed расширен до {dashSpeed}! Корова ушла в полет.");
+                }
             }
 
-            /*if (_externalVelocityThisTick != Vector3.zero)
-            {
-                moveVelocity += _externalVelocityThisTick;
-                
-                _externalVelocityThisTick = Vector3.zero;
-            }*/
-
-            _networkController.Move(moveVelocity);
-
-            if (data.DashPressed && _dashCooldownTimer.ExpiredOrNotRunning(Runner))
-            {
-                // Запускаем таймер перезарядки на сервере строго по тикам Fusion
-                _dashCooldownTimer = TickTimer.CreateFromSeconds(Runner, dashCooldown);
-
-                // Прямой физический импульс! Принудительно инжектируем силу рывка в Velocity контроллера.
-                // Это мгновенно перебьет ограничение Max Speed и выстрелит игрока вперед!
-                Vector3 dashImpulse = dashDirection * dashForce;
-                
-                // Сохраняем текущую вертикальную скорость (чтобы рывок в воздухе сохранял гравитацию)
-                dashImpulse.y = _networkController.Velocity.y; 
-                
-                _networkController.Velocity = dashImpulse;
-
-                // Включаем триггер анимации рывка
-                _netDashTrigger = true;
-                
-                Debug.Log($"[Сеть] Корова совершила рывок вперед с силой {dashForce}!");
-            }
+            _networkController.Move(finalMoveVelocity);
 
             _netSpeed = currentMoveSpeed;
             _netMotionSpeed = (data.MoveDirection != Vector2.zero) ? 1f : 0f;
