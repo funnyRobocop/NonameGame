@@ -15,8 +15,13 @@ public class NetworkPlayerController : NetworkBehaviour
     [Header("Настройки Физики Сети")]
     [SerializeField] float pushPower = 7f; 
     [SerializeField] float speed = 8f;
+
+    [Header("Настройки Сетевого Рывка (Dash)")]
+    [SerializeField] private float dashForce = 15f;
+    [SerializeField] private float dashCooldown = 1.5f;
     
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
+    [Networked] private TickTimer _dashCooldownTimer { get; set; }
 
     [Header("Сетевой статус финиша")]
     [Networked] public NetworkBool IsFinished { get; set; }
@@ -27,6 +32,7 @@ public class NetworkPlayerController : NetworkBehaviour
     [Networked] private float _netMotionSpeed { get; set; }
     [Networked] private NetworkBool _netGrounded { get; set; }
     [Networked] private NetworkBool _netJumpTrigger { get; set; }
+    [Networked] private NetworkBool _netDashTrigger { get; set; }
     
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
     private Vector3 _platformMovement = Vector3.zero;
@@ -95,6 +101,7 @@ public class NetworkPlayerController : NetworkBehaviour
             Vector3 inputDirection = new Vector3(data.MoveDirection.x, 0.0f, data.MoveDirection.y).normalized;
             Vector3 moveVelocity = Vector3.zero;
             float currentMoveSpeed = 0f;
+            Vector3 dashDirection = transform.forward;
 
             if (data.MoveDirection != Vector2.zero)
             {
@@ -107,25 +114,44 @@ public class NetworkPlayerController : NetworkBehaviour
 
                 moveVelocity = targetDirection * speed;
                 currentMoveSpeed = speed;
+
+                dashDirection = targetDirection;
             }
 
-            if (_externalVelocityThisTick != Vector3.zero)
+            /*if (_externalVelocityThisTick != Vector3.zero)
             {
                 moveVelocity += _externalVelocityThisTick;
                 
                 _externalVelocityThisTick = Vector3.zero;
-            }
+            }*/
 
             _networkController.Move(moveVelocity);
+
+            if (data.DashPressed && _dashCooldownTimer.ExpiredOrNotRunning(Runner))
+            {
+                // Запускаем таймер перезарядки на сервере строго по тикам Fusion
+                _dashCooldownTimer = TickTimer.CreateFromSeconds(Runner, dashCooldown);
+
+                // Прямой физический импульс! Принудительно инжектируем силу рывка в Velocity контроллера.
+                // Это мгновенно перебьет ограничение Max Speed и выстрелит игрока вперед!
+                Vector3 dashImpulse = dashDirection * dashForce;
+                
+                // Сохраняем текущую вертикальную скорость (чтобы рывок в воздухе сохранял гравитацию)
+                dashImpulse.y = _networkController.Velocity.y; 
+                
+                _networkController.Velocity = dashImpulse;
+
+                // Включаем триггер анимации рывка
+                _netDashTrigger = true;
+                
+                Debug.Log($"[Сеть] Корова совершила рывок вперед с силой {dashForce}!");
+            }
 
             _netSpeed = currentMoveSpeed;
             _netMotionSpeed = (data.MoveDirection != Vector2.zero) ? 1f : 0f;
             _netGrounded = _networkController.Grounded;
 
-            if (data.JumpPressed)
-            {
-                _netJumpTrigger = true;
-            }
+            if (data.JumpPressed) _netJumpTrigger = true;
         }
     }
 
@@ -133,7 +159,6 @@ public class NetworkPlayerController : NetworkBehaviour
     {
         if (_animator != null)
         {
-            // Читаем сглаженные сетевые переменные и применяем к аниматору у всех на экранах!
             _animator.SetFloat("Speed", _netSpeed);
             _animator.SetFloat("MotionSpeed", _netMotionSpeed);
             _animator.SetBool("Grounded", _netGrounded);
@@ -141,11 +166,18 @@ public class NetworkPlayerController : NetworkBehaviour
             if (_netJumpTrigger)
             {
                 _animator.SetBool("Jump", true);
-                if (HasInputAuthority || Runner.IsServer) _netJumpTrigger = false; // Сбрасываем триггер прыжка
+                if (HasInputAuthority || Runner.IsServer) _netJumpTrigger = false;
             }
             else
             {
                 _animator.SetBool("Jump", false);
+            }
+
+            if (_netDashTrigger)
+            {
+                _animator.SetTrigger("Dive"); 
+                
+                if (HasInputAuthority || Runner.IsServer) _netDashTrigger = false;
             }
         }
     }
