@@ -188,7 +188,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3449997ac646cef40b0edf91841129d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkTrampoline
-  bounceForce: 18
+  bounceForce: 16
+  stunTime: 0.42
   visualModel: {fileID: 1517793981574011021}
   squashScaleY: 0.43
   duration: 0.1

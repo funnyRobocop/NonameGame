@@ -29,12 +29,20 @@ public class NetworkPlayerController : NetworkBehaviour
     [Networked] public NetworkBool IsFinished { get; set; }
     [Networked] public int FinishPlace { get; set; }
 
+
+    [Header("Настройки Сетевого Оглушения (Knockback/Stun)")]
+    // Таймер, в течение которого игрок полностью теряет управление (WASD заблокирован)
+    [Networked] private TickTimer _stunTimer { get; set; }
+    // Вектор текущей затухающей силы отскока от бампера
+    [Networked] private Vector3 _knockbackVelocity { get; set; }
+
     [Header("Для анимации")]
     [Networked] private float _netSpeed { get; set; }
     [Networked] private float _netMotionSpeed { get; set; }
     [Networked] private NetworkBool _netGrounded { get; set; }
     [Networked] private NetworkBool _netJumpTrigger { get; set; }
     [Networked] private NetworkBool _netDashTrigger { get; set; }
+    [Networked] private NetworkBool _netStunTrigger { get; set; } 
     
     private bool _isSpawnReady = false; // Предохранитель для первого кадра
     private Vector3 _platformMovement = Vector3.zero;
@@ -117,24 +125,38 @@ public class NetworkPlayerController : NetworkBehaviour
             Vector3 finalMoveVelocity = Vector3.zero;
             float currentMoveSpeed = 0f;
 
-            // --- 1. ПРОВЕРКА СОСТОЯНИЯ АКТИВНОГО РЫВКА ---
-            if (!_dashActiveTimer.ExpiredOrNotRunning(Runner))
+            // --- ШАГ 1. ПРОВЕРКА СОСТОЯНИЯ ОГЛУШЕНИЯ (Stun State) ---
+            if (!_stunTimer.ExpiredOrNotRunning(Runner))
             {
-                // МАГИЯ УВЕЛИЧЕНИЯ ЛИМИТA: Пока корова летит в рывке, мы разжимаем тиски NCC 
-                // и выставляем максимальную скорость равной dashSpeed (20)!
-                _networkController.maxSpeed = dashSpeed;
+                // ИГРОК ОГЛУШЕН: WASD полностью игнорируется! 
+                // Метод .Move() получает исключительно силу отскока от бампера
+                finalMoveVelocity = _knockbackVelocity;
+                currentMoveSpeed = _knockbackVelocity.magnitude;
 
-                // Направляем вектор полета строго вперед
+                // Плавно гасим силу отскока с каждым тиком симуляции по законам трения воздуха
+                _knockbackVelocity = Vector3.MoveTowards(_knockbackVelocity, Vector3.zero, Runner.DeltaTime * 25f);
+            }
+            // --- ШАГ 2. ПРОВЕРКА СОСТОЯНИЯ АКТИВНОГО РЫВКА ---
+            else if (!_dashActiveTimer.ExpiredOrNotRunning(Runner))
+            {
+                _networkController.maxSpeed = dashSpeed;
                 finalMoveVelocity = _dashDirection * dashSpeed;
                 currentMoveSpeed = dashSpeed;
             }
+            // --- ШАГ 3. СТАНДАРТНЫЙ БЕГ WASD (Управление доступно) ---
             else
             {
-                // --- КРИТИЧЕСКИЙ ШАГ: РЫВОК ЗАВЕРШЕН, ВОЗВРАЩАЕМ ЛИМИТ СКОРОСТИ НАЗАД ---
-                // Как только таймер иссяк — мгновенно возвращаем NCC его родную скорость бега (например 6)
+                // Возвращаем нормальный лимит максимальной скорости бега
                 _networkController.maxSpeed = _baseMaxSpeedInInspector;
 
-                // Обычный расчет WASD бега
+                // Обработка прыжка
+                if (data.JumpPressed && _networkController.Grounded) 
+                {
+                    _networkController.Jump();
+                    _netJumpTrigger = true;
+                    data.JumpPressed = false; 
+                }
+
                 Vector3 inputDirection = new Vector3(data.MoveDirection.x, 0.0f, data.MoveDirection.y).normalized;
 
                 if (data.MoveDirection != Vector2.zero)
@@ -150,25 +172,18 @@ public class NetworkPlayerController : NetworkBehaviour
                     currentMoveSpeed = speed;
                 }
 
-                // --- 2. АКТИВАЦИЯ РЫВКА В ВОЗДУХЕ ---
+                // АКТИВАЦИЯ РЫВКА В ВОЗДУХЕ
                 if (data.DashPressed && !_networkController.Grounded && !_hasDashedInAir)
                 {
                     _hasDashedInAir = true;
-
-                    // Включаем таймер полета рыбкой на 0.28 секунды
                     _dashActiveTimer = TickTimer.CreateFromSeconds(Runner, dashDuration);
-
-                    // Фиксируем направление броска
                     _dashDirection = (data.MoveDirection != Vector2.zero) ? finalMoveVelocity.normalized : transform.forward;
 
-                    // Мгновенно расширяем лимит скорости до взрывного значения
                     _networkController.maxSpeed = dashSpeed;
                     finalMoveVelocity = _dashDirection * dashSpeed;
                     currentMoveSpeed = dashSpeed;
 
                     _netDashTrigger = true;
-                    
-                    Debug.Log($"[Рывок 2.1] Лимит MaxSpeed расширен до {dashSpeed}! Корова ушла в полет.");
                 }
             }
 
@@ -205,6 +220,13 @@ public class NetworkPlayerController : NetworkBehaviour
                 _animator.SetTrigger("Dive"); 
                 
                 if (HasInputAuthority || Runner.IsServer) _netDashTrigger = false;
+            }
+
+            if (_netStunTrigger)
+            {
+                _animator.SetTrigger("Stun"); 
+                
+                if (HasInputAuthority || Runner.IsServer) _netStunTrigger = false;
             }
         }
     }
@@ -264,13 +286,23 @@ public class NetworkPlayerController : NetworkBehaviour
         Debug.Log($"[Сеть] Физический сетевой респавн завершен успешно! Точка: {_lastCheckpointPosition}");
     }
 
-    public void ApplyNetworkKnockback(Vector3 direction, float force)
+    public void ApplyNetworkKnockback(Vector3 direction, float force, float stunDuration = 0.35f)
     {
         if (_networkController != null && _isSpawnReady)
         {
-            _networkController.Velocity += direction * force;
-            
-            Debug.Log($"[Импульс] К сетевой скорости прибавлен вектор: {direction * force}");
+            // 1. Включаем сетевой таймер оглушения (блокировки WASD)
+            _stunTimer = TickTimer.CreateFromSeconds(Runner, stunDuration);
+
+            // 2. Рассчитываем чистый вектор начальной скорости отскока
+            _knockbackVelocity = direction * force;
+
+            // 3. Расширяем лимит скорости контроллера, чтобы он не обрезал сильный удар столба!
+            _networkController.maxSpeed = force * 1.2f;
+
+            // 4. Включаем триггер анимации падения
+            _netStunTrigger = true;
+
+            Debug.Log($"[Бампер] Игрок оглушен на {stunDuration} сек! Сила отскока: {force}");
         }
     }
 
@@ -279,21 +311,29 @@ public class NetworkPlayerController : NetworkBehaviour
         _externalVelocityThisTick = externalVelocity;
     }
 
-    public void ApplyNetworkTrampolineBounce(float force)
+    public void ApplyNetworkTrampolineBounce(float verticalForce, float stunDuration = 0.4f)
     {
-        // Менять [Networked] параметры во Fusion разрешено только владельцу ввода или серверу
-        if (HasInputAuthority || Runner.IsServer)
+        if (_networkController != null && _isSpawnReady)
         {
-            // Мы напрямую перезаписываем вертикальную скорость! 
-            // Вместо плавного прибавления, мы даем резкий мощный пинок строго вверх
-            //_verticalVelocity = force;
+            // 1. Включаем сетевой таймер оглушения, чтобы WASD не мешал колыханию в воздухе при взлете
+            _stunTimer = TickTimer.CreateFromSeconds(Runner, stunDuration);
 
-            // Включаем анимацию прыжка/полета в аниматоре
-            if (_animator != null)
-            {
-                _animator.SetBool("Jump", true);
-                _animator.SetBool("FreeFall", false);
-            }
+            // 2. Запоминаем базовую силу прыжка из инспектора, которая настроена у вас (например, 10)
+            float baseJumpImpulse = _networkController.jumpImpulse;
+
+            // 3. МАГИЯ СЕТЕВОГО БАТУТА: На микросекунду выставляем лимиту прыжка огромную силу!
+            _networkController.jumpImpulse = verticalForce;
+
+            // 4. Принудительно заставляем сетевой контроллер Photon прыгнуть вверх
+            _networkController.Jump();
+
+            // 5. МГНОВЕННО возвращаем базовый прыжок на место, чтобы обычный Пробел на земле работал как раньше
+            _networkController.jumpImpulse = baseJumpImpulse;
+
+            // Включаем триггер анимации прыжка для всех игроков
+            _netJumpTrigger = true;
+
+            Debug.Log($"[Сеть Батут] Выполнен нативный высокий прыжок с силой: {verticalForce}");
         }
     }
     

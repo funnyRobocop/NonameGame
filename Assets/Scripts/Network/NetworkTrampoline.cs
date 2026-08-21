@@ -1,18 +1,24 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
+using System.Collections;
 
 public class NetworkTrampoline : MonoBehaviour
 {
     [Header("Настройки прыжка")]
-    [SerializeField] private float bounceForce = 18f; // Сила подброса вверх
+    [SerializeField] private float bounceForce = 18f; 
+    [SerializeField] private float stunTime = 0.45f;    
 
     [Header("Анимация батута (DOTween)")]
-    [SerializeField] private Transform visualModel;     // Сюда перетащите дочерний 3D-меш батута
-    [SerializeField] private float squashScaleY = 0.43f; // Насколько сильно сжимается
-    [SerializeField] private float duration = 0.1f;      // Скорость сжатия
+    [SerializeField] private Transform visualModel;     
+    [SerializeField] private float squashScaleY = 0.43f; 
+    [SerializeField] private float duration = 0.1f;      
 
     private Vector3 _originalScale;
     private bool _isAnimating = false;
+
+    // Список блокировки игроков
+    private HashSet<NetworkPlayerController> _activePlayers = new HashSet<NetworkPlayerController>();
 
     private void Start()
     {
@@ -20,7 +26,7 @@ public class NetworkTrampoline : MonoBehaviour
         _originalScale = visualModel.localScale;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("Player"))
         {
@@ -28,18 +34,33 @@ public class NetworkTrampoline : MonoBehaviour
             
             if (playerController != null)
             {
-                if (playerController.HasInputAuthority || playerController.Runner.IsServer)
+                if (!_activePlayers.Contains(playerController))
                 {
-                    // Вызываем специальный сетевой метод прыжка вверх
-                    playerController.ApplyNetworkTrampolineBounce(bounceForce);
-                    
-                    Debug.Log($"[Батут] Локальный толчок вверх выполнен с силой: {bounceForce}");
-                }
+                    _activePlayers.Add(playerController);
 
-                // ЗАПУСКАЕМ ЛОКАЛЬНЫЙ SQUASH ПО DOTWEEN
-                // Анимация проиграется на ПК у того, кто наступил, без отправки тяжелых пакетов по сети
-                PlayBounceAnimation();
+                    if (playerController.HasInputAuthority || playerController.Runner.IsServer)
+                    {
+                        playerController.ApplyNetworkTrampolineBounce(bounceForce, stunTime);
+                        PlayBounceAnimation();
+                    }
+
+                    // ЖЕЛЕЗОБЕТОННЫЙ МАНЕВР: Запускаем таймер автоматического удаления из черного списка!
+                    // Он сработает гарантированно, даже если корова улетела в космос за 1 кадр
+                    StartCoroutine(ReleasePlayerRoutine(playerController, stunTime));
+                }
             }
+        }
+    }
+
+    private IEnumerator ReleasePlayerRoutine(NetworkPlayerController player, float delay)
+    {
+        // Ждем ровно столько, сколько корова находится в фазе неуправляемого взлета
+        yield return new WaitForSeconds(delay);
+        
+        if (_activePlayers.Contains(player))
+        {
+            _activePlayers.Remove(player);
+            Debug.Log($"[Батут] Игрок автоматически удален из блокировки по таймеру. Батут готов!");
         }
     }
 

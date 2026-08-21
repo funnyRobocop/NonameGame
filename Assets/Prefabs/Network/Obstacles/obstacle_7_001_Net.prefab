@@ -129,6 +129,8 @@ GameObject:
   - component: {fileID: 7983843017800106881}
   - component: {fileID: 1055794788658554796}
   - component: {fileID: 7173776962195093604}
+  - component: {fileID: 1259791613583969591}
+  - component: {fileID: 5059434360867069166}
   m_Layer: 6
   m_Name: obstacle_7_002
   m_TagString: Untagged
@@ -244,7 +246,6 @@ MonoBehaviour:
   moveOffset: {x: 6, y: 0, z: 0}
   speed: 2
   timeOffset: 0
-  _rigidbody: {fileID: 7173776962195093604}
 --- !u!114 &1055794788658554796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,3 +292,38 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1259791613583969591
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768269849148078670}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.8, y: 1.8, z: 0.45}
+  m_Center: {x: -0.000032126904, y: -0.1325475, z: 0.0014833808}
+--- !u!114 &5059434360867069166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4768269849148078670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab5ff35f9a55ca4d8a1551d421c2149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NetworkBumper
+  bounceForce: 5
+  stunTime: 0.15

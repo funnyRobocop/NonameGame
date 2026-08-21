@@ -1,29 +1,53 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 
 public class NetworkBumper : MonoBehaviour
-    {
-        [Header("Настройки отскока")]
-        [SerializeField] private float bounceForce = 15f;
+{
+    [Header("Настройки бампера")]
+    [SerializeField] private float bounceForce = 15f; 
+    [SerializeField] private float stunTime = 0.35f;   
 
-        private void OnTriggerEnter(Collider other)
+    private HashSet<NetworkPlayerController> _activePlayers = new HashSet<NetworkPlayerController>();
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            if (other.CompareTag("Player"))
+            var playerController = other.GetComponent<NetworkPlayerController>();
+            
+            if (playerController != null)
             {
-                var networkPlayer = other.GetComponent<NetworkPlayerController>();
-                
-                if (networkPlayer != null)
+                if (!_activePlayers.Contains(playerController))
                 {
-                    if (networkPlayer.HasInputAuthority || networkPlayer.Runner.IsServer)
+                    _activePlayers.Add(playerController);
+
+                    if (playerController.HasInputAuthority || playerController.Runner.IsServer)
                     {
                         Vector3 bounceDir = (other.transform.position - transform.position);
                         bounceDir.y = 0f; 
                         bounceDir = bounceDir.normalized;
-                        //bounceDir.y = 0.5f;
+                        bounceDir.y = 0.4f; 
 
-                        networkPlayer.ApplyNetworkKnockback(bounceDir.normalized, bounceForce);
+                        playerController.ApplyNetworkKnockback(bounceDir.normalized, bounceForce, stunTime);
                     }
+
+                    // Автоматическая перезарядка бампера по времени отскока!
+                    StartCoroutine(ReleasePlayerRoutine(playerController, stunTime));
                 }
             }
         }
     }
+
+    private IEnumerator ReleasePlayerRoutine(NetworkPlayerController player, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        
+        if (_activePlayers.Contains(player))
+        {
+            _activePlayers.Remove(player);
+            Debug.Log($"[Бампер] Игрок отлетел на безопасное расстояние. Перезарядка завершена.");
+        }
+    }
+}
