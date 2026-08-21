@@ -340,6 +340,38 @@ public class NetworkPlayerController : NetworkBehaviour
     
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
+        // Проверку коллизий для рывка имеет право делать только владелец префаба (клиент) или Сервер
+        if (!HasInputAuthority && !Runner.IsServer) return;
+
+        // --- ПРЕРЫВАНИЕ РЫВКА ПРИ СТОЛКНОВЕНИИ ---
+        // Если корова СЕЙЧАС летит в активном рывке рыбкой
+        if (!_dashActiveTimer.ExpiredOrNotRunning(Runner))
+        {
+            // Проверяем направление удара по оси Y нормали столкновения.
+            // hit.normal.y > 0.7f означает, что мы ударились о ровный пол под ногами (это игнорируем, чтобы рывок не ломался о землю).
+            // Если значение меньше 0.7f — это стена, барьер, столб, мяч или ДРУГОЙ ИГРОК!
+            if (hit.normal.y < 0.7f)
+            {
+                Debug.Log($"[Рывок] Блокировка! Корова врезалась в {hit.gameObject.name}. Прерываем полет.");
+
+                // 1. НАМЕРТВО СБРАСЫВАЕМ ТАЙМЕР РЫВКА (Корова мгновенно теряет скорость 20)
+                _dashActiveTimer = TickTimer.None;
+
+                // 2. Возвращаем базовый лимит скорости из инспектора
+                _networkController.maxSpeed = _baseMaxSpeedInInspector;
+
+                // 3. Гасим всю инерцию контроллера в ноль, чтобы она резко остановилась на месте удара
+                _networkController.Velocity = Vector3.zero;
+
+                // 4. ОПЦИОНАЛЬНО: Отправляем корову в легкое оглушение на 0.25 секунды (чтобы она смешно застыла/упала)
+                _stunTimer = TickTimer.CreateFromSeconds(Runner, 0.25f);
+                _knockbackVelocity = Vector3.zero; // Сил отскока нет, просто блокируем WASD
+                
+                // Включаем триггер анимации падения/оглушения
+                _netStunTrigger = true;
+            }
+        }
+
         // Проверяем, есть ли у объекта твердое физическое тело
         Rigidbody body = hit.collider.attachedRigidbody;
         if (body == null || body.isKinematic) return;
