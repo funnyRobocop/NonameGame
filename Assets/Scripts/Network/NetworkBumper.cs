@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Fusion;
 using UnityEngine;
 
 
@@ -23,6 +24,9 @@ public class NetworkBumper : MonoBehaviour
                 {
                     _activePlayers.Add(playerController);
 
+                    // ЖЕЛЕЗОБЕТОННЫЙ МАНЕВР FUSION 2.1:
+                    // Импульс применяет ТАКЖЕ и Клиент, у которого есть права управления (HasInputAuthority)!
+                    // Это позволит клиенту мгновенно предсказать полет на своем экране без задержек сети
                     if (playerController.HasInputAuthority || playerController.Runner.IsServer)
                     {
                         Vector3 bounceDir = (other.transform.position - transform.position);
@@ -30,10 +34,12 @@ public class NetworkBumper : MonoBehaviour
                         bounceDir = bounceDir.normalized;
                         bounceDir.y = 0.4f; 
 
-                        playerController.ApplyNetworkKnockback(bounceDir.normalized, bounceForce, stunTime);
+                        Vector3 finalKnockbackVector = bounceDir.normalized * bounceForce;
+
+                        // Вызываем метод БЕЗ всяких RPC — напрямую активируем физический буфер кадра!
+                        playerController.ApplyLocalPredictedKnockback(finalKnockbackVector, stunTime);
                     }
 
-                    // Автоматическая перезарядка бампера по времени отскока!
                     StartCoroutine(ReleasePlayerRoutine(playerController, stunTime));
                 }
             }
@@ -43,11 +49,9 @@ public class NetworkBumper : MonoBehaviour
     private IEnumerator ReleasePlayerRoutine(NetworkPlayerController player, float delay)
     {
         yield return new WaitForSeconds(delay);
-        
         if (_activePlayers.Contains(player))
         {
             _activePlayers.Remove(player);
-            Debug.Log($"[Бампер] Игрок отлетел на безопасное расстояние. Перезарядка завершена.");
         }
     }
 }

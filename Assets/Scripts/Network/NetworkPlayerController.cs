@@ -286,23 +286,23 @@ public class NetworkPlayerController : NetworkBehaviour
         Debug.Log($"[Сеть] Физический сетевой респавн завершен успешно! Точка: {_lastCheckpointPosition}");
     }
 
-    public void ApplyNetworkKnockback(Vector3 direction, float force, float stunDuration = 0.35f)
+    public void ApplyLocalPredictedKnockback(Vector3 forceVector, float stunDuration)
     {
         if (_networkController != null && _isSpawnReady)
         {
-            // 1. Включаем сетевой таймер оглушения (блокировки WASD)
+            // Мгновенно включаем таймер оглушения. На клиенте WASD заблокируется в ту же миллисекунду!
             _stunTimer = TickTimer.CreateFromSeconds(Runner, stunDuration);
 
-            // 2. Рассчитываем чистый вектор начальной скорости отскока
-            _knockbackVelocity = direction * force;
+            // Укладываем вектор в сетевой буфер симуляции
+            _knockbackVelocity = forceVector;
 
-            // 3. Расширяем лимит скорости контроллера, чтобы он не обрезал сильный удар столба!
-            _networkController.maxSpeed = force * 1.2f;
+            // Расширяем лимит максимальной скорости контроллера
+            _networkController.maxSpeed = forceVector.magnitude * 1.2f;
 
-            // 4. Включаем триггер анимации падения
+            // Включаем триггер анимации падения
             _netStunTrigger = true;
 
-            Debug.Log($"[Бампер] Игрок оглушен на {stunDuration} сек! Сила отскока: {force}");
+            Debug.Log($"[Предсказание] Импульс отскока запущен локально! Скорость: {forceVector.magnitude}");
         }
     }
 

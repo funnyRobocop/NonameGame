@@ -7,8 +7,13 @@ using System.Collections.Generic;
 public class NetworkManager : SimulationBehaviour, ISceneLoadDone, IPlayerJoined
 {
     [Header("Настройки спавна")]
-    [SerializeField] private NetworkObject playerPrefab; 
-    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private NetworkObject playerPrefab;
+
+    [Header("Настройки спавна Сетевых Ловушек")]
+    // Перетащите сюда в инспекторе префаб вашего движущегося барьера!
+    [SerializeField] private NetworkObject barrierPrefab; 
+    // Перетащите сюда префаб бампера (красного столба)!
+    [SerializeField] private NetworkObject bumperPrefab;  
 
     // Список подключившихся игроков, которые ждут, пока сервер загрузит карту
     private List<PlayerRef> _pendingPlayers = new List<PlayerRef>();
@@ -26,8 +31,9 @@ public class NetworkManager : SimulationBehaviour, ISceneLoadDone, IPlayerJoined
         }
         else
         {
-            Debug.Log($"[Спавнер] Сцена уже готова! Мгновенно спавним зашедшего клиента {player.PlayerId}.");
-            SpawnPlayerObject(player);
+            Debug.Log($"[Спавнер] Сцена уже готова! Мгновенно спавним зашедшего клиента {player.PlayerId}.");        
+            var spawner = FindAnyObjectByType<PlayerSpawner>();
+            SpawnPlayerObject(player, spawner);
         }
     }
 
@@ -37,30 +43,41 @@ public class NetworkManager : SimulationBehaviour, ISceneLoadDone, IPlayerJoined
         if (!Runner.IsServer) return;
         
         _isSceneLoaded = true;
-        
-        // Находим точку спавна на загруженной сцене
-        GameObject spawnerObj = GameObject.Find("PlayerSpawner");
-        if (spawnerObj != null) _spawnPoint = spawnerObj.transform;
+
+        SpawnObstacles();
+        SpawnPlayers();
+    }
+
+    private void SpawnPlayers()
+    {        
+        var spawner = FindAnyObjectByType<PlayerSpawner>();
 
         Debug.Log($"[Спавнер] Сервер загрузил карту. Спавним игроков из стартовой очереди: {_pendingPlayers.Count}");
 
         // Спавним персонажей для всех, кто ждал загрузки в меню (включая Хоста!)
         foreach (PlayerRef player in _pendingPlayers)
         {
-            SpawnPlayerObject(player);
+            SpawnPlayerObject(player, spawner);
         }
         
         _pendingPlayers.Clear();
     }
 
-    private void SpawnPlayerObject(PlayerRef player)
+    private void SpawnPlayerObject(PlayerRef player, PlayerSpawner spawner)
     {
-        Vector3 spawnPos = _spawnPoint != null ? _spawnPoint.position : Vector3.up * 5f;
-        Quaternion spawnRot = _spawnPoint != null ? _spawnPoint.rotation : Quaternion.identity;
-
-        Debug.Log($"[СЕТЕВОЙ СПАВН] Создание игрока для Player ID: {player.PlayerId} на точке {spawnPos}");
+        Debug.Log($"[СЕТЕВОЙ СПАВН] Создание игрока для Player ID: {player.PlayerId}");
 
         // Спавним игрока и отдаем права ввода (InputAuthority) конкретно зашедшему плееру
-        Runner.Spawn(playerPrefab, spawnPos, spawnRot, player);
+        Runner.Spawn(playerPrefab, spawner.GetNext().position, spawner.GetNext().rotation, player);
+    }
+
+    private void SpawnObstacles()
+    {
+        var spawner = FindAnyObjectByType<ObstaclesSpawnDataContainer>();
+        foreach (var item in spawner.Obstacles)
+        {
+            // Права StateAuthority автоматически остаются за Сервером (PlayerRef.None) 
+            Runner.Spawn(item.prefab, item.point.position, item.point.rotation);
+        }
     }
 }
