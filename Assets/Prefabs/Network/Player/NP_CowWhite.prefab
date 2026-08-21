@@ -1298,8 +1298,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerController
   _normalCameraTarget: {fileID: 4843962174877007652}
-  pushPower: 5
-  speed: 6
+  pushPower: 3
+  speed: 5
   dashSpeed: 20
   dashDuration: 0.28
   _IsFinished:
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   jumpImpulse: 10
   acceleration: 100
   braking: 100
-  maxSpeed: 6
+  maxSpeed: 5
   rotationSpeed: 0
 --- !u!54 &3340921585454765285
 Rigidbody:

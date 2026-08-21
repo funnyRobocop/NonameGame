@@ -9,6 +9,7 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
 {
 
     private bool _wasSpacePressedLastFrame = false;
+    private bool _wasDashPressedLastFrame = false;
 
     public override void Spawned()
     {
@@ -45,7 +46,7 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
 
             bool isSpaceCurrentlyPressed = keyboard[Key.Space].isPressed;
 
-             if (isSpaceCurrentlyPressed && !_wasSpacePressedLastFrame)
+            if (isSpaceCurrentlyPressed && !_wasSpacePressedLastFrame)
             {
                 data.JumpPressed = true;
             }
@@ -55,8 +56,21 @@ public class InputHandler : NetworkBehaviour, INetworkRunnerCallbacks
             }
 
             _wasSpacePressedLastFrame = isSpaceCurrentlyPressed;
+
+            bool isDashCurrentlyPressed = keyboard[Key.LeftShift].isPressed;
+
+            if (isDashCurrentlyPressed && !_wasDashPressedLastFrame)
+            {
+                data.DashPressed = true;
+            }
+            else
+            {
+                data.DashPressed = false;
+            }
+
+            _wasDashPressedLastFrame = isDashCurrentlyPressed;
         }
-             
+            
         if (Camera.main != null)
         {
             data.CameraRotationY = Camera.main.transform.eulerAngles.y;

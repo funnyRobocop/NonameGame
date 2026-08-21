@@ -23,7 +23,8 @@ public class NetworkPlayerController : NetworkBehaviour
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
     [Networked] private TickTimer _dashActiveTimer { get; set; } 
     [Networked] private Vector3 _dashDirection { get; set; }
-    [Networked] private NetworkBool _hasDashedInAir { get; set; } 
+    [Networked] private NetworkBool _hasDashedInAir { get; set; }
+    [Networked] private NetworkBool _isJumpingFromGround { get; set; } 
 
     [Header("Сетевой статус финиша")]
     [Networked] public NetworkBool IsFinished { get; set; }
@@ -113,12 +114,14 @@ public class NetworkPlayerController : NetworkBehaviour
             if (_networkController.Grounded)
             {
                 _hasDashedInAir = false;
+                _isJumpingFromGround = false;
             }
 
             if (data.JumpPressed && _networkController.Grounded && _dashActiveTimer.ExpiredOrNotRunning(Runner)) 
             {
                 _networkController.Jump();
                 _netJumpTrigger = true;
+                _isJumpingFromGround = true;
                 data.JumpPressed = false;
             }
 
@@ -132,8 +135,6 @@ public class NetworkPlayerController : NetworkBehaviour
                 // Метод .Move() получает исключительно силу отскока от бампера
                 finalMoveVelocity = _knockbackVelocity;
                 currentMoveSpeed = _knockbackVelocity.magnitude;
-
-                // Плавно гасим силу отскока с каждым тиком симуляции по законам трения воздуха
                 _knockbackVelocity = Vector3.MoveTowards(_knockbackVelocity, Vector3.zero, Runner.DeltaTime * 25f);
             }
             // --- ШАГ 2. ПРОВЕРКА СОСТОЯНИЯ АКТИВНОГО РЫВКА ---
@@ -164,16 +165,13 @@ public class NetworkPlayerController : NetworkBehaviour
                     Quaternion cameraYRotation = Quaternion.Euler(0f, data.CameraRotationY, 0f);
                     Vector3 camForward = cameraYRotation * Vector3.forward;
                     Vector3 camRight = cameraYRotation * Vector3.right;
-
                     Vector3 targetDirection = (camForward * inputDirection.z + camRight * inputDirection.x).normalized;
                     transform.forward = Vector3.Slerp(transform.forward, targetDirection, Runner.DeltaTime * 15f);
-
                     finalMoveVelocity = targetDirection * speed;
                     currentMoveSpeed = speed;
                 }
 
-                // АКТИВАЦИЯ РЫВКА В ВОЗДУХЕ
-                if (data.DashPressed && !_networkController.Grounded && !_hasDashedInAir)
+                if (data.DashPressed && !_networkController.Grounded && !_hasDashedInAir && _isJumpingFromGround)
                 {
                     _hasDashedInAir = true;
                     _dashActiveTimer = TickTimer.CreateFromSeconds(Runner, dashDuration);
@@ -184,6 +182,8 @@ public class NetworkPlayerController : NetworkBehaviour
                     currentMoveSpeed = dashSpeed;
 
                     _netDashTrigger = true;
+                    
+                    Debug.Log("[Рывок] Чистый осознанный дайв в воздухе выполнен успешно!");
                 }
             }
 
@@ -326,6 +326,7 @@ public class NetworkPlayerController : NetworkBehaviour
 
             // 4. Принудительно заставляем сетевой контроллер Photon прыгнуть вверх
             _networkController.Jump();
+            _isJumpingFromGround = true;
 
             // 5. МГНОВЕННО возвращаем базовый прыжок на место, чтобы обычный Пробел на земле работал как раньше
             _networkController.jumpImpulse = baseJumpImpulse;
