@@ -4,7 +4,7 @@ using Unity.Cinemachine;
 using System.Collections;
 using Zenject;
 
-public class NetworkPlayerRagdoll : NetworkBehaviour
+public class NetworkPlayerRagdoll : MonoBehaviour
 {
 
     [Header("Кости и Настройки")]
@@ -65,7 +65,7 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
         }
 
         // 3. Отслеживание земли для подъема запускает ТОЛЬКО владелец этого персонажа
-        if (HasInputAuthority)
+        if (_controller.HasInputAuthority)
         {
             _cameraSwitcher.SwitchOnRagdollCamera(cameraIndex);
             if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
@@ -89,7 +89,7 @@ public class NetworkPlayerRagdoll : NetworkBehaviour
             if (col.gameObject != this.gameObject) col.enabled = isRagdoll;
         }
 
-        if (HasInputAuthority)
+        if (_controller.HasInputAuthority)
         {
             if (isRagdoll)
             {           

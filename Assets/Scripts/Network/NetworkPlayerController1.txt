@@ -2,17 +2,15 @@ using UnityEngine;
 using Fusion;
 using Unity.Cinemachine;
 using System.Collections;
-using PhysicsCharacterController;
 
 public class NetworkPlayerController : NetworkBehaviour
 {
     private NetworkCharacterController _networkController;
-    private NetworkPlayerRagdoll _ragdoll;
+    private PlayerRagdoll _ragdoll;
     private Camera _mainCamera;
-    private Rigidbody _rigidbody;
     private Animator _animator;
-    private CharacterManager _characterManager;
     
+    [SerializeField] private Transform _normalCameraTarget;
 
     [Header("Настройки Физики Сети")]
     [SerializeField] float pushPower = 7f; 
@@ -21,7 +19,6 @@ public class NetworkPlayerController : NetworkBehaviour
     [Header("Настройки Сетевого Рывка (Dash)")]
     [SerializeField] private float dashSpeed = 20f;
     [SerializeField] private float dashDuration = 0.28f;
-    [SerializeField] private Transform followTarget;
     
     [Networked] private Vector3 _lastCheckpointPosition { get; set; }
     [Networked] private TickTimer _dashActiveTimer { get; set; } 
@@ -53,28 +50,12 @@ public class NetworkPlayerController : NetworkBehaviour
     private Vector3 _externalVelocityThisTick = Vector3.zero;
     private float _baseMaxSpeedInInspector;
 
-    [SerializeField] private GameObject viewPrefab;
-    private NetworkVisualFollow _view;
-
     public override void Spawned()
     {
-        _ragdoll = GetComponent<NetworkPlayerRagdoll>();
+        _networkController = GetComponent<NetworkCharacterController>();
+        _ragdoll = GetComponent<PlayerRagdoll>();
         _animator = GetComponent<Animator>();
         _mainCamera = Camera.main;
-        _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.isKinematic = false;
-        _characterManager = GetComponent<CharacterManager>();
-
-         if (viewPrefab != null)
-        {
-            GameObject localVisual = Instantiate(viewPrefab, transform.position, transform.rotation);
-            
-            _view = localVisual.GetComponent<NetworkVisualFollow>();
-            if (_view != null)
-            {
-                _view.InitializeFollowTarget(followTarget, _characterManager, _rigidbody);
-            }
-        }
 
         // Если принадлежит НАШЕМУ игроку (локальному клинету)
         if (HasInputAuthority)
@@ -86,7 +67,7 @@ public class NetworkPlayerController : NetworkBehaviour
                 CinemachineCamera vCam = cameraObj.GetComponent<CinemachineCamera>();
                 if (vCam != null)
                 {
-                    vCam.Target.TrackingTarget = _view._normalCameraTarget;
+                    vCam.Target.TrackingTarget = _normalCameraTarget;
                     vCam.Priority = 10;
                     //vCam.Target.LookAtTarget = _normalCameraTarget;
                 }
@@ -128,19 +109,7 @@ public class NetworkPlayerController : NetworkBehaviour
             return; 
         }
 
-        // Записываем текущую скорость физического тела в сеть для синхронизации анимаций
-        // Читаем горизонтальную скорость Rigidbody (оси X и Z)
-        Vector3 horizontalVelocity = new Vector3(_rigidbody.linearVelocity.x, 0f, _rigidbody.linearVelocity.z);
-        _netSpeed = horizontalVelocity.magnitude;
-        
-        // Запрашиваем статус земли у контроллера Nappin
-        // (Замените IsGrounded на имя переменной земли из вашего ассета, например groundCheck или isGrounded)
-        if (_characterManager != null)
-        {
-            _netGrounded = _characterManager.isGrounded; 
-        }
-
-        /*if (GetInput(out NetworkInputData data))
+        if (GetInput(out NetworkInputData data))
         {
             if (_networkController.Grounded)
             {
@@ -225,7 +194,7 @@ public class NetworkPlayerController : NetworkBehaviour
             _netGrounded = _networkController.Grounded;
 
             if (data.JumpPressed) _netJumpTrigger = true;
-        }*/
+        }
     }
 
     public override void Render()
@@ -319,7 +288,7 @@ public class NetworkPlayerController : NetworkBehaviour
 
     public void ApplyLocalPredictedKnockback(Vector3 forceVector, float stunDuration)
     {
-        /*if (_networkController != null && _isSpawnReady)
+        if (_networkController != null && _isSpawnReady)
         {
             // Мгновенно включаем таймер оглушения. На клиенте WASD заблокируется в ту же миллисекунду!
             _stunTimer = TickTimer.CreateFromSeconds(Runner, stunDuration);
@@ -334,13 +303,13 @@ public class NetworkPlayerController : NetworkBehaviour
             _netStunTrigger = true;
 
             Debug.Log($"[Предсказание] Импульс отскока запущен локально! Скорость: {forceVector.magnitude}");
-        }*/
+        }
     }
     
     [Rpc(RpcSources.StateAuthority, RpcTargets.InputAuthority)]
     public void RPC_ApplyServerKnockback(Vector3 serverForceVector, float stunDuration)
     {
-        /*if (_networkController != null && _isSpawnReady)
+        if (_networkController != null && _isSpawnReady)
         {
             // 1. Включаем локальный таймер оглушения, чтобы WASD заблокировался мгновенно
             _stunTimer = TickTimer.CreateFromSeconds(Runner, stunDuration);
@@ -356,17 +325,17 @@ public class NetworkPlayerController : NetworkBehaviour
             _netStunTrigger = true;
 
             Debug.Log($"[Сеть RPC] Вектор отскока уложен в буфер кадра: {serverForceVector}");
-        }*/
+        }
     }
 
     public void SetNetworkPlatformMovement(Vector3 externalVelocity)
     {
-       // _externalVelocityThisTick = externalVelocity;
+        _externalVelocityThisTick = externalVelocity;
     }
 
     public void ApplyNetworkTrampolineBounce(float verticalForce, float stunDuration = 0.4f)
     {
-       /* if (_networkController != null && _isSpawnReady)
+        if (_networkController != null && _isSpawnReady)
         {
             // 1. Включаем сетевой таймер оглушения, чтобы WASD не мешал колыханию в воздухе при взлете
             _stunTimer = TickTimer.CreateFromSeconds(Runner, stunDuration);
@@ -388,10 +357,10 @@ public class NetworkPlayerController : NetworkBehaviour
             _netJumpTrigger = true;
 
             Debug.Log($"[Сеть Батут] Выполнен нативный высокий прыжок с силой: {verticalForce}");
-        }*/
+        }
     }
     
-    /*private void OnControllerColliderHit(ControllerColliderHit hit)
+    private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         // Проверку коллизий для рывка имеет право делать только владелец префаба (клиент) или Сервер
         if (!HasInputAuthority && !Runner.IsServer) return;
@@ -451,10 +420,10 @@ public class NetworkPlayerController : NetworkBehaviour
                 RPC_RequestPushObject(netObj, pushDir * pushPower);
             }
         }
-    }*/
+    }
 
     // Сетевой RPC-метод для отправки пинка от клиента на сервер
-    /*[Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
     private void RPC_RequestPushObject(NetworkObject targetNetObj, Vector3 force)
     {
         if (targetNetObj != null)
@@ -467,7 +436,7 @@ public class NetworkPlayerController : NetworkBehaviour
                 Debug.Log($"[Сервер] Выполнен RPC пинок объекта: {targetNetObj.name}");
             }
         }
-    }*/
+    }
 
     public void SetPlayerFinished(int place)
     {
