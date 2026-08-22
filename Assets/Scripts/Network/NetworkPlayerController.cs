@@ -305,6 +305,28 @@ public class NetworkPlayerController : NetworkBehaviour
             Debug.Log($"[Предсказание] Импульс отскока запущен локально! Скорость: {forceVector.magnitude}");
         }
     }
+    
+    [Rpc(RpcSources.StateAuthority, RpcTargets.InputAuthority)]
+    public void RPC_ApplyServerKnockback(Vector3 serverForceVector, float stunDuration)
+    {
+        if (_networkController != null && _isSpawnReady)
+        {
+            // 1. Включаем локальный таймер оглушения, чтобы WASD заблокировался мгновенно
+            _stunTimer = TickTimer.CreateFromSeconds(Runner, stunDuration);
+
+            // 2. ЗАПИСЫВАЕМ ИМПУЛЬС В СЕТЕВОЙ БУФЕР! 
+            // Теперь FixedUpdateNetwork увидит этот вектор и применит его в правильный момент симуляции!
+            _knockbackVelocity = serverForceVector;
+
+            // 3. Расширяем лимит максимальной скорости под силу удара
+            _networkController.maxSpeed = serverForceVector.magnitude * 1.2f;
+
+            // 4. Включаем анимацию падения/оглушения
+            _netStunTrigger = true;
+
+            Debug.Log($"[Сеть RPC] Вектор отскока уложен в буфер кадра: {serverForceVector}");
+        }
+    }
 
     public void SetNetworkPlatformMovement(Vector3 externalVelocity)
     {
