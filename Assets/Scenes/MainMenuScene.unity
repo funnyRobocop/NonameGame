@@ -1796,7 +1796,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkManager
   playerPrefab: {fileID: 3285547052466829157, guid: 03efd17e1b5c9f342af5385a2564b7c2, type: 3}
-  _spawnPoint: {fileID: 0}
+  barrierPrefab: {fileID: 0}
+  bumperPrefab: {fileID: 0}
 --- !u!114 &1776123701
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -786,7 +786,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2592898070164685685, guid: b767c2c44a396e843a8ac17a2a831911, type: 3}
       propertyPath: m_Name
-      value: RiverCamera
+      value: __CM__UPGRADER__RENAME__ RiverCamera = 41eb07f0fdb37454ca0de73f3822274f
       objectReference: {fileID: 0}
     - target: {fileID: 3370401635388296908, guid: b767c2c44a396e843a8ac17a2a831911, type: 3}
       propertyPath: m_LocalPosition.x
