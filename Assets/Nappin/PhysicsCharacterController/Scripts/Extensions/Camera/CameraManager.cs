@@ -45,7 +45,7 @@ namespace PhysicsCharacterController
             //firstPersonCameraController = firstPersonCamera.GetComponent<FirstPersonCameraController>();
             //firstPersonCameraControllerPOV = firstPersonCamera.GetCinemachineComponent<CinemachinePOV>();
 
-            thirdPersonCameraController = thirdPersonCamera.GetComponent<ThirdPersonCameraController>();
+            //thirdPersonCameraController = thirdPersonCamera.GetComponent<ThirdPersonCameraController>();
 
             SetCamera();
             SetDebug();

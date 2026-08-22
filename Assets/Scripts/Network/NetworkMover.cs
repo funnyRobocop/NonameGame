@@ -1,7 +1,6 @@
 using UnityEngine;
 using Fusion;
 using System.Collections.Generic;
-using System.Collections;
 
 public class NetworkMover : NetworkBehaviour
 {
@@ -48,52 +47,4 @@ public class NetworkMover : NetworkBehaviour
             _lastPosition = transform.position;
         }
     }
-
-    /*private void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            var playerController = other.GetComponent<NetworkPlayerController>();
-            
-            if (playerController != null)
-            {
-                // Толкаем корову строго один раз за удар
-                if (!_hitPlayers.Contains(playerController))
-                {
-                    _hitPlayers.Add(playerController);
-
-                    // Импульс рассчитывает только Сервер и передает клиенту через наш готовый RPC
-                    if (Runner.IsServer)
-                    {
-                        // Направление толчка берем от направления движения самого барьера!
-                        // Куда едет стена — туда и отлетает корова
-                        Vector3 pushDir = _lastVelocity.normalized;
-                        
-                        // Если барьер на долю секунды застыл в крайней точке, толкаем просто вбок от стены
-                        if (pushDir.magnitude < 0.1f)
-                        {
-                            pushDir = moveOffset.normalized;
-                        }
-
-                        pushDir.y = 0.35f; // Добавляем легкий подброс вверх для сочности
-
-                        // Вызываем наш проверенный, рабочий RPC-метод из контроллера коровы!
-                        playerController.RPC_ApplyServerKnockback(pushDir.normalized * pushForce, stunDuration);
-                    }
-
-                    // Автоматически перезаряжаем триггер стены через время оглушения
-                    StartCoroutine(ReleasePlayerRoutine(playerController, stunDuration));
-                }
-            }
-        }
-    }
-
-    private IEnumerator ReleasePlayerRoutine(NetworkPlayerController player, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (_hitPlayers.Contains(player))
-        {
-            _hitPlayers.Remove(player);
-        }
-    }*/
 }
