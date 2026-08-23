@@ -205,6 +205,17 @@ namespace PhysicsCharacterController
         private Vector3 _networkCameraDirection = Vector3.zero;
         public bool netDashAnimationFlag;
 
+        [Header("Сетевой Рывок (Физический Dash)")]
+        [Tooltip("Сила импульса рывка вперед")]
+        [SerializeField] private float dashForce = 15f;
+        [Tooltip("Длительность фазы рывка в секундах, на которую отключается WASD для сочности полета")]
+        [SerializeField] private float dashStunDuration = 0.25f;
+
+        // Сетевые переменные Fusion для контроля полета
+        [Networked] private NetworkBool _hasDashedInAir { get; set; }
+        [Networked] private TickTimer _dashStunTimer { get; set; }
+        [Networked] private Vector3 _dashStoredDirection { get; set; }
+
         private void Awake()
         {
             rigidbody = this.GetComponent<Rigidbody>();
@@ -244,7 +255,11 @@ namespace PhysicsCharacterController
                 jumpHold = data.JumpPressed; // для длинного прыжка дублируем
                 sprint = data.DashPressed;
                 crouch = false; // Кроуч в Fall Guys не нужен, глушим в false
-                
+                // СБРОС ФЛАГА: Если корова приземлилась и коснулась земли по физике Nappin
+                if (isGrounded)
+                {
+                    _hasDashedInAir = false;
+                }       
                 // 2. МАТЕМАТИЧЕСКИЙ РАСЧЕТ НАПРАВЛЕНИЯ WASD ОТНОСИТЕЛЬНО СЕТЕВОЙ КАМЕРЫ КЛИЕНТА
                 if (axisInput.magnitude > movementThrashold)
                 {
@@ -278,19 +293,72 @@ namespace PhysicsCharacterController
                 // Движение шагом (модифицированный метод, использующий сетевую камеру)
                 MoveWalkNetwork();
 
-                // Поворот модели
-                if (!lockToCamera) MoveRotation();
-                else ForceRotation();
+                // ====================================================================
+                // 2. УПРАВЛЕНИЕ ФАЗАМИ ДВИЖЕНИЯ (Обычный бег VS Активный физический рывок)
+                // ====================================================================
+                
+                // Если таймер рывка ЕЩЕ ТИКАЕТ — корова находится в неуправляемом полете рыбкой!
+                if (!_dashStunTimer.ExpiredOrNotRunning(Runner))
+                {
+                    // Насильно поддерживаем горизонтальную скорость рывка, чтобы PhysX не тормозил полет о воздух
+                    Vector3 currentVel = rigidbody.linearVelocity;
+                    // Сохраняем гравитацию по Y, но X и Z задаем из вектора рывка
+                    rigidbody.linearVelocity = new Vector3(_dashStoredDirection.x * dashForce, currentVel.y, _dashStoredDirection.z * dashForce);
+                }
+                else
+                {
+                    // Если рывок не идет — корова слушается обычного WASD бега Nappin
+                    MoveWalkNetwork();
 
-                // Физика прыжка
-                MoveJump();
+                    // Поворот модели (разрешен только вне рывка)
+                    if (!lockToCamera) MoveRotation();
+                    else ForceRotation();
 
+                    // Обычный прыжок с земли
+                    MoveJump();
+
+                    // --- АКТИВАЦИЯ СЕТЕВОГО РЫВКА В ВОЗДУХЕ ---
+                    // Проверяем: нажат ли Shift, корова НЕ на земле, и она ЕЩЕ НЕ делала рывок в текущем полете
+                    if (data.DashPressed && !isGrounded && !_hasDashedInAir)
+                    {
+                        // Намертво блокируем повторный спам до приземления
+                        _hasDashedInAir = true;
+
+                        // Включаем таймер полета на четверть секунды (WASD отключится)
+                        _dashStunTimer = TickTimer.CreateFromSeconds(Runner, dashStunDuration);
+
+                        // Фиксируем направление броска: куда бежали, или куда смотрит моделька коровы, если прыгнули с места
+                        _dashStoredDirection = (_networkCameraDirection != Vector3.zero) ? _networkCameraDirection : characterModel.transform.forward;
+
+                        // ВЫСТРЕЛ ИМПУЛЬСА PHYSX! Обнуляем прошлую скорость бега, чтобы полет был чистым
+                        rigidbody.linearVelocity = Vector3.zero;
+
+                        // Формируем вектор импульса: толкаем вперед и добавляем легкий сочный подброс вверх (0.2f)
+                        Vector3 impulseVector = _dashStoredDirection;
+                        impulseVector.y = 0.2f; 
+
+                        // Прикладываем честный взрывной импульс в Rigidbody коровы!
+                        rigidbody.AddForce(impulseVector.normalized * dashForce, ForceMode.Impulse);
+
+                        // Вызываем кастомный RPC или локальный триггер для анимации "Dive" рыбкой
+                        // (Если на вашем визуальном контейнере настроен аниматор, триггер сработает в Render)
+                        TriggerDashAnimation();
+
+                        Debug.Log($"[Физический Рывок] Rigidbody запущен вперед с силой {dashForce}!");
+                    }
+                }
+                
                 // Физика гравитации и трения о стены
                 ApplyGravity();
 
                 // Вызов сетевых ивентов звуков/частиц
                 UpdateEvents();
             }
+        }
+
+        private void TriggerDashAnimation()
+        {
+            netDashAnimationFlag = true;
         }
 
         // Модифицированный метод ходьбы под сетевые координаты камеры
