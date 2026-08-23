@@ -89,19 +89,20 @@ public class NetworkPlayerRagdoll : MonoBehaviour
             if (col.gameObject != this.gameObject) col.enabled = isRagdoll;
         }
 
-        if (_controller.HasInputAuthority)
-        {
-            if (isRagdoll)
-            {           
-                if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
-                _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
-            }
-            else
+        if (_controller != null) 
+            if (_controller.HasInputAuthority)
             {
-                if (_cameraSwitcher != null)
-                    _cameraSwitcher.SwitchOffAllRagdollCameras();
+                if (isRagdoll)
+                {           
+                    if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
+                    _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
+                }
+                else
+                {
+                    if (_cameraSwitcher != null)
+                        _cameraSwitcher.SwitchOffAllRagdollCameras();
+                }
             }
-        }
     }
 
     private IEnumerator CheckForGroundLanding()

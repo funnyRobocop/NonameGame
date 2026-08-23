@@ -72,6 +72,15 @@ public class NetworkVisualFollow : MonoBehaviour
             // Передаем сглаженную скорость в аниматор локально
             _animator.SetFloat("Speed", horizontalVel.magnitude);
             _animator.SetBool("Grounded", _targetCharacterManager.GetGrounded());
+
+            if (_targetCharacterManager.netDashAnimationFlag)
+            {
+                // Включаем триггер анимации прыжка рыбкой / броска вперед (например "Dive" или "Dash")
+                _animator.SetTrigger("Dive"); 
+                
+                // Сразу же сбрасываем флаг, чтобы анимация не зациклилась
+                _targetCharacterManager.netDashAnimationFlag = false;
+            }
         }
     }
 }

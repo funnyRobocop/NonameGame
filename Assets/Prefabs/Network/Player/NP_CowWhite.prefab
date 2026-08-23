@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 193
   movementSpeed: 14.4
   crouchSpeedMultiplier: 0.248
   movementThrashold: 0.01
@@ -317,6 +317,7 @@ MonoBehaviour:
       m_Calls: []
   isGrounded: 0
   targetAngle: 47.939434
+  netDashAnimationFlag: 0
 --- !u!1 &5001663459763089645
 GameObject:
   m_ObjectHideFlags: 0

@@ -203,7 +203,7 @@ namespace PhysicsCharacterController
 
         // Вектор сглаженного направления относительно сетевой камеры
         private Vector3 _networkCameraDirection = Vector3.zero;
-
+        public bool netDashAnimationFlag;
 
         private void Awake()
         {
