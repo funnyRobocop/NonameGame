@@ -140,8 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5580101d988745f4b9b1ce185670defa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkMover
-  moveOffset: {x: 6, y: 0, z: 0}
-  speed: 2
+  moveOffset: {x: 0, y: 0, z: 0}
+  speed: 0
   timeOffset: 0
 --- !u!114 &7387903682938904251
 MonoBehaviour:

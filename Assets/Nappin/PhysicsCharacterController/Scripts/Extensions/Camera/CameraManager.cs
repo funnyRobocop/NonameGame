@@ -94,7 +94,7 @@ namespace PhysicsCharacterController
                 characterManager.SetLockToCamera(false);
 
                 //firstPersonCamera.gameObject.SetActive(false);
-                thirdPersonCamera.gameObject.SetActive(true);
+               // thirdPersonCamera.gameObject.SetActive(true);
 
                 //thirdPersonCameraController.SetInitialValue(firstPersonCameraControllerPOV.m_HorizontalAxis.Value, thirdPersonHeightOnTransition);
 

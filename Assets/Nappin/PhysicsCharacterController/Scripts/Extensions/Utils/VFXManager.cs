@@ -25,6 +25,7 @@ namespace PhysicsCharacterController
 
         private void Awake()
         {
+            return;
             collider = characterManager.GetComponent<CapsuleCollider>();
             characterModel = characterManager.characterModel;
         }

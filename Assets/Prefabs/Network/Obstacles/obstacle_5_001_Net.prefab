@@ -194,8 +194,6 @@ GameObject:
   - component: {fileID: 6858946021589346143}
   - component: {fileID: 8977659960314559515}
   - component: {fileID: 3584150951614459066}
-  - component: {fileID: 7934336717939882660}
-  - component: {fileID: 5933584362214663258}
   m_Layer: 6
   m_Name: obstacle_5_011
   m_TagString: Untagged
@@ -296,41 +294,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.7
   m_Center: {x: 0, y: -0.65, z: -0}
---- !u!135 &7934336717939882660
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632991979516769390}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.8
-  m_Center: {x: 0, y: -0.65, z: 0}
---- !u!114 &5933584362214663258
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632991979516769390}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ab5ff35f9a55ca4d8a1551d421c2149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkBumper
-  bounceForce: 25
-  stunTime: 0.5
 --- !u!1 &1411681901482707051
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,10 +851,11 @@ GameObject:
   - component: {fileID: 6129507444097565086}
   - component: {fileID: 6591535684701848482}
   - component: {fileID: 8369158489368041190}
-  - component: {fileID: 4152888592480611032}
   - component: {fileID: 9123860114737625258}
   - component: {fileID: 4031562996617733434}
   - component: {fileID: 4264385231579838925}
+  - component: {fileID: 7537858598328107269}
+  - component: {fileID: 7874780264937251305}
   m_Layer: 6
   m_Name: obstacle_5_002
   m_TagString: Untagged
@@ -972,23 +936,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4152888592480611032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6309028148071516460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6fd08dc473fcb04d8877e71c7bcc232, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkRotator
-  mode: 1
-  rotationAxis: {x: 0, y: 0, z: 1}
-  speed: 50
-  maxAngle: 90
-  timeOffset: 0
 --- !u!114 &9123860114737625258
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1007,7 +954,7 @@ MonoBehaviour:
   Flags: 262146
   NestedObjects: []
   NetworkedBehaviours:
-  - {fileID: 4152888592480611032}
+  - {fileID: 0}
   ForceRemoteRenderTimeframe: 0
 --- !u!136 &4031562996617733434
 CapsuleCollider:
@@ -1040,7 +987,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6309028148071516460}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 10
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -1054,11 +1001,67 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 0
+  m_Constraints: 62
   m_CollisionDetection: 0
+--- !u!114 &7537858598328107269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309028148071516460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8793c5b2152d03142986a729707205dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NonameGame.NetworkPendulum
+  maxAngle: 0
+  speed: 0
+  timeOffset: 0
+  rotationAxis: {x: 0, y: 0, z: 0}
+--- !u!114 &7874780264937251305
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6309028148071516460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkTransform
+  _stateAuthorityChangeErrorCorrectionDelta: 0
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  ConfigFlags: -1
+  PhysicsSettings:
+    ForecastEnabled: 1
+    DebugPhysics: 0
+    GravityForecast: 2
+    MaxExtrapolationTime: 0.15
+    MinLinearDetectedError: 0.02
+    MinAngularDetectedError: 3
+    MaxLinearError: 0
+    MaxAngularError: 0
+    LowCorrectionProgressThreshold: 0.015
+    HighErrorSimilarityThreshold: 1
+    MaxErrorTotalTime: 0.5
+    MaxRemoteSleepIgnoreTime: 0.5
+    ErrorCorrectionType: 0
+    LinearVelCorrectionMul: 1
+    AngularVelCorrectionMul: 1
+    PositionCorrectionLerp: 0.15
+    RotationCorrectionLerp: 0.15
+    Spring: 75
+    Damper: 2
+    MinImpactfulCollisionAlignment: 0.3
+    ImpactStartCorrectionTime: 0.1
+    ImpactCorrectionTimeComplete: 0.3
 --- !u!1 &8140038000835875575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,7 +1073,6 @@ GameObject:
   - component: {fileID: 7778738847723347044}
   - component: {fileID: 8278097874851087849}
   - component: {fileID: 1756742923108166901}
-  - component: {fileID: 8837358358359821610}
   m_Layer: 6
   m_Name: obstacle_5_001_Net
   m_TagString: Untagged
@@ -1151,25 +1153,3 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &8837358358359821610
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8140038000835875575}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 7144735558875496637, guid: b4b51e67c919ac2409a06df1e3633d63, type: 3}
