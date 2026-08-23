@@ -1,7 +1,8 @@
 using UnityEngine;
 using Fusion;
-using Unity.VisualScripting;
 
+namespace NonameGame
+{
 public class NetworkMovingPlatform : NetworkBehaviour
 {
     [Header("Настройки вращения")]
@@ -75,4 +76,4 @@ public class NetworkMovingPlatform : NetworkBehaviour
 
         _isPlayerStayingThisTick = false;
     }
-}
+}}

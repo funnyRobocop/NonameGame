@@ -5,66 +5,69 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class NetworkLevelFinishView : MonoBehaviour
+namespace NonameGame
 {
-    [Header("Элементы UI")]
-    [SerializeField] private GameObject qualifiedPanel;
-    [SerializeField] private TextMeshProUGUI placeText; 
-    [SerializeField] private Button leaveButton;
-
-    private NetworkPlayerController localPlayer;
-
-    private void Start()
+    public class NetworkLevelFinishView : MonoBehaviour
     {
-        if (leaveButton != null)
-        {
-            leaveButton.onClick.AddListener(LeaveSessionAndReturnToMenu);
-        }
-    }
+        [Header("Элементы UI")]
+        [SerializeField] private GameObject qualifiedPanel;
+        [SerializeField] private TextMeshProUGUI placeText; 
+        [SerializeField] private Button leaveButton;
 
-    private void Update()
-    {
-        if (localPlayer == null)
-            localPlayer = FindLocalPlayer();
+        private NetworkPlayerController localPlayer;
 
-        if (localPlayer == null)
-            return;
-            
-        if (!localPlayer.IsFinished)
-            return;
-        
-        if (!qualifiedPanel.activeSelf)
+        private void Start()
         {
-            qualifiedPanel.SetActive(true);
-            
-            if (placeText != null)
+            if (leaveButton != null)
             {
-                placeText.text = $"МЕСТО: {localPlayer.FinishPlace}";
+                leaveButton.onClick.AddListener(LeaveSessionAndReturnToMenu);
             }
         }
-    }
 
-    private NetworkPlayerController FindLocalPlayer()
-    {
-        var allPlayers = FindObjectsByType<NetworkPlayerController>();
-        foreach (var player in allPlayers)
+        private void Update()
         {
-            if (player.HasInputAuthority) return player;
-        }
-        return null;
-    }
-    
-    private async void LeaveSessionAndReturnToMenu()
-    {
-        NetworkRunner runner = FindObjectsByType<NetworkRunner>().FirstOrDefault();
+            if (localPlayer == null)
+                localPlayer = FindLocalPlayer();
 
-        if (runner != null)
-        {
-            Debug.Log("[Сеть] Выходим из игры. Закрываем сетевую сессию Photon...");
+            if (localPlayer == null)
+                return;
+                
+            if (!localPlayer.IsFinished)
+                return;
             
-            await runner.Shutdown();
+            if (!qualifiedPanel.activeSelf)
+            {
+                qualifiedPanel.SetActive(true);
+                
+                if (placeText != null)
+                {
+                    placeText.text = $"МЕСТО: {localPlayer.FinishPlace}";
+                }
+            }
         }
 
-        SceneManager.LoadScene(0);
+        private NetworkPlayerController FindLocalPlayer()
+        {
+            var allPlayers = FindObjectsByType<NetworkPlayerController>();
+            foreach (var player in allPlayers)
+            {
+                if (player.HasInputAuthority) return player;
+            }
+            return null;
+        }
+        
+        private async void LeaveSessionAndReturnToMenu()
+        {
+            NetworkRunner runner = FindObjectsByType<NetworkRunner>().FirstOrDefault();
+
+            if (runner != null)
+            {
+                Debug.Log("[Сеть] Выходим из игры. Закрываем сетевую сессию Photon...");
+                
+                await runner.Shutdown();
+            }
+
+            SceneManager.LoadScene(0);
+        }
     }
 }

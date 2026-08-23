@@ -1,57 +1,72 @@
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Fusion;
-using UnityEngine;
+using Fusion; // Подключаем Fusion для проверки сетевых прав
 
-
-public class NetworkBumper : MonoBehaviour
+namespace NonameGame
 {
-    [Header("Настройки бампера")]
-    [SerializeField] private float bounceForce = 15f; 
-    [SerializeField] private float stunTime = 0.35f;   
-
-    private HashSet<NetworkPlayerController> _activePlayers = new HashSet<NetworkPlayerController>();
-
-    private void OnTriggerStay(Collider other)
+    public class NetworkBumper : MonoBehaviour
     {
-        if (other.CompareTag("Player"))
+        [Header("Настройки бампера")]
+        [Tooltip("Сила импульса, с которой столб отбрасывает корову")]
+        [SerializeField] private float bounceForce; 
+        
+        [Tooltip("Время перезарядки бампера для конкретного игрока (в секундах)")]
+        [SerializeField] private float cooldownTime;   
+
+        // Черный список, который защищает от множественных ударов за одну миллисекунду
+        private HashSet<Rigidbody> _activeRigidbodies = new HashSet<Rigidbody>();
+
+        private void OnTriggerStay(Collider other)
         {
-            var playerController = other.GetComponent<NetworkPlayerController>();
-            
-            if (playerController != null)
+            if (other.CompareTag("Player"))
             {
-                if (!_activePlayers.Contains(playerController))
+                Rigidbody playerRb = other.GetComponent<Rigidbody>();
+                
+                if (playerRb != null)
                 {
-                    _activePlayers.Add(playerController);
-
-                    // ЖЕЛЕЗОБЕТОННЫЙ МАНЕВР FUSION 2.1:
-                    // Импульс применяет ТАКЖЕ и Клиент, у которого есть права управления (HasInputAuthority)!
-                    // Это позволит клиенту мгновенно предсказать полет на своем экране без задержек сети
-                    if (playerController.HasInputAuthority || playerController.Runner.IsServer)
+                    if (!_activeRigidbodies.Contains(playerRb))
                     {
-                        Vector3 bounceDir = (other.transform.position - transform.position);
-                        bounceDir.y = 0f; 
-                        bounceDir = bounceDir.normalized;
-                        bounceDir.y = 0.4f; 
+                        _activeRigidbodies.Add(playerRb);
 
-                        Vector3 finalKnockbackVector = bounceDir.normalized * bounceForce;
+                        NetworkObject netObj = playerRb.GetComponent<NetworkObject>();
+                        if (netObj != null)
+                        {
+                            // Локальное предсказание импульса (Client-Side Prediction):
+                            // Силу удара применяет и Хост(Сервер), и Клиент, который управляет этой коровой!
+                            // Это дает мгновенный отскок без задержек сети и без дерганий.
+                            if (netObj.HasInputAuthority || netObj.Runner.IsServer)
+                            {
+                                // Вычисляем чистый вектор направления от центра столба к игроку
+                                Vector3 bounceDir = (other.transform.position - transform.position);
+                                bounceDir.y = 0f; // Игнорируем высоту для честного горизонтального вектора
+                                bounceDir = bounceDir.normalized;
+                                
+                                bounceDir.y = 0.4f; 
 
-                        // Вызываем метод БЕЗ всяких RPC — напрямую активируем физический буфер кадра!
-                        playerController.ApplyLocalPredictedKnockback(finalKnockbackVector, stunTime);
+                                // Сбрасываем прошлую скорость падения, чтобы импульс подброса сработал
+                                playerRb.linearVelocity = Vector3.zero;
+
+                                playerRb.AddForce(bounceDir.normalized * bounceForce, ForceMode.Impulse);
+                                
+                                Debug.Log($"[Физический Бампер] К Rigidbody игрока приложен импульс силы: {bounceForce}");
+                            }
+                        }
+
+                        // Автоматически удаляем игрока из блокировки по независимому таймеру
+                        StartCoroutine(ReleasePlayerRoutine(playerRb, cooldownTime));
                     }
-
-                    StartCoroutine(ReleasePlayerRoutine(playerController, stunTime));
                 }
             }
         }
-    }
 
-    private IEnumerator ReleasePlayerRoutine(NetworkPlayerController player, float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        if (_activePlayers.Contains(player))
+        private IEnumerator ReleasePlayerRoutine(Rigidbody rb, float delay)
         {
-            _activePlayers.Remove(player);
+            yield return new WaitForSeconds(delay);
+            if (_activeRigidbodies.Contains(rb))
+            {
+                _activeRigidbodies.Remove(rb);
+            }
         }
     }
 }

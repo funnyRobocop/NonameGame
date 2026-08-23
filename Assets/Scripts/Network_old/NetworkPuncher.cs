@@ -1,6 +1,8 @@
 using Unity.Cinemachine;
 using UnityEngine;
 
+namespace NonameGame
+{
 public class NetworkPuncher : MonoBehaviour
 {
     [SerializeField] private float punchForce = 30f;
@@ -24,3 +26,4 @@ public class NetworkPuncher : MonoBehaviour
             }
         }
     }
+}
