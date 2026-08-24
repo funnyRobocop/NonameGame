@@ -7120,7 +7120,7 @@ PrefabInstance:
     - target: {fileID: 1787184380897493420, guid: 98a0f2f9421d51c41912a51c60739ecc, type: 3}
       propertyPath: input
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1511447775}
     - target: {fileID: 1787184380897493422, guid: 98a0f2f9421d51c41912a51c60739ecc, type: 3}
       propertyPath: m_Name
       value: (Prb)Ladder

@@ -479,12 +479,12 @@ MonoBehaviour:
   movementThrashold: 0.01
   dampSpeedUp: 0.2
   dampSpeedDown: 0.1
-  jumpVelocity: 20
+  jumpVelocity: 15
   fallMultiplier: 1.7
   holdJumpMultiplier: 5
   frictionAgainstFloor: 0.3
-  frictionAgainstWall: 0.839
-  canLongJump: 1
+  frictionAgainstWall: 0.01
+  canLongJump: 0
   groundCheckerThrashold: 0.1
   slopeCheckerThrashold: 0.51
   stepCheckerThrashold: 0.6
@@ -517,14 +517,14 @@ MonoBehaviour:
   canSlideMultiplierCurve: 0.061
   cantSlideMultiplierCurve: 0.039
   climbingStairsMultiplierCurve: 0.637
-  gravityMultiplier: 6
+  gravityMultiplier: 9.8
   gravityMultiplyerOnSlideChange: 3
   gravityMultiplierIfUnclimbableSlope: 30
-  lockOnSlope: 0
-  wallCheckerThrashold: 0.8
-  hightWallCheckerChecker: 0.5
-  jumpFromWallMultiplier: 30
-  multiplierVerticalLeap: 1
+  lockOnSlope: 1
+  wallCheckerThrashold: 0
+  hightWallCheckerChecker: 0
+  jumpFromWallMultiplier: 0
+  multiplierVerticalLeap: 0
   sprintSpeed: 20
   crouchHeightMultiplier: 0.5
   POV_normalHeadHeight: {x: 0, y: 0.5, z: -0.1}
@@ -536,7 +536,7 @@ MonoBehaviour:
   meshCharacterCrouch: {fileID: 6554549952155786429}
   headPoint: {fileID: 6212462411298747933}
   input: {fileID: 0}
-  debug: 1
+  debug: 0
   OnJump:
     m_PersistentCalls:
       m_Calls: []
@@ -557,7 +557,7 @@ MonoBehaviour:
   OnCrouch:
     m_PersistentCalls:
       m_Calls: []
-  targetAngle: 0
+  targetAngle: 328.39734
 --- !u!1 &6212462411298747934
 GameObject:
   m_ObjectHideFlags: 0

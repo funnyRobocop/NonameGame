@@ -9,7 +9,7 @@
         "HitboxDefaultCapacity": 512,
         "CachedStaticCollidersSize": 64
     },
-    "PhysicsForecast": true,
+    "PhysicsForecast": false,
     "EnqueueIncompleteSynchronousSpawns": false,
     "InvokeRenderMode": 1,
     "NetworkIdIsObjectName": false,
