@@ -137,7 +137,7 @@ namespace NonameGame
 
         private float coyoteJumpMultiplier = 1f;
 
-        public bool isGrounded = false;
+        private bool isGrounded = false;
         private bool isTouchingSlope = false;
         private bool isTouchingStep = false;
         private bool isTouchingWall = false;
