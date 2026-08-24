@@ -11,7 +11,7 @@ namespace PhysicsCharacterController
         public float smoothSpeed = 0.17f;
 
 
-        private CinemachineFreeLook cinemachineFreeLook;
+        [SerializeField] private CinemachineFreeLook cinemachineFreeLook;
 
         private MovementActions movementActions;
         private Vector2 smoothVelocity;
@@ -27,7 +27,7 @@ namespace PhysicsCharacterController
 
         private void Awake()
         {
-            cinemachineFreeLook = this.GetComponent<CinemachineFreeLook>();
+            //cinemachineFreeLook = this.GetComponent<CinemachineFreeLook>();
             movementActions = new MovementActions();
         }
 

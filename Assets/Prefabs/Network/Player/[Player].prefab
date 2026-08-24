@@ -384,9 +384,7 @@ GameObject:
   - component: {fileID: 6212462410201203768}
   - component: {fileID: 6212462410201203774}
   - component: {fileID: 6212462410201203769}
-  - component: {fileID: 6212462410201203773}
-  - component: {fileID: 8584745055081398282}
-  - component: {fileID: 4647158194208844838}
+  - component: {fileID: 7555286933133083413}
   m_Layer: 8
   m_Name: '[Player]'
   m_TagString: Untagged
@@ -461,7 +459,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &6212462410201203773
+--- !u!114 &7555286933133083413
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -470,13 +468,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6212462410201203770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d653000bcba62c14ba9b6c5c324a4197, type: 3}
+  m_Script: {fileID: 11500000, guid: 4de9dab0bdcb4bd429b66160dc033b6d, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::PhysicsCharacterController.CharacterManager
   groundMask:
     serializedVersion: 2
-    m_Bits: 512
-  movementSpeed: 14.4
+    m_Bits: 4294967295
+  movementSpeed: 14
   crouchSpeedMultiplier: 0.248
   movementThrashold: 0.01
   dampSpeedUp: 0.2
@@ -484,8 +482,8 @@ MonoBehaviour:
   jumpVelocity: 20
   fallMultiplier: 1.7
   holdJumpMultiplier: 5
-  frictionAgainstFloor: 0.189
-  frictionAgainstWall: 0.082
+  frictionAgainstFloor: 0.3
+  frictionAgainstWall: 0.839
   canLongJump: 1
   groundCheckerThrashold: 0.1
   slopeCheckerThrashold: 0.51
@@ -518,21 +516,21 @@ MonoBehaviour:
     m_RotationOrder: 4
   canSlideMultiplierCurve: 0.061
   cantSlideMultiplierCurve: 0.039
-  climbingStairsMultiplierCurve: 0.086
-  gravityMultiplier: 8
-  gravityMultiplyerOnSlideChange: 2
+  climbingStairsMultiplierCurve: 0.637
+  gravityMultiplier: 6
+  gravityMultiplyerOnSlideChange: 3
   gravityMultiplierIfUnclimbableSlope: 30
-  lockOnSlope: 1
+  lockOnSlope: 0
   wallCheckerThrashold: 0.8
   hightWallCheckerChecker: 0.5
-  jumpFromWallMultiplier: 31
+  jumpFromWallMultiplier: 30
   multiplierVerticalLeap: 1
   sprintSpeed: 20
   crouchHeightMultiplier: 0.5
   POV_normalHeadHeight: {x: 0, y: 0.5, z: -0.1}
   POV_crouchHeadHeight: {x: 0, y: -0.1, z: -0.1}
   characterCamera: {fileID: 0}
-  characterModel: {fileID: 6212462410201203770}
+  characterModel: {fileID: 6212462410187470976}
   characterModelRotationSmooth: 0.1
   meshCharacter: {fileID: 6554549952702375995}
   meshCharacterCrouch: {fileID: 6554549952155786429}
@@ -542,11 +540,11 @@ MonoBehaviour:
   OnJump:
     m_PersistentCalls:
       m_Calls: []
-  minimumVerticalSpeedToLandEvent: 0.5
+  minimumVerticalSpeedToLandEvent: 0
   OnLand:
     m_PersistentCalls:
       m_Calls: []
-  minimumHorizontalSpeedToFastEvent: 20
+  minimumHorizontalSpeedToFastEvent: 0
   OnFast:
     m_PersistentCalls:
       m_Calls: []
@@ -559,44 +557,7 @@ MonoBehaviour:
   OnCrouch:
     m_PersistentCalls:
       m_Calls: []
-  isGrounded: 0
-  targetAngle: 47.939434
-  netDashAnimationFlag: 0
-  dashForce: 15
-  dashStunDuration: 0.25
---- !u!114 &8584745055081398282
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6212462410201203770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Fusion.Runtime.dll::Fusion.NetworkObject
-  SortKey: 4251100056
-  SendPriority: 1
-  EnableInterpolation: 1
-  Flags: 262146
-  NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 6212462410201203773}
-  - {fileID: 4647158194208844838}
-  ForceRemoteRenderTimeframe: 0
---- !u!114 &4647158194208844838
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6212462410201203770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40eb5857ebbf0294497d4e64fbf1b1fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InputHandler
+  targetAngle: 0
 --- !u!1 &6212462411298747934
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,8 +768,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: eb7a06e79dea43549bb02ccd53a948f7, type: 2}
-  - {fileID: 2100000, guid: c70c7660792bc524193d77a2df89539a, type: 2}
+  - {fileID: 2100000, guid: d8b06aed0f8442a4693303bcffe3c7c2, type: 2}
+  - {fileID: 2100000, guid: d8b06aed0f8442a4693303bcffe3c7c2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
