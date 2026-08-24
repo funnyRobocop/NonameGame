@@ -571,7 +571,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2613,7 +2617,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2814,7 +2822,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3228,8 +3240,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -3787169064211337688, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -3241,8 +3251,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: -3787169064211337688, guid: 4419d82f33d36e848b3ed5af4c8da37e, type: 3}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -3254,8 +3262,6 @@ MonoBehaviour:
       Input:
         InputAction: {fileID: 0}
         Gain: 1
-        LegacyInput: 
-        LegacyGain: 1
         CancelDeltaTime: 0
       InputValue: 0
       Driver:
@@ -3472,7 +3478,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4068,7 +4078,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4297,7 +4311,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4658,7 +4676,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6143,7 +6165,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13571,7 +13597,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 0.15
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
+      propertyPath: cooldownTime
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 5885413185299174423, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: m_LocalPosition.x

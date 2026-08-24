@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7497379954376202941}
   - component: {fileID: 400430699931883313}
   m_Layer: 0
-  m_Name: Trigger
+  m_Name: View
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,4 +258,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkBumper
   bounceForce: 0
-  stunTime: 0
+  cooldownTime: 0

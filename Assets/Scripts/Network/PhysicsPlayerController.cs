@@ -170,6 +170,7 @@ namespace NonameGame
         [Networked] private NetworkBool _hasDashedInAir { get; set; }
         [Networked] private TickTimer _dashStunTimer { get; set; }
         [Networked] private Vector3 _dashStoredDirection { get; set; }
+        [Networked] public TickTimer stunTimer { get; set; }
 
         private void Awake()
         {
@@ -222,8 +223,12 @@ namespace NonameGame
                 CheckStep();
                 CheckWall();
                 CheckSlopeAndDirections();
-                
-                if (!_dashStunTimer.ExpiredOrNotRunning(Runner))
+
+                if (!stunTimer.ExpiredOrNotRunning(Runner))
+                {
+                    netDashAnimationFlag = true; 
+                }
+                else if (!_dashStunTimer.ExpiredOrNotRunning(Runner))
                 {
                     Vector3 currentVel = rigidbody.linearVelocity;
                     rigidbody.linearVelocity = new Vector3(_dashStoredDirection.x * dashForce, currentVel.y, _dashStoredDirection.z * dashForce);

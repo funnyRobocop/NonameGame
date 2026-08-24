@@ -30,27 +30,27 @@ namespace NonameGame
                         _activeRigidbodies.Add(playerRb);
 
                         NetworkObject netObj = playerRb.GetComponent<NetworkObject>();
-                        NetworkObject netObj2 = playerRb.GetComponent<NetworkObject>();
                         if (netObj != null)
                         {
-                            // Локальное предсказание импульса (Client-Side Prediction):
-                            // Силу удара применяет и Хост(Сервер), и Клиент, который управляет этой коровой!
-                            // Это дает мгновенный отскок без задержек сети и без дерганий.
                             if (netObj.HasInputAuthority || netObj.Runner.IsServer)
                             {
-                                // Вычисляем чистый вектор направления от центра столба к игроку
-                                Vector3 bounceDir = (other.transform.position - transform.position);
-                                bounceDir.y = 0f; // Игнорируем высоту для честного горизонтального вектора
-                                bounceDir = bounceDir.normalized;
+                                var characterManager = playerRb.GetComponent<PhysicsPlayerController>();
                                 
-                                bounceDir.y = 0.4f; 
+                                if (characterManager != null)
+                                {
+                                    characterManager.stunTimer = TickTimer.CreateFromSeconds(netObj.Runner, cooldownTime);
 
-                                // Сбрасываем прошлую скорость падения, чтобы импульс подброса сработал
-                                playerRb.linearVelocity = Vector3.zero;
+                                    Vector3 bounceDir = (other.transform.position - transform.position);
+                                    bounceDir.y = 0f; 
+                                    bounceDir = bounceDir.normalized;
+                                    bounceDir.y = 0.45f;
 
-                                playerRb.AddForce(bounceDir.normalized * bounceForce, ForceMode.Impulse);
-                                
-                                Debug.Log($"[Физический Бампер] К Rigidbody игрока приложен импульс силы: {bounceForce}");
+                                    playerRb.linearVelocity = Vector3.zero;
+
+                                    playerRb.AddForce(bounceDir.normalized * bounceForce, ForceMode.Impulse);
+                                    
+                                    Debug.Log($"[Физический Бампер] Игрок оглушен! Импульс {bounceForce} запущен в Rigidbody.");
+                                }
                             }
                         }
 
