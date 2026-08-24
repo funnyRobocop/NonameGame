@@ -82,7 +82,7 @@ namespace NonameGame
                     playerRb.position = newPosition;
 
                     // Намертво разворачиваем саму модельку коровы лицом по направлению вращения платформы!
-                    playerRb.rotation = rotationDelta * playerRb.rotation;
+                    /*playerRb.rotation = rotationDelta * playerRb.rotation;
 
                     // Обновляем целевой угол поворота внутри скрипта Nappin, 
                     // чтобы при нажатии WASD корова не дергалась обратно в старый угол взгляда камеры!
@@ -91,7 +91,7 @@ namespace NonameGame
                     {
                         // Прибавляем дельту угла платформы к сетевому целевому углу персонажа
                         characterManager.targetAngle += rotationDelta.eulerAngles.y;
-                    }
+                    }*/
                 }
             }
 

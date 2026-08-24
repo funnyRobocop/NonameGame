@@ -9062,6 +9062,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2067165028}
   - {fileID: 464070902}
   - {fileID: 212016631}
   - {fileID: 5760768055559440663}
@@ -9742,6 +9743,72 @@ Transform:
   - {fileID: 8941721664782692828}
   m_Father: {fileID: 940703019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &2067165027
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1923394601}
+    m_Modifications:
+    - target: {fileID: 83573633191736339, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: SortKey
+      value: 3248774834
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 102.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8113856756836102685, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+      propertyPath: m_Name
+      value: (Prb)MovingPlatform_Big
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+--- !u!4 &2067165028 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8113856756836102673, guid: d00b6f15d6c6be04a849e6d8d906c243, type: 3}
+  m_PrefabInstance: {fileID: 2067165027}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2146280791
 GameObject:
   m_ObjectHideFlags: 0
@@ -20491,7 +20558,7 @@ Transform:
   m_GameObject: {fileID: 2628265545096019966}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 5.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24415,6 +24482,10 @@ PrefabInstance:
     - target: {fileID: 6180823362628730405, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
       propertyPath: m_Name
       value: obstacle_17_001_Net
+      objectReference: {fileID: 0}
+    - target: {fileID: 6180823362628730405, guid: 24d793fa4d0fab949baf13450811dea0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -127,7 +127,6 @@ GameObject:
   - component: {fileID: 6494573997816561171}
   - component: {fileID: 4615699121813891613}
   - component: {fileID: 545533624333104123}
-  - component: {fileID: 2674944322598957810}
   m_Layer: 0
   m_Name: obstacle_26_002
   m_TagString: Untagged
@@ -197,9 +196,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 1
-  m_Constraints: 126
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &6494573997816561171
 MonoBehaviour:
@@ -275,28 +274,6 @@ MonoBehaviour:
     MinImpactfulCollisionAlignment: 0.3
     ImpactStartCorrectionTime: 0.1
     ImpactCorrectionTimeComplete: 0.3
---- !u!64 &2674944322598957810
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3786532394338263946}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 16f5db1b0e4b8ff4c9fb8c79c079f832, type: 2}
 --- !u!1 &3815427424651695647
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 3815427424651695647}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -375,6 +352,7 @@ GameObject:
   - component: {fileID: 1641886802822161359}
   - component: {fileID: 8478630690628057079}
   - component: {fileID: 5648770386342049060}
+  - component: {fileID: 5960241043054616327}
   m_Layer: 0
   m_Name: View
   m_TagString: Untagged
@@ -454,3 +432,19 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5960241043054616327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4428665596857498460}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5db453cad944e42a77762d80bae84f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NonameGame.NetworkViewFollow
+  _target: {fileID: 7545487556548724645}
+  positionThreshold: 0.01
+  positionLerpSpeed: 25
+  rotationLerpSpeed: 15
