@@ -1,7 +1,7 @@
 using UnityEngine;
 using Fusion;
 
-namespace YourGameNamespace
+namespace NonameGame
 {
     [RequireComponent(typeof(Rigidbody))]
     public class NetworkGateTrap : NetworkBehaviour
