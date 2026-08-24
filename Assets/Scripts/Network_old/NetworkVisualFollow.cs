@@ -19,10 +19,10 @@ namespace NonameGame
         private Transform _targetPhysicsTransform;
         private Animator _animator;
         private Rigidbody _targetRigidbody;
-        private CharacterManager _targetCharacterManager;
+        private PhysicsPlayerController _targetCharacterManager;
 
         // Метод вызывается кодом при спавне коровы, чтобы передать графике цель для следования
-        public void InitializeFollowTarget(Transform physicsTarget, CharacterManager manager, Rigidbody rb)
+        public void InitializeFollowTarget(Transform physicsTarget, PhysicsPlayerController manager, Rigidbody rb)
         {
             _targetPhysicsTransform = physicsTarget;
             _targetCharacterManager = manager;

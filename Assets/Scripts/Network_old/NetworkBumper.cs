@@ -30,6 +30,7 @@ namespace NonameGame
                         _activeRigidbodies.Add(playerRb);
 
                         NetworkObject netObj = playerRb.GetComponent<NetworkObject>();
+                        NetworkObject netObj2 = playerRb.GetComponent<NetworkObject>();
                         if (netObj != null)
                         {
                             // Локальное предсказание импульса (Client-Side Prediction):

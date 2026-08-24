@@ -9,7 +9,7 @@ namespace NonameGame
     {
         private Rigidbody _rigidbody;
         private Animator _animator;
-        private CharacterManager _characterManager;
+        private PhysicsPlayerController _characterManager;
 
         [SerializeField] private Transform followTarget;
         
@@ -36,7 +36,7 @@ namespace NonameGame
         {
             _animator = GetComponent<Animator>();
             _rigidbody = GetComponent<Rigidbody>();
-            _characterManager = GetComponent<CharacterManager>();
+            _characterManager = GetComponent<PhysicsPlayerController>();
 
             if (viewPrefab != null)
             {

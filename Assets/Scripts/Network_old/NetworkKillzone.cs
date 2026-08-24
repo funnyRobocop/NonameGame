@@ -9,8 +9,6 @@ namespace NonameGame
         {
             if (!Runner.IsServer) return;
 
-            // Ищем сетевой контроллер. Если упала кость рэгдолла, 
-            // метод GetComponentInParent найдет скрипт на самом верхнем корневом объекте коровы
             var playerController = other.GetComponent<NetworkPlayerController>() ?? other.GetComponentInParent<NetworkPlayerController>();
             
             if (playerController != null)

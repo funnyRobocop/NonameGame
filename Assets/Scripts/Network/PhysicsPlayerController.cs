@@ -7,7 +7,7 @@ namespace NonameGame
 {
     [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
-    public class CharacterManager : NetworkBehaviour
+    public class PhysicsPlayerController : NetworkBehaviour
     {
         [Header("Movement specifics")]
         [Tooltip("Layers where the player can stand on")]

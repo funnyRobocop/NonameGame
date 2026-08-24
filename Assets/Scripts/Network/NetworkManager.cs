@@ -9,12 +9,6 @@ public class NetworkManager : SimulationBehaviour, ISceneLoadDone, IPlayerJoined
     [Header("Настройки спавна")]
     [SerializeField] private NetworkObject playerPrefab;
 
-    [Header("Настройки спавна Сетевых Ловушек")]
-    // Перетащите сюда в инспекторе префаб вашего движущегося барьера!
-    [SerializeField] private NetworkObject barrierPrefab; 
-    // Перетащите сюда префаб бампера (красного столба)!
-    [SerializeField] private NetworkObject bumperPrefab;  
-
     // Список подключившихся игроков, которые ждут, пока сервер загрузит карту
     private List<PlayerRef> _pendingPlayers = new List<PlayerRef>();
     private bool _isSceneLoaded = false;
