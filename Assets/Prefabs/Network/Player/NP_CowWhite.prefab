@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerController
   pushPower: 3
   speed: 5
-  dashSpeed: 20
+  dashSpeed: 50
   dashDuration: 0.28
   followTarget: {fileID: 7230943159269166234}
   _IsFinished:
@@ -232,17 +232,14 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 193
-  movementSpeed: 14.4
-  crouchSpeedMultiplier: 0.248
+  movementSpeed: 9
   movementThrashold: 0.01
-  dampSpeedUp: 0.2
-  dampSpeedDown: 0.1
-  jumpVelocity: 20
-  fallMultiplier: 1.7
-  holdJumpMultiplier: 5
-  frictionAgainstFloor: 0.189
-  frictionAgainstWall: 0.082
-  canLongJump: 1
+  dampSpeedUp: 0
+  dampSpeedDown: 0
+  jumpVelocity: 18
+  fallMultiplier: 1
+  frictionAgainstFloor: 0.03
+  frictionAgainstWall: 0.01
   groundCheckerThrashold: 0.1
   slopeCheckerThrashold: 0.51
   stepCheckerThrashold: 0.6
@@ -274,26 +271,19 @@ MonoBehaviour:
     m_RotationOrder: 4
   canSlideMultiplierCurve: 0.061
   cantSlideMultiplierCurve: 0.039
-  climbingStairsMultiplierCurve: 0.086
-  gravityMultiplier: 8
-  gravityMultiplyerOnSlideChange: 2
+  climbingStairsMultiplierCurve: 0.637
+  gravityMultiplier: 6
+  gravityMultiplyerOnSlideChange: 3
   gravityMultiplierIfUnclimbableSlope: 30
-  lockOnSlope: 1
-  wallCheckerThrashold: 0.8
-  hightWallCheckerChecker: 0.5
-  jumpFromWallMultiplier: 31
-  multiplierVerticalLeap: 1
-  sprintSpeed: 20
-  crouchHeightMultiplier: 0.5
-  POV_normalHeadHeight: {x: 0, y: 0.5, z: -0.1}
-  POV_crouchHeadHeight: {x: 0, y: -0.1, z: -0.1}
+  lockOnSlope: 0
+  wallCheckerThrashold: 0
+  hightWallCheckerChecker: 0
+  jumpFromWallMultiplier: 0
+  multiplierVerticalLeap: 0
   characterCamera: {fileID: 0}
   characterModel: {fileID: 5001663459763089645}
   characterModelRotationSmooth: 0.1
-  meshCharacter: {fileID: 0}
-  meshCharacterCrouch: {fileID: 0}
   headPoint: {fileID: 3619023531727051279}
-  input: {fileID: 0}
   debug: 1
   OnJump:
     m_PersistentCalls:
@@ -309,15 +299,11 @@ MonoBehaviour:
   OnWallSlide:
     m_PersistentCalls:
       m_Calls: []
-  OnSprint:
-    m_PersistentCalls:
-      m_Calls: []
-  OnCrouch:
-    m_PersistentCalls:
-      m_Calls: []
   isGrounded: 0
   targetAngle: 47.939434
   netDashAnimationFlag: 0
+  dashForce: 15
+  dashStunDuration: 0.25
 --- !u!1 &5001663459763089645
 GameObject:
   m_ObjectHideFlags: 0

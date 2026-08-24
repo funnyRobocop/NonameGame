@@ -521,10 +521,10 @@ MonoBehaviour:
   gravityMultiplyerOnSlideChange: 3
   gravityMultiplierIfUnclimbableSlope: 30
   lockOnSlope: 1
-  wallCheckerThrashold: 0
-  hightWallCheckerChecker: 0
-  jumpFromWallMultiplier: 0
-  multiplierVerticalLeap: 0
+  wallCheckerThrashold: 0.8
+  hightWallCheckerChecker: 0.5
+  jumpFromWallMultiplier: 31
+  multiplierVerticalLeap: 1
   sprintSpeed: 20
   crouchHeightMultiplier: 0.5
   POV_normalHeadHeight: {x: 0, y: 0.5, z: -0.1}

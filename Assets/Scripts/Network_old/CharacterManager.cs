@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 using System;
-using Fusion; // ОБЯЗАТЕЛЬНО подключаем Photon Fusion
+using Fusion;
 
 namespace NonameGame
 {
     [RequireComponent(typeof(CapsuleCollider))]
     [RequireComponent(typeof(Rigidbody))]
-    // Изменяем наследование с MonoBehaviour на NetworkBehaviour!
     public class CharacterManager : NetworkBehaviour
     {
         [Header("Movement specifics")]
@@ -15,9 +14,6 @@ namespace NonameGame
         [SerializeField] LayerMask groundMask;
         [Tooltip("Base player speed")]
         public float movementSpeed = 14f;
-        [Range(0f, 1f)]
-        [Tooltip("Minimum input value to trigger movement")]
-        public float crouchSpeedMultiplier = 0.248f;
         [Range(0.01f, 0.99f)]
         [Tooltip("Minimum input value to trigger movement")]
         public float movementThrashold = 0.01f;
@@ -34,8 +30,6 @@ namespace NonameGame
         public float jumpVelocity = 20f;
         [Tooltip("Multiplier applied to gravity when the player is falling")]
         public float fallMultiplier = 1.7f;
-        [Tooltip("Multiplier applied to gravity when the player is holding jump")]
-        public float holdJumpMultiplier = 5f;
         [Range(0f, 1f)]
         [Tooltip("Player friction against floor")]
         public float frictionAgainstFloor = 0.3f;
@@ -43,10 +37,6 @@ namespace NonameGame
         [Tooltip("Player friction against wall")]
         public float frictionAgainstWall = 0.839f;
         [Space(10)]
-
-        [Tooltip("Player can long jump")]
-        public bool canLongJump = true;
-
 
         [Header("Slope and step specifics")]
         [Tooltip("Distance from the player feet used to check if the player is touching the ground")]
@@ -100,18 +90,6 @@ namespace NonameGame
         [Tooltip("Factor used to determine the height of the jump")]
         public float multiplierVerticalLeap = 1f;
 
-
-        [Header("Sprint and crouch specifics")]
-        [Tooltip("Sprint speed")]
-        public float sprintSpeed = 20f;
-        [Tooltip("Multipler applied to the collider when player is crouching")]
-        public float crouchHeightMultiplier = 0.5f;
-        [Tooltip("FP camera head height")]
-        public Vector3 POV_normalHeadHeight = new Vector3(0f, 0.5f, -0.1f);
-        [Tooltip("FP camera head height when crouching")]
-        public Vector3 POV_crouchHeadHeight = new Vector3(0f, -0.1f, -0.1f);
-
-
         [Header("References")]
         [Tooltip("Character camera")]
         public GameObject characterCamera;
@@ -121,17 +99,8 @@ namespace NonameGame
         public float characterModelRotationSmooth = 0.1f;
         [Space(10)]
 
-        [Tooltip("Default character mesh")]
-        public GameObject meshCharacter;
-        [Tooltip("Crouch character mesh")]
-        public GameObject meshCharacterCrouch;
         [Tooltip("Head reference")]
         public Transform headPoint;
-        [Space(10)]
-
-        // Старый одиночный InputReader удаляем из сетевой логики, 
-        // но оставляем переменную как скрытую, чтобы не ломать зависимости, если они есть
-        [HideInInspector] public GameObject input;
         [Space(10)]
 
         public bool debug = true;
@@ -150,15 +119,6 @@ namespace NonameGame
         [Space(15)]
 
         [SerializeField] UnityEvent OnWallSlide;
-        [Space(15)]
-
-        [SerializeField] UnityEvent OnSprint;
-        [Space(15)]
-
-        [SerializeField] UnityEvent OnCrouch;
-        [Space(15)]
-
-
 
         private Vector3 forward;
         private Vector3 globalForward;
@@ -186,9 +146,6 @@ namespace NonameGame
 
         private Vector2 axisInput;
         private bool jump;
-        private bool jumpHold;
-        private bool sprint;
-        private bool crouch;
 
         [HideInInspector]
         public float targetAngle;
@@ -199,7 +156,6 @@ namespace NonameGame
         private Vector3 currVelocity = Vector3.zero;
         private float turnSmoothVelocity;
         private bool lockRotation = false;
-        private bool lockToCamera = false;
 
         // Вектор сглаженного направления относительно сетевой камеры
         private Vector3 _networkCameraDirection = Vector3.zero;
@@ -211,7 +167,6 @@ namespace NonameGame
         [Tooltip("Длительность фазы рывка в секундах, на которую отключается WASD для сочности полета")]
         [SerializeField] private float dashStunDuration = 0.25f;
 
-        // Сетевые переменные Fusion для контроля полета
         [Networked] private NetworkBool _hasDashedInAir { get; set; }
         [Networked] private TickTimer _dashStunTimer { get; set; }
         [Networked] private Vector3 _dashStoredDirection { get; set; }
@@ -226,44 +181,28 @@ namespace NonameGame
             currentLockOnSlope = lockOnSlope;
         }
 
-        // Вместо Start во Fusion используется метод Spawned()
         public override void Spawned()
         {
-            // Автоматически находим главную камеру сцены при спавне сетевого тела
             if (characterCamera == null)
             {
                 characterCamera = Camera.main != null ? Camera.main.gameObject : null;
             }
         }
 
-        // Обычный Update блокируем для сетевых расчетов — он нам больше не нужен!
-        private void Update()
-        {
-            // Пусто. Сбор ввода выполняет наш InputHandler.cs
-        }
-
-        // Обычный FixedUpdate от Unity ПОЛНОСТЬЮ ЗАМЕНЯЕМ на FixedUpdateNetwork от Photon!
-        // Этот метод автоматически и синхронно крутится на сервере и клиентах
         public override void FixedUpdateNetwork()
         {
-            // ЖЕЛЕЗОБЕТОННЫЙ ПЕРЕХВАТ СЕТЕВОГО ВВОДА FUSION 2.1
             if (GetInput(out NetworkInputData data))
             {
-                // 1. Распаковываем WASD и кнопки из нашего сетевого пакета кадра
                 axisInput = data.MoveDirection;
                 jump = data.JumpPressed;
-                jumpHold = data.JumpPressed; // для длинного прыжка дублируем
-                sprint = data.DashPressed;
-                crouch = false; // Кроуч в Fall Guys не нужен, глушим в false
-                // СБРОС ФЛАГА: Если корова приземлилась и коснулась земли по физике Nappin
+                
                 if (isGrounded)
                 {
                     _hasDashedInAir = false;
                 }       
-                // 2. МАТЕМАТИЧЕСКИЙ РАСЧЕТ НАПРАВЛЕНИЯ WASD ОТНОСИТЕЛЬНО СЕТЕВОЙ КАМЕРЫ КЛИЕНТА
+                
                 if (axisInput.magnitude > movementThrashold)
                 {
-                    // Восстанавливаем угол камеры, прилетевший по интернету
                     Quaternion cameraYRotation = Quaternion.Euler(0f, data.CameraRotationY, 0f);
                     Vector3 camForward = cameraYRotation * Vector3.forward;
                     Vector3 camRight = cameraYRotation * Vector3.right;
@@ -279,69 +218,32 @@ namespace NonameGame
                     _networkCameraDirection = Vector3.zero;
                 }
 
-                // ====================================================================
-                // 3. ЗАПУСК РОДНОЙ ФИЗИЧЕСКОЙ СИСТЕМЫ АССЕТА NAPPIN ВНУТРИ СЕТЕВОГО ТИКА
-                // ====================================================================
                 CheckGrounded();
                 CheckStep();
                 CheckWall();
                 CheckSlopeAndDirections();
-
-                // Движение ползком
-                MoveCrouch();
-
-                // Движение шагом (модифицированный метод, использующий сетевую камеру)
-                MoveWalkNetwork();
-
-                // ====================================================================
-                // 2. УПРАВЛЕНИЕ ФАЗАМИ ДВИЖЕНИЯ (Обычный бег VS Активный физический рывок)
-                // ====================================================================
                 
-                // Если таймер рывка ЕЩЕ ТИКАЕТ — корова находится в неуправляемом полете рыбкой!
                 if (!_dashStunTimer.ExpiredOrNotRunning(Runner))
                 {
-                    // Насильно поддерживаем горизонтальную скорость рывка, чтобы PhysX не тормозил полет о воздух
                     Vector3 currentVel = rigidbody.linearVelocity;
-                    // Сохраняем гравитацию по Y, но X и Z задаем из вектора рывка
                     rigidbody.linearVelocity = new Vector3(_dashStoredDirection.x * dashForce, currentVel.y, _dashStoredDirection.z * dashForce);
                 }
                 else
                 {
-                    // Если рывок не идет — корова слушается обычного WASD бега Nappin
                     MoveWalkNetwork();
-
-                    // Поворот модели (разрешен только вне рывка)
-                    if (!lockToCamera) MoveRotation();
-                    else ForceRotation();
-
-                    // Обычный прыжок с земли
+                    MoveRotation();
                     MoveJump();
 
-                    // --- АКТИВАЦИЯ СЕТЕВОГО РЫВКА В ВОЗДУХЕ ---
-                    // Проверяем: нажат ли Shift, корова НЕ на земле, и она ЕЩЕ НЕ делала рывок в текущем полете
-                    if (data.DashPressed && !isGrounded && !_hasDashedInAir)
+                    if (data.JumpPressed && !isGrounded && !_hasDashedInAir)
                     {
-                        // Намертво блокируем повторный спам до приземления
                         _hasDashedInAir = true;
-
-                        // Включаем таймер полета на четверть секунды (WASD отключится)
                         _dashStunTimer = TickTimer.CreateFromSeconds(Runner, dashStunDuration);
-
-                        // Фиксируем направление броска: куда бежали, или куда смотрит моделька коровы, если прыгнули с места
                         _dashStoredDirection = (_networkCameraDirection != Vector3.zero) ? _networkCameraDirection : characterModel.transform.forward;
-
-                        // ВЫСТРЕЛ ИМПУЛЬСА PHYSX! Обнуляем прошлую скорость бега, чтобы полет был чистым
                         rigidbody.linearVelocity = Vector3.zero;
-
-                        // Формируем вектор импульса: толкаем вперед и добавляем легкий сочный подброс вверх (0.2f)
                         Vector3 impulseVector = _dashStoredDirection;
-                        impulseVector.y = 0.2f; 
-
-                        // Прикладываем честный взрывной импульс в Rigidbody коровы!
+                        impulseVector.y = 0.2f;
                         rigidbody.AddForce(impulseVector.normalized * dashForce, ForceMode.Impulse);
 
-                        // Вызываем кастомный RPC или локальный триггер для анимации "Dive" рыбкой
-                        // (Если на вашем визуальном контейнере настроен аниматор, триггер сработает в Render)
                         TriggerDashAnimation();
 
                         Debug.Log($"[Физический Рывок] Rigidbody запущен вперед с силой {dashForce}!");
@@ -361,21 +263,12 @@ namespace NonameGame
             netDashAnimationFlag = true;
         }
 
-        // Модифицированный метод ходьбы под сетевые координаты камеры
         private void MoveWalkNetwork()
         {
-            float crouchMultiplier = 1f;
-            if (isCrouch) crouchMultiplier = crouchSpeedMultiplier;
-
             if (axisInput.magnitude > movementThrashold)
             {
-                // Вместо оригинальной строки Nappin, использовавшей локальный forward,
-                // мы толкаем Rigidbody по нашему сетевому вектору _networkCameraDirection!
-                Vector3 targetVelocity = _networkCameraDirection * (sprint ? sprintSpeed : movementSpeed) * crouchMultiplier;
-
-                // Сохраняем вертикальную скорость падения/прыжка, чтобы AddForce не ломал гравитацию
+                Vector3 targetVelocity = _networkCameraDirection * movementSpeed;
                 targetVelocity.y = rigidbody.linearVelocity.y;
-
                 rigidbody.linearVelocity = Vector3.SmoothDamp(rigidbody.linearVelocity, targetVelocity, ref currVelocity, dampSpeedUp);
             }
             else
@@ -385,8 +278,6 @@ namespace NonameGame
                 rigidbody.linearVelocity = Vector3.SmoothDamp(rigidbody.linearVelocity, targetVelocity, ref currVelocity, dampSpeedDown);
             }
         }
-
-        #region Original Checks (Без изменений)
 
         private void CheckGrounded()
         {
@@ -531,42 +422,7 @@ namespace NonameGame
                 SetFriction(frictionAgainstFloor, true);
                 currentLockOnSlope = lockOnSlope;
             }
-        }
-
-        #endregion
-
-        #region Original Movement core (Без изменений)
-
-        private void MoveCrouch()
-        {
-            if (crouch && isGrounded)
-            {
-                isCrouch = true;
-                if (meshCharacterCrouch != null && meshCharacter != null) meshCharacter.SetActive(false);
-                if (meshCharacterCrouch != null) meshCharacterCrouch.SetActive(true);
-
-                float newHeight = originalColliderHeight * crouchHeightMultiplier;
-                collider.height = newHeight;
-                collider.center = new Vector3(0f, -newHeight * crouchHeightMultiplier, 0f);
-
-                headPoint.position = new Vector3(transform.position.x + POV_crouchHeadHeight.x, transform.position.y + POV_crouchHeadHeight.y, transform.position.z + POV_crouchHeadHeight.z);
-            }
-            else
-            {
-                isCrouch = false;
-                if (meshCharacterCrouch != null && meshCharacter != null) meshCharacter.SetActive(true);
-                if (meshCharacterCrouch != null) meshCharacterCrouch.SetActive(false);
-
-                collider.height = originalColliderHeight;
-                collider.center = Vector3.zero;
-
-                if (headPoint != null)
-                    headPoint.position = new Vector3(transform.position.x + POV_normalHeadHeight.x, transform.position.y + POV_normalHeadHeight.y, transform.position.z + POV_normalHeadHeight.z);
-            }
-        }
-
-        // Оригинальный метод ходьбы Nappin оставляем пустым, так как заменили его на MoveWalkNetwork() выше
-        private void MoveWalk() { }
+        }    
 
         private void MoveRotation()
         {
@@ -581,11 +437,6 @@ namespace NonameGame
                 var rotation = Quaternion.LookRotation(lookPos);
                 characterModel.transform.rotation = rotation;
             }
-        }
-
-        public void ForceRotation()
-        {
-            characterModel.transform.rotation = Quaternion.Euler(0f, characterCamera.transform.rotation.eulerAngles.y, 0f);
         }
 
         private void MoveJump()
@@ -608,21 +459,12 @@ namespace NonameGame
             }
 
             if (rigidbody.linearVelocity.y < 0 && !isGrounded) coyoteJumpMultiplier = fallMultiplier;
-            else if (rigidbody.linearVelocity.y > 0.1f && (currentSurfaceAngle <= maxClimbableSlopeAngle || isTouchingStep))
-            {
-                if (!jumpHold || !canLongJump) coyoteJumpMultiplier = 1f;
-                else coyoteJumpMultiplier = 1f / holdJumpMultiplier;
-            }
             else
             {
                 isJumping = false;
                 coyoteJumpMultiplier = 1f;
             }
         }
-
-        #endregion
-
-        #region Gravity and Events (Без изменений)
 
         private void ApplyGravity()
         {
@@ -653,13 +495,7 @@ namespace NonameGame
             if (isGrounded && !prevGrounded && rigidbody.linearVelocity.y > -minimumVerticalSpeedToLandEvent) OnLand.Invoke();
             if (Mathf.Abs(rigidbody.linearVelocity.x) + Mathf.Abs(rigidbody.linearVelocity.z) > minimumHorizontalSpeedToFastEvent) OnFast.Invoke();
             if (isTouchingWall && rigidbody.linearVelocity.y < 0) OnWallSlide.Invoke();
-            if (sprint) OnSprint.Invoke();
-            if (isCrouch) OnCrouch.Invoke();
         }
-
-        #endregion
-
-        #region Friction and Round Tools (Без изменений)
 
         private void SetFriction(float _frictionWall, bool _isMinimum)
         {
@@ -678,10 +514,6 @@ namespace NonameGame
             else return _value;
         }
 
-        #endregion
-
-        #region GettersSetters (Без изменений)
-
         public bool GetGrounded() { return isGrounded; }
         public bool GetTouchingSlope() { return isTouchingSlope; }
         public bool GetTouchingStep() { return isTouchingStep; }
@@ -689,10 +521,5 @@ namespace NonameGame
         public bool GetJumping() { return isJumping; }
         public bool GetCrouching() { return isCrouch; }
         public float GetOriginalColliderHeight() { return originalColliderHeight; }
-
-        public void SetLockRotation(bool _lock) { lockRotation = _lock; }
-        public void SetLockToCamera(bool _lockToCamera) { lockToCamera = _lockToCamera; if (!_lockToCamera) targetAngle = characterModel.transform.eulerAngles.y; }
-
-        #endregion
     }
 }
