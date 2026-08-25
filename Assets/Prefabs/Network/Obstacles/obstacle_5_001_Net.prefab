@@ -194,6 +194,8 @@ GameObject:
   - component: {fileID: 6858946021589346143}
   - component: {fileID: 8977659960314559515}
   - component: {fileID: 3584150951614459066}
+  - component: {fileID: 2204224973644755452}
+  - component: {fileID: 1836001742202210087}
   m_Layer: 6
   m_Name: obstacle_5_011
   m_TagString: Untagged
@@ -294,6 +296,41 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.7
   m_Center: {x: 0, y: -0.65, z: -0}
+--- !u!135 &2204224973644755452
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632991979516769390}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.8232867
+  m_Center: {x: -0.0027920604, y: -0.7, z: 0.000021219254}
+--- !u!114 &1836001742202210087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 632991979516769390}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab5ff35f9a55ca4d8a1551d421c2149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NonameGame.NetworkBumper
+  bounceForce: 20
+  cooldownTime: 1
 --- !u!1 &1411681901482707051
 GameObject:
   m_ObjectHideFlags: 0

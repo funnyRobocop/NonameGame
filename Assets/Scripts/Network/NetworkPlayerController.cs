@@ -95,7 +95,7 @@ namespace NonameGame
                 _netGrounded = _characterManager.GetGrounded(); 
         }
 
-        public override void Render()
+        /*public override void Render()
         {
             if (_animator != null)
             {
@@ -127,7 +127,7 @@ namespace NonameGame
                     if (HasInputAuthority || Runner.IsServer) _netStunTrigger = false;
                 }
             }
-        }
+        }*/
 
         public void UpdateCheckpoint(Vector3 newPosition)
         {

@@ -220,8 +220,8 @@ namespace NonameGame
                 }
 
                 CheckGrounded();
-                CheckStep();
-                CheckWall();
+                //CheckStep();
+                //CheckWall();
                 CheckSlopeAndDirections();
 
                 if (!stunTimer.ExpiredOrNotRunning(Runner))

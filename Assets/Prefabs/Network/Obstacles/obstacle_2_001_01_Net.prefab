@@ -372,7 +372,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -392,8 +392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ab5ff35f9a55ca4d8a1551d421c2149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkBumper
-  bounceForce: 15
-  stunTime: 0.35
+  bounceForce: 50
+  cooldownTime: 0
 --- !u!1 &8325426869367579013
 GameObject:
   m_ObjectHideFlags: 0

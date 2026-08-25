@@ -73,6 +73,7 @@ namespace NonameGame
                 
                 // Передаем сглаженную скорость в аниматор локально
                 _animator.SetFloat("Speed", horizontalVel.magnitude);
+                _animator.SetFloat("MotionSpeed", 1f); //TODO не нужна строчка
                 _animator.SetBool("Grounded", _targetCharacterManager.GetGrounded());
 
                 if (_targetCharacterManager.netDashAnimationFlag)
