@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7870764248093135948}
   - component: {fileID: 998255978006198237}
   - component: {fileID: 5311953773032022910}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: obstacle_2_001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 5991968618699826531}
   - component: {fileID: 3933055993719596787}
   - component: {fileID: 4785650084911988879}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: obstacle_2_002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +403,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7786237924622841421}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: obstacle_2_001_01_Net
   m_TagString: Untagged
   m_Icon: {fileID: 0}

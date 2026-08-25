@@ -146,10 +146,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8304d5b4cf811f1468a0620ac1ad164a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkPlayerController
-  pushPower: 3
-  speed: 5
-  dashSpeed: 50
-  dashDuration: 0.28
   followTarget: {fileID: 7230943159269166234}
   _IsFinished:
     RawValue: 0
@@ -238,7 +234,7 @@ MonoBehaviour:
   dampSpeedDown: 0
   jumpVelocity: 18
   fallMultiplier: 1
-  frictionAgainstFloor: 0.03
+  frictionAgainstFloor: 0.1
   frictionAgainstWall: 0.01
   groundCheckerThrashold: 0.1
   slopeCheckerThrashold: 0.51
@@ -275,7 +271,7 @@ MonoBehaviour:
   gravityMultiplier: 6
   gravityMultiplyerOnSlideChange: 3
   gravityMultiplierIfUnclimbableSlope: 30
-  lockOnSlope: 0
+  lockOnSlope: 1
   wallCheckerThrashold: 0
   hightWallCheckerChecker: 0
   jumpFromWallMultiplier: 0
@@ -299,7 +295,6 @@ MonoBehaviour:
   OnWallSlide:
     m_PersistentCalls:
       m_Calls: []
-  isGrounded: 0
   targetAngle: 47.939434
   netDashAnimationFlag: 0
   dashForce: 15
