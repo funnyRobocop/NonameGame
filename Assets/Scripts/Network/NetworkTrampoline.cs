@@ -5,8 +5,6 @@ using Fusion;
 
 namespace NonameGame
 {
-    [RequireComponent(typeof(Collider))]
-    [RequireComponent(typeof(Rigidbody))]
     public class NetworkTrampoline : MonoBehaviour
     {
         [Header("Настройки батута")]

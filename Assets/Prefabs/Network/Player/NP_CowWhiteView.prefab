@@ -732,7 +732,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkVisualFollow
   positionLerpSpeed: 25
-  rotationLerpSpeed: 1000
+  rotationLerpSpeed: 100
   positionThreshold: 0.1
   _normalCameraTarget: {fileID: 3879222940970191113}
 --- !u!114 &8924299401372182093

@@ -228,13 +228,13 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 193
-  movementSpeed: 9
+  movementSpeed: 6
   movementThrashold: 0.01
   dampSpeedUp: 0
   dampSpeedDown: 0
   jumpVelocity: 18
   fallMultiplier: 1
-  frictionAgainstFloor: 0.1
+  frictionAgainstFloor: 0.2
   frictionAgainstWall: 0.01
   groundCheckerThrashold: 0.1
   slopeCheckerThrashold: 0.51

@@ -721,7 +721,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -1148,118 +1148,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123937848}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &135790665
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 135790666}
-  - component: {fileID: 135790669}
-  - component: {fileID: 135790668}
-  - component: {fileID: 135790667}
-  m_Layer: 0
-  m_Name: Cube (10)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &135790666
+--- !u!4 &135790666 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+  m_PrefabInstance: {fileID: 1601949031075014579}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135790665}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.88, z: -45.08}
-  m_LocalScale: {x: 7.56, y: 13.6, z: 16.8}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 916208724}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &135790667
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135790665}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &135790668
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135790665}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &135790669
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 135790665}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &160999135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1859,6 +1752,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: maxBounceForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: minBounceForce
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1222828165302679354, guid: 7810da464964a29488368614d8f206db, type: 3}
       propertyPath: m_Name
       value: Trampoline (4)
@@ -2241,6 +2142,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: maxBounceForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: minBounceForce
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1222828165302679354, guid: 7810da464964a29488368614d8f206db, type: 3}
       propertyPath: m_Name
       value: Trampoline (2)
@@ -3568,7 +3477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -3773,7 +3682,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -4108,7 +4017,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 720425064}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.65604496, y: 0, z: 0, w: 0.7547219}
+  m_LocalRotation: {x: 0.656045, y: -0.00000008555035, z: 0.00000007436499, w: 0.75472176}
   m_LocalPosition: {x: 0, y: 2.0921001, z: -4.008862}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4376,7 +4285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -5124,7 +5033,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -5357,7 +5266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -5425,6 +5334,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: maxBounceForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: minBounceForce
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1222828165302679354, guid: 7810da464964a29488368614d8f206db, type: 3}
       propertyPath: m_Name
       value: Trampoline (3)
@@ -5517,7 +5434,6 @@ Transform:
   - {fileID: 1266211393}
   - {fileID: 1976582636}
   - {fileID: 2065682946}
-  - {fileID: 135790666}
   - {fileID: 889850788}
   - {fileID: 1317929731}
   m_Father: {fileID: 313110260}
@@ -5690,7 +5606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -6856,6 +6772,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: maxBounceForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: minBounceForce
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1222828165302679354, guid: 7810da464964a29488368614d8f206db, type: 3}
       propertyPath: m_Name
       value: Trampoline (1)
@@ -7083,7 +7007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -9050,7 +8974,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 998255978006198237, guid: f0dc9c17f580c614e81540e34c0a805b, type: 3}
       propertyPath: speed
-      value: 3.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 998255978006198237, guid: f0dc9c17f580c614e81540e34c0a805b, type: 3}
       propertyPath: maxAngle
@@ -9871,6 +9795,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1923394601}
     m_Modifications:
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: maxBounceForce
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1173087947479663339, guid: 7810da464964a29488368614d8f206db, type: 3}
+      propertyPath: minBounceForce
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1222828165302679354, guid: 7810da464964a29488368614d8f206db, type: 3}
       propertyPath: m_Name
       value: Trampoline (5)
@@ -11570,6 +11502,7 @@ Transform:
   - {fileID: 914378586}
   - {fileID: 290187310}
   - {fileID: 1647793420}
+  - {fileID: 135790666}
   - {fileID: 2687319105806730757}
   - {fileID: 1551782899}
   - {fileID: 1719588208}
@@ -16215,7 +16148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: bounceForce
-      value: 5
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1784914576031061438, guid: dbf77c9254be6414490fd0cf0ad9a9e5, type: 3}
       propertyPath: cooldownTime
@@ -17035,6 +16968,63 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1001 &1601949031075014579
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1923394601}
+    m_Modifications:
+    - target: {fileID: 599540812756735546, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_Name
+      value: Batut
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.13847351
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -7.6602535
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 92.386185
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1792646507079533136, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7fcef7bbeaa666949a9b20342f9d9063, type: 3}
 --- !u!4 &1603921329218319976
 Transform:
   m_ObjectHideFlags: 0
@@ -31721,7 +31711,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 998255978006198237, guid: f0dc9c17f580c614e81540e34c0a805b, type: 3}
       propertyPath: speed
-      value: 3
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 998255978006198237, guid: f0dc9c17f580c614e81540e34c0a805b, type: 3}
       propertyPath: maxAngle

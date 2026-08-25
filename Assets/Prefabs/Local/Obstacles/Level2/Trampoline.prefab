@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05a150fbcc528345ac8beb0187980b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NetworkTrampoline
-  bounceStrength: 1.7
+  bounceStrength: 1.3
   stunTime: 0
-  minBounceForce: 14
+  minBounceForce: 10
   maxBounceForce: 38
 --- !u!1 &4837790863671851729
 GameObject:
