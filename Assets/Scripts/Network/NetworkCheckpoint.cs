@@ -9,7 +9,7 @@ namespace NonameGame
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!Runner.IsServer) return;
+            if (Runner == null || !Runner.IsServer) return;
 
             if (other.CompareTag("Player") && !_isActivated)
             {

@@ -76,10 +76,16 @@ namespace NonameGame
                 _animator.SetFloat("MotionSpeed", 1f); //TODO не нужна строчка
                 _animator.SetBool("Grounded", _targetCharacterManager.GetGrounded());
 
+                if (_targetCharacterManager.GetJumping())
+                {
+                    // Включаем триггер анимации прыжка рыбкой / броска вперед (например "Dive" или "Dash")
+                    _animator.SetTrigger("Jump"); 
+                }
+
                 if (_targetCharacterManager.netDashAnimationFlag)
                 {
                     // Включаем триггер анимации прыжка рыбкой / броска вперед (например "Dive" или "Dash")
-                    _animator.SetTrigger("Dive"); 
+                    _animator.SetTrigger("Jump"); 
                     
                     // Сразу же сбрасываем флаг, чтобы анимация не зациклилась
                     _targetCharacterManager.netDashAnimationFlag = false;

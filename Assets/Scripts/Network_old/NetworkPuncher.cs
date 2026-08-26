@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -12,7 +13,9 @@ public class NetworkPuncher : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                var ragdoll = other.GetComponent<NetworkPlayerRagdoll>();
+                var controller = other.GetComponent<NetworkPlayerController>();
+                if (controller == null) return;
+                var ragdoll = controller._ragdoll;
                 if (ragdoll != null)
                 {
                     Vector3 punchDirection = transform.forward;

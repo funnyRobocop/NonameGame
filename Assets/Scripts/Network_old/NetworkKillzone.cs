@@ -7,7 +7,7 @@ namespace NonameGame
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (!Runner.IsServer) return;
+            if (Runner == null || !Runner.IsServer) return;
 
             var playerController = other.GetComponent<NetworkPlayerController>() ?? other.GetComponentInParent<NetworkPlayerController>();
             

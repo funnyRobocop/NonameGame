@@ -15,7 +15,7 @@ namespace NonameGame
         [SerializeField] private float standUpDistance = 0.3f; 
 
         private CameraSwitcher _cameraSwitcher;
-        private NetworkCharacterController _controller;
+        private PhysicsPlayerController _controller;
         private Animator _animator;
         private Rigidbody[] _ragdollRigidbones;
         private Collider[] _ragdollColliders;
@@ -33,7 +33,6 @@ namespace NonameGame
         
         void Awake()
         {
-            _controller = GetComponent<NetworkCharacterController>();
             _animator = GetComponent<Animator>();
             
             _ragdollRigidbones = GetComponentsInChildren<Rigidbody>();
@@ -48,6 +47,11 @@ namespace NonameGame
 
             // При самом старте в Awake выключаем физику костей локально
             LocalToggleRagdoll(false);
+        }
+
+        public void Init(PhysicsPlayerController controller)
+        {
+            _controller = controller;
         }
 
         // Атрибут [Rpc] говорит Fusion: когда этот метод вызывается, выполни его на ВСЕХ компьютерах в сети

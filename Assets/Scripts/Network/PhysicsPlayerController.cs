@@ -172,6 +172,7 @@ namespace NonameGame
         [Networked] private Vector3 _dashStoredDirection { get; set; }
         [Networked] public TickTimer stunTimer { get; set; }
 
+
         private void Awake()
         {
             rigidbody = this.GetComponent<Rigidbody>();

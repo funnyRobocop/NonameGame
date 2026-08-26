@@ -31,6 +31,7 @@ namespace NonameGame
 
         [SerializeField] private GameObject viewPrefab;
         private NetworkVisualFollow _view;
+        public NetworkPlayerRagdoll _ragdoll;
 
         public override void Spawned()
         {
@@ -47,6 +48,10 @@ namespace NonameGame
                 {
                     _view.InitializeFollowTarget(followTarget, _characterManager, _rigidbody);
                 }
+
+                _ragdoll = localVisual.GetComponent<NetworkPlayerRagdoll>();
+                _ragdoll.Init(_characterManager);
+                _ragdoll.LocalToggleRagdoll(false);
             }
 
             // Если принадлежит НАШЕМУ игроку (локальному клинету)

@@ -195,7 +195,7 @@ GameObject:
   - component: {fileID: 8977659960314559515}
   - component: {fileID: 3584150951614459066}
   - component: {fileID: 2204224973644755452}
-  - component: {fileID: 1836001742202210087}
+  - component: {fileID: 7705984566605293909}
   m_Layer: 6
   m_Name: obstacle_5_011
   m_TagString: Untagged
@@ -317,7 +317,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.8232867
   m_Center: {x: -0.0027920604, y: -0.7, z: 0.000021219254}
---- !u!114 &1836001742202210087
+--- !u!114 &7705984566605293909
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,11 +326,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 632991979516769390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ab5ff35f9a55ca4d8a1551d421c2149, type: 3}
+  m_Script: {fileID: 11500000, guid: 6bb1c228b1c9fcc4bae7634b25deba13, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NonameGame.NetworkBumper
-  bounceForce: 20
-  cooldownTime: 1
+  m_EditorClassIdentifier: Assembly-CSharp::NonameGame.NetworkPuncher
+  punchForce: 30
+  _cameraIndex: 2
 --- !u!1 &1411681901482707051
 GameObject:
   m_ObjectHideFlags: 0
