@@ -11,8 +11,8 @@ namespace NonameGame
         [Tooltip("Множитель силы отскока. Перемножается на скорость падения коровы.")]
         public float bounceStrength = 2f; 
 
-        [Tooltip("Время оглушения (блокировки WASD) в полете, чтобы корова взлетела строго вверх")]
-        [SerializeField] private float stunTime = 0.45f;
+        /*[Tooltip("Время оглушения (блокировки WASD) в полете, чтобы корова взлетела строго вверх")]
+        [SerializeField] private float stunTime = 0.45f;*/
 
         [Header("ОГРАНИЧЕНИЯ ВЫСОТЫ (Fall Guys Стандарт)")]
         [Tooltip("Минимальный пинок вверх, если корова наступила на батут почти без скорости")]
@@ -23,11 +23,10 @@ namespace NonameGame
 
         private List<Rigidbody> rigidbodies = new List<Rigidbody>();
         private List<float> velocities = new List<float>();
-        private HashSet<Rigidbody> _activeBounces = new HashSet<Rigidbody>();
+        //private HashSet<Rigidbody> _activeBounces = new HashSet<Rigidbody>();
 
         private void Start()
         {
-            // Намертво страхуем батут, чтобы он не улетал при ударе тяжелой коровы
             Rigidbody rb = GetComponent<Rigidbody>();
             if (rb != null)
             {
@@ -42,9 +41,9 @@ namespace NonameGame
             {
                 Rigidbody playerRb = collision.transform.GetComponent<Rigidbody>();
                 
-                if (playerRb != null && rigidbodies.Contains(playerRb) && !_activeBounces.Contains(playerRb))
+                if (playerRb != null && rigidbodies.Contains(playerRb) /*&& !_activeBounces.Contains(playerRb)*/)
                 {
-                    _activeBounces.Add(playerRb);
+                    //_activeBounces.Add(playerRb);
 
                     NetworkObject netObj = playerRb.GetComponent<NetworkObject>();
                     if (netObj != null)
@@ -55,7 +54,7 @@ namespace NonameGame
                             if (characterManager != null)
                             {
                                 // 1. Включаем сетевой таймер оглушения
-                                characterManager.stunTimer = TickTimer.CreateFromSeconds(netObj.Runner, stunTime);
+                                //characterManager.stunTimer = TickTimer.CreateFromSeconds(netObj.Runner, stunTime);
 
                                 // 2. Извлекаем скорость падения из списков Nappin
                                 int targetIndex = rigidbodies.IndexOf(playerRb);
@@ -79,26 +78,26 @@ namespace NonameGame
                                 playerRb.AddForce(bounceImpulse, ForceMode.Impulse);
 
                                 // Включаем флаг анимации махов копытами
-                                characterManager.netDashAnimationFlag = true;
+                                //characterManager.netDashAnimationFlag = true;
 
                                 Debug.Log($"[Батут Ограничитель] Взлет зафиксирован! Расчетная сила была: {calculatedForce}, Применена сжатая сила: {finalVerticalForce} (Макс лимит: {maxBounceForce})");
                             }
                         }
                     }
 
-                    StartCoroutine(ReleasePlayerRoutine(playerRb, stunTime));
+                    //StartCoroutine(ReleasePlayerRoutine(playerRb, stunTime));
                 }
             }
         }
 
-        private IEnumerator ReleasePlayerRoutine(Rigidbody rb, float delay)
+        /*private IEnumerator ReleasePlayerRoutine(Rigidbody rb, float delay)
         {
             yield return new WaitForSeconds(delay);
             if (_activeBounces.Contains(rb))
             {
                 _activeBounces.Remove(rb);
             }
-        }
+        }*/
 
         #region Handle list Nappin (Без изменений)
         public void Add(Rigidbody _rb, float _velocity_y)
