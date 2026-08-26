@@ -42,6 +42,14 @@ namespace NonameGame
         {
             if (_targetPhysicsTransform == null) return;
 
+            if (_targetPhysicsTransform == null) return;
+
+            // ПРЕДОХРАНИТЕЛЬ ДЛЯ РЭГДОЛЛА: Если на физическом корне включен режим кинематики —
+            // это значит, корова сейчас летит тряпичной куклой! 
+            // Полностью выходим из метода, позволяя костям лететь по честной баллистике PhysX,
+            // а камера Cinemachine v3 сама плавно летит за тазом (Hips)!
+            if (_targetRigidbody != null && _targetRigidbody.isKinematic) return;
+
             // --- 1. ПЛАНЫЙ СЛЕДУЮЩИЙ LERP ПОЗИЦИИ С ФИЛЬТРАЦИЕЙ ШУМА ---
             float distanceToTarget = Vector3.Distance(transform.position, _targetPhysicsTransform.position);
 

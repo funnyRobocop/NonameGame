@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bb1c228b1c9fcc4bae7634b25deba13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NonameGame.NetworkPuncher
-  punchForce: 30
+  punchForce: 10
   _cameraIndex: 2
 --- !u!1 &1411681901482707051
 GameObject:

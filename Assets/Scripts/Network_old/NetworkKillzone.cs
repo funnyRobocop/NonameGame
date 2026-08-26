@@ -9,7 +9,7 @@ namespace NonameGame
         {
             if (Runner == null || !Runner.IsServer) return;
 
-            var playerController = other.GetComponent<NetworkPlayerController>() ?? other.GetComponentInParent<NetworkPlayerController>();
+            var playerController = other.GetComponent<NetworkPlayerController>();
             
             if (playerController != null)
             {

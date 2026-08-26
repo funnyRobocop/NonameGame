@@ -100,6 +100,22 @@ namespace NonameGame
                 _netGrounded = _characterManager.GetGrounded(); 
         }
 
+        // ====================================================================
+        // НОВЫЙ ЧЕСТНЫЙ СЕТЕВОЙ ПРИЕМНИК УДАРОВ ЛОВУШЕК
+        // ====================================================================
+        [Rpc(RpcSources.All, RpcTargets.All)]
+        public void RPC_ApplyServerRagdollImpulse(Vector3 forceDirection, float forceMagnitude, int cameraIndex)
+        {
+            if (_ragdoll != null)
+            {
+                Debug.Log($"[Сеть Корень] RPC Удар принят легально! Передаем импульс на кости.");
+                
+                // Передаем команду в локальный скрипт графики. 
+                // Здесь LocalToggleRagdoll сработает идеально и БЕЗ ОШИБОК, так как RPC вызван на сетевом корне!
+                _ragdoll.ApplyPhysicsRagdollImpulseLocal(forceDirection, forceMagnitude, cameraIndex);
+            }
+        }
+
         /*public override void Render()
         {
             if (_animator != null)

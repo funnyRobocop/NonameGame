@@ -21,21 +21,14 @@ namespace NonameGame
 
                 // Находим сетевой контроллер персонажа
                 var playerController = other.GetComponent<NetworkPlayerController>();
-                var ragdoll = other.GetComponent<NetworkPlayerRagdoll>();
 
-                if (playerController != null && ragdoll != null)
+                if (playerController != null)
                 {
-                    // ВАЖНО: запуск полета в трубе инициирует ТОЛЬКО тот клиент, который управляет коровой (Input Authority)
-                    // Это уберет задержки — корова влетит в трубу мгновенно в момент касания
-                    if (playerController.HasInputAuthority)
-                    {
-                        // 1. Включаем сетевой рэгдолл через созданный ранее RPC (силу ставим 0, так как пинать не нужно)
-                        ragdoll.RPC_ApplyRagdollImpulse(Vector3.zero, 20f, _cameraIndex);
+                    playerController.RPC_ApplyServerRagdollImpulse(Vector3.forward, 20f, _cameraIndex);
 
-                        // 2. Вешаем сетевой скрипт путешественника
-                        var traveler = other.gameObject.AddComponent<NetworkTubeTraveler>();
-                        traveler.SetupPath(_spline, ragdoll, _speed);
-                    }
+                    // 2. Вешаем сетевой скрипт путешественника
+                    var traveler = other.gameObject.AddComponent<NetworkTubeTraveler>();
+                    traveler.SetupPath(_spline, playerController._ragdoll, _speed);
                 }
             }
         }

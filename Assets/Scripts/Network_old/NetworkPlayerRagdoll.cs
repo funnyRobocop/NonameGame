@@ -1,21 +1,21 @@
 using UnityEngine;
 using Fusion;
-using Unity.Cinemachine;
 using System.Collections;
+using PhysicsCharacterController; // Подключаем пространство имен ассета Nappin
 using Zenject;
 
 namespace NonameGame
 {
     public class NetworkPlayerRagdoll : MonoBehaviour
     {
-
         [Header("Кости и Настройки")]
         [SerializeField] private Transform ragdollHips; 
         [SerializeField] private LayerMask groundLayer;  
         [SerializeField] private float standUpDistance = 0.3f; 
 
         private CameraSwitcher _cameraSwitcher;
-        private PhysicsPlayerController _controller;
+        private PhysicsPlayerController _nappinCharacterManager; // Новая ссылка на контроллер Nappin
+        private Rigidbody _rootRigidbody;               // Ссылка на корневой Rigidbody коровы
         private Animator _animator;
         private Rigidbody[] _ragdollRigidbones;
         private Collider[] _ragdollColliders;
@@ -34,6 +34,8 @@ namespace NonameGame
         void Awake()
         {
             _animator = GetComponent<Animator>();
+            _nappinCharacterManager = GetComponent<PhysicsPlayerController>();
+            _rootRigidbody = GetComponent<Rigidbody>();
             
             _ragdollRigidbones = GetComponentsInChildren<Rigidbody>();
             _ragdollColliders = GetComponentsInChildren<Collider>();
@@ -44,24 +46,19 @@ namespace NonameGame
             {
                 _hipsRigidbody = ragdollHips.GetComponent<Rigidbody>();
             }
-
-            // При самом старте в Awake выключаем физику костей локально
-            LocalToggleRagdoll(false);
         }
 
-        public void Init(PhysicsPlayerController controller)
+        public void Init(PhysicsPlayerController physicsPlayerController)
         {
-            _controller = controller;
+            _nappinCharacterManager = physicsPlayerController;
         }
 
-        // Атрибут [Rpc] говорит Fusion: когда этот метод вызывается, выполни его на ВСЕХ компьютерах в сети
-        [Rpc(RpcSources.All, RpcTargets.All)]
-        public void RPC_ApplyRagdollImpulse(Vector3 forceDirection, float forceMagnitude, int cameraIndex)
+        public void ApplyPhysicsRagdollImpulseLocal(Vector3 forceDirection, float forceMagnitude, int cameraIndex)
         {
-            // 1. Включаем режим рэгдолла у всех на экранах
+            // 1. Включаем режим рэгдолла у всех на экранах локально
             LocalToggleRagdoll(true);
 
-            // 2. Прикладываем физический импульс к костям (это сработает локально у каждого клиента)
+            // 2. Прикладываем физический импульс к костям
             if (_ragdollRigidbones.Length > 0)
             {
                 foreach (var rb in _ragdollRigidbones)
@@ -70,10 +67,10 @@ namespace NonameGame
                 }
             }
 
-            // 3. Отслеживание земли для подъема запускает ТОЛЬКО владелец этого персонажа
-            if (_controller.HasInputAuthority)
+            // 3. Отслеживание земли (Проверяем права через ссылку на контроллер Nappin, который лежит на сетевом корне!)
+            if (_nappinCharacterManager != null && _nappinCharacterManager.HasInputAuthority)
             {
-                _cameraSwitcher.SwitchOnRagdollCamera(cameraIndex);
+                if (_cameraSwitcher != null) _cameraSwitcher.SwitchOnRagdollCamera(cameraIndex);
                 if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
                 _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
             }
@@ -83,49 +80,74 @@ namespace NonameGame
         {
             _isRagdollActive = isRagdoll;
 
-            if (_controller != null) _controller.enabled = !isRagdoll;
+            // Выключаем/Включаем мозг ассета Nappin и аниматор
+            if (_nappinCharacterManager != null) _nappinCharacterManager.enabled = !isRagdoll;
             if (_animator != null) _animator.enabled = !isRagdoll;
-            
-            var movementScript = GetComponent<NetworkPlayerController>();
-            if (movementScript != null) movementScript.enabled = !isRagdoll;
 
-            foreach (var rb in _ragdollRigidbones) rb.isKinematic = !isRagdoll;
+            // ====================================================================
+            // КРИТИЧЕСКИЙ ШАГ: УПРАВЛЕНИЕ КОРНЕВЫМ RIGIDBODY
+            // ====================================================================
+            if (_rootRigidbody != null)
+            {
+                if (isRagdoll)
+                {
+                    // Когда рэгдолл включается, мы делаем корень КИНЕМАТИЧЕСКИМ.
+                    // Он больше не падает, не толкается и НЕ КОНФЛИКТУЕТ с летящим тазом (Hips)!
+                    _rootRigidbody.linearVelocity = Vector3.zero;
+                    _rootRigidbody.angularVelocity = Vector3.zero;
+                    _rootRigidbody.isKinematic = true;
+                }
+                else
+                {
+                    // Когда встаем на ноги — возвращаем корню честную динамическую физику
+                    _rootRigidbody.isKinematic = false;
+                }
+            }
+
+            // Настройка физики костей
+            foreach (var rb in _ragdollRigidbones)
+            {
+                // Защищаем корень от переключения, меняем только кости рэгдолла
+                if (rb.gameObject != this.gameObject)
+                {
+                    rb.isKinematic = !isRagdoll;
+                }
+            }
+
             foreach (var col in _ragdollColliders)
             {
+                // Главную капсулу коллизий корня оставляем включенной ВСЕГДА, 
+                // а кости активируем только в фазе рэгдолла
                 if (col.gameObject != this.gameObject) col.enabled = isRagdoll;
             }
 
-            if (_controller != null) 
-                if (_controller.HasInputAuthority)
-                {
-                    if (isRagdoll)
-                    {           
-                        if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
-                        _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
-                    }
-                    else
-                    {
-                        if (_cameraSwitcher != null)
-                            _cameraSwitcher.SwitchOffAllRagdollCameras();
-                    }
-                }
+            if (isRagdoll)
+            {           
+                if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
+                _groundCheckCoroutine = StartCoroutine(CheckForGroundLanding());
+            }
+            else
+            {
+                if (_cameraSwitcher != null) _cameraSwitcher.SwitchOffAllRagdollCameras();
+            }
         }
 
         private IEnumerator CheckForGroundLanding()
         {
-            yield return new WaitForSeconds(0.4f);
+            // Небольшая задержка, чтобы корова успела отлететь от бампера и не встала в ту же секунду
+            yield return new WaitForSeconds(0.5f);
 
             while (_isRagdollActive)
             {
                 if (ragdollHips != null && _hipsRigidbody != null)
                 {
                     Ray ray = new Ray(ragdollHips.position, Vector3.down);
-                    if (Physics.Raycast(ray, standUpDistance + 0.5f, groundLayer))
+                    if (Physics.Raycast(ray, standUpDistance + 0.4f, groundLayer))
                     {
-                        if (_hipsRigidbody.linearVelocity.magnitude < 1.5f) 
+                        // Если таз летит медленно и коснулся земли — даем команду встать
+                        if (_hipsRigidbody.linearVelocity.magnitude < 1.8f) 
                         {
-                            // Когда владелец ввода видит, что приземлился — отправляем RPC команду "Встать" для ВСЕХ
-                            RPC_StandUp();
+                            StandUp();
                             yield break;
                         }
                     }
@@ -134,9 +156,7 @@ namespace NonameGame
             }
         }
 
-        // Сетевой RPC-метод для синхронного подъема на ноги
-        [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
-        private void RPC_StandUp()
+        private void StandUp()
         {
             if (_groundCheckCoroutine != null) StopCoroutine(_groundCheckCoroutine);
 
@@ -145,7 +165,7 @@ namespace NonameGame
                 Vector3 targetPosition = ragdollHips.position;
                 
                 RaycastHit hit;
-                if (Physics.Raycast(ragdollHips.position, Vector3.down, out hit, 3f, groundLayer))
+                if (Physics.Raycast(ragdollHips.position, Vector3.down, out hit, 4f, groundLayer))
                 {
                     targetPosition.y = hit.point.y + 0.05f;
                 }
@@ -154,7 +174,10 @@ namespace NonameGame
                     targetPosition.y += 0.1f;
                 }
 
-                // Переносим корень объекта вслед за улетевшим тазом у каждого игрока
+                // КРИТИЧЕСКИЙ ШАГ FUSION: Сначала возвращаем корень из кинематики в динамику, 
+                // переносим его в точку падения таза, а Network Transform плавно обновит это у клиентов!
+                if (_rootRigidbody != null) _rootRigidbody.isKinematic = false;
+                
                 transform.position = targetPosition;
 
                 Vector3 forwardDirection = ragdollHips.forward;

@@ -13,18 +13,14 @@ public class NetworkPuncher : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
-                var controller = other.GetComponent<NetworkPlayerController>();
-                if (controller == null) return;
-                var ragdoll = controller._ragdoll;
-                if (ragdoll != null)
+                var networkPlayer = other.GetComponent<NetworkPlayerController>();
+                
+                if (networkPlayer != null)
                 {
-                    Vector3 punchDirection = transform.forward;
-                    punchDirection.y = 0.5f; // Подбрасываем вверх
+                    Vector3 punchDir = (other.transform.position - transform.position).normalized;
+                    punchDir.y = 0.3f;
 
-                    // Метод сработает одновременно у всех клиентов, и персонаж эпично улетит у каждого на экране
-                    ragdoll.RPC_ApplyRagdollImpulse(punchDirection.normalized, punchForce, _cameraIndex);
-                    
-                    Debug.Log("[Перчатка] Сетевой RPC импульс рэгдолла отправлен!");
+                    networkPlayer.RPC_ApplyServerRagdollImpulse(punchDir, punchForce, _cameraIndex);
                 }
             }
         }
