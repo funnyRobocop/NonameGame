@@ -172,12 +172,10 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.collab-proxy": {
-      "version": "2.13.5",
+      "version": "2.13.6",
       "depth": 0,
       "source": "registry",
-      "dependencies": {
-        "com.unity.collections": "2.6.8"
-      },
+      "dependencies": {},
       "url": "https://packages.unity.com"
     },
     "com.unity.collections": {
@@ -219,7 +217,7 @@
       "source": "builtin",
       "dependencies": {
         "com.unity.animation.rigging": "1.4.1",
-        "com.unity.timeline": "1.8.12",
+        "com.unity.timeline": "1.8.13",
         "com.unity.cinemachine": "3.1.7",
         "com.unity.formats.fbx": "5.1.6"
       }
@@ -293,7 +291,7 @@
     },
     "com.unity.nuget.mono-cecil": {
       "version": "1.11.6",
-      "depth": 1,
+      "depth": 0,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.com"
@@ -362,7 +360,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.searcher": {
-      "version": "4.9.4",
+      "version": "4.9.5",
       "depth": 1,
       "source": "registry",
       "dependencies": {},
@@ -416,7 +414,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.timeline": {
-      "version": "1.8.12",
+      "version": "1.8.13",
       "depth": 0,
       "source": "registry",
       "dependencies": {
