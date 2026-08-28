@@ -50,7 +50,7 @@ namespace NonameGame
                 }
 
                 _ragdoll = localVisual.GetComponent<NetworkPlayerRagdoll>();
-                _ragdoll.Init(_characterManager);
+                _ragdoll.Init(_characterManager, this);
                 _ragdoll.LocalToggleRagdoll(false);
             }
 

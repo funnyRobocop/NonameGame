@@ -14,7 +14,8 @@ namespace NonameGame
         [SerializeField] private float standUpDistance = 0.3f; 
 
         private CameraSwitcher _cameraSwitcher;
-        private PhysicsPlayerController _nappinCharacterManager; // Новая ссылка на контроллер Nappin
+        private PhysicsPlayerController _nappinCharacterManager;
+        private NetworkPlayerController _playerController;
         private Rigidbody _rootRigidbody;               // Ссылка на корневой Rigidbody коровы
         private Animator _animator;
         private Rigidbody[] _ragdollRigidbones;
@@ -34,7 +35,6 @@ namespace NonameGame
         void Awake()
         {
             _animator = GetComponent<Animator>();
-            _nappinCharacterManager = GetComponent<PhysicsPlayerController>();
             _rootRigidbody = GetComponent<Rigidbody>();
             
             _ragdollRigidbones = GetComponentsInChildren<Rigidbody>();
@@ -48,9 +48,10 @@ namespace NonameGame
             }
         }
 
-        public void Init(PhysicsPlayerController physicsPlayerController)
+        public void Init(PhysicsPlayerController physicsPlayerController, NetworkPlayerController networkPlayerController)
         {
             _nappinCharacterManager = physicsPlayerController;
+            _playerController = networkPlayerController;
         }
 
         public void ApplyPhysicsRagdollImpulseLocal(Vector3 forceDirection, float forceMagnitude, int cameraIndex)
@@ -141,6 +142,12 @@ namespace NonameGame
             {
                 if (ragdollHips != null && _hipsRigidbody != null)
                 {
+                    if (ragdollHips.position.y < 0f)
+                    {
+                        _playerController.RespawnAtCheckpoint();
+                        break;
+                    }
+
                     Ray ray = new Ray(ragdollHips.position, Vector3.down);
                     if (Physics.Raycast(ray, standUpDistance + 0.4f, groundLayer))
                     {
@@ -162,6 +169,7 @@ namespace NonameGame
 
             if (ragdollHips != null)
             {
+                Debug.Log("StandUp");
                 Vector3 targetPosition = ragdollHips.position;
                 
                 RaycastHit hit;
