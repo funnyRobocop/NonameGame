@@ -120,7 +120,7 @@ namespace NonameGame
         [Networked] public TickTimer stunTimer { get; set; }
 
 
-        private void Awake()
+        public override void Spawned()
         {
             rigidbody = this.GetComponent<Rigidbody>();
             collider = this.GetComponent<CapsuleCollider>();
