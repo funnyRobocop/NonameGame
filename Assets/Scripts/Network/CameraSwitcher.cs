@@ -3,16 +3,32 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
+    [SerializeField] private CinemachineCamera _playerCamera;
     [SerializeField] private CinemachineCamera[] _allRagdollCameras;
 
-    public void SwitchOnRagdollCamera( CinemachineCamera _activeCamera)
+    public void InitForPlayer(Transform playerTransform)
+    {
+        _playerCamera.Target.TrackingTarget = playerTransform;
+        _playerCamera.Priority = 10;
+    }
+
+    public void InitForRagdoll(Transform ragdollTransform)
+    {
+        foreach (var cam in _allRagdollCameras)
+        {
+            //cam.Target.TrackingTarget = ragdollTransform;
+            cam.Target.LookAtTarget = ragdollTransform;
+        }
+    }
+
+    public void SwitchOnRagdollCamera(CinemachineCamera _activeCamera)
     {
         SwitchOffAllRagdollCameras();
 
         if (_activeCamera != null) _activeCamera.Priority = 20;
     }
-    
-    public void SwitchOnRagdollCamera( int cameraIndex)
+
+    public void SwitchOnRagdollCamera(int cameraIndex)
     {
         SwitchOffAllRagdollCameras();
 
