@@ -75,48 +75,11 @@ namespace NonameGame
 
         public bool lockOnSlope = false;
 
-
-        [Header("Wall slide specifics")]
-        [Tooltip("Distance from the player head used to check if the player is touching a wall")]
-        public float wallCheckerThrashold = 0.8f;
-        [Tooltip("Wall checker distance from the player center")]
-        public float hightWallCheckerChecker = 0.5f;
-        [Space(10)]
-
-        [Tooltip("Multiplier used when the player is jumping from a wall")]
-        public float jumpFromWallMultiplier = 30f;
-        [Tooltip("Factor used to determine the height of the jump")]
-        public float multiplierVerticalLeap = 1f;
-
-        [Header("References")]
-        [Tooltip("Character camera")]
-        public GameObject characterCamera;
         [Tooltip("Character model")]
         public GameObject characterModel;
         [Tooltip("Character rotation speed when the forward direction is changed")]
         public float characterModelRotationSmooth = 0.1f;
         [Space(10)]
-
-        [Tooltip("Head reference")]
-        public Transform headPoint;
-        [Space(10)]
-
-        public bool debug = true;
-
-
-        [Header("Events")]
-        [SerializeField] UnityEvent OnJump;
-        [Space(15)]
-
-        public float minimumVerticalSpeedToLandEvent;
-        [SerializeField] UnityEvent OnLand;
-        [Space(15)]
-
-        public float minimumHorizontalSpeedToFastEvent;
-        [SerializeField] UnityEvent OnFast;
-        [Space(15)]
-
-        [SerializeField] UnityEvent OnWallSlide;
 
         private Vector3 forward;
         private Vector3 globalForward;
@@ -130,7 +93,6 @@ namespace NonameGame
 
         private Vector3 groundNormal;
         private Vector3 prevGroundNormal;
-        private bool prevGrounded;
 
         private float coyoteJumpMultiplier = 1f;
 
@@ -138,9 +100,6 @@ namespace NonameGame
         private bool isTouchingSlope = false;
         private bool isTouchingStep = false;
         private bool isJumping = false;
-
-        private Vector2 axisInput;
-        private bool jump;
 
         [HideInInspector]
         public float targetAngle;
@@ -175,22 +134,19 @@ namespace NonameGame
         {
             if (GetInput(out NetworkInputData data))
             {
-                axisInput = data.MoveDirection;
-                jump = data.JumpPressed;
-                
                 if (isGrounded)
                 {
                     _hasDashedInAir = false;
-                }       
-                
-                if (axisInput.magnitude > movementThrashold)
+                }
+
+                if (data.Move.magnitude > movementThrashold)
                 {
                     Quaternion cameraYRotation = Quaternion.Euler(0f, data.CameraRotationY, 0f);
                     Vector3 camForward = cameraYRotation * Vector3.forward;
                     Vector3 camRight = cameraYRotation * Vector3.right;
 
-                    _networkCameraDirection = (camForward * axisInput.y + camRight * axisInput.x).normalized;
-                    targetAngle = Mathf.Atan2(axisInput.x, axisInput.y) * Mathf.Rad2Deg + data.CameraRotationY;
+                    _networkCameraDirection = (camForward * data.Move.y + camRight * data.Move.x).normalized;
+                    targetAngle = Mathf.Atan2(data.Move.x, data.Move.y) * Mathf.Rad2Deg + data.CameraRotationY;
                 }
                 else
                 {
@@ -203,7 +159,7 @@ namespace NonameGame
 
                 if (!stunTimer.ExpiredOrNotRunning(Runner))
                 {
-                    netDashAnimationFlag = true; 
+                    netDashAnimationFlag = true;
                 }
                 else if (!_dashTimer.ExpiredOrNotRunning(Runner))
                 {
@@ -212,7 +168,7 @@ namespace NonameGame
                 }
                 else
                 {
-                    if (axisInput.magnitude > movementThrashold)
+                    if (data.Move.magnitude > movementThrashold)
                     {
                         Vector3 targetVelocity = _networkCameraDirection * movementSpeed;
                         targetVelocity.y = rigidbody.linearVelocity.y;
@@ -229,7 +185,7 @@ namespace NonameGame
                     transform.rotation = Quaternion.Euler(0f, targetAngle, 0f);
                     characterModel.transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
-                    if (jump && isGrounded && ((isTouchingSlope && currentSurfaceAngle <= maxClimbableSlopeAngle) || !isTouchingSlope))
+                    if (data.SpacePressed && isGrounded && ((isTouchingSlope && currentSurfaceAngle <= maxClimbableSlopeAngle) || !isTouchingSlope))
                     {
                         rigidbody.linearVelocity += Vector3.up * jumpVelocity;
                         isJumping = true;
@@ -242,7 +198,7 @@ namespace NonameGame
                         coyoteJumpMultiplier = 1f;
                     }
 
-                    if (data.JumpPressed && !isGrounded && !_hasDashedInAir)
+                    if (data.SpacePressed && !isGrounded && !_hasDashedInAir)
                     {
                         _hasDashedInAir = true;
                         _dashTimer = TickTimer.CreateFromSeconds(Runner, dashStunDuration);
@@ -257,13 +213,11 @@ namespace NonameGame
                 }
                 
                 ApplyGravity();
-                UpdateEvents();
             }
         }
 
         private void CheckGrounded()
         {
-            prevGrounded = isGrounded;
             isGrounded = Physics.CheckSphere(transform.position - new Vector3(0, originalColliderHeight / 2f, 0), groundCheckerThrashold, groundMask);
         }
 
@@ -405,13 +359,6 @@ namespace NonameGame
             }
 
             rigidbody.AddForce(gravity);
-        }
-
-        private void UpdateEvents()
-        {
-            if (jump && isGrounded && ((isTouchingSlope && currentSurfaceAngle <= maxClimbableSlopeAngle) || !isTouchingSlope)) OnJump.Invoke();
-            if (isGrounded && !prevGrounded && rigidbody.linearVelocity.y > -minimumVerticalSpeedToLandEvent) OnLand.Invoke();
-            if (Mathf.Abs(rigidbody.linearVelocity.x) + Mathf.Abs(rigidbody.linearVelocity.z) > minimumHorizontalSpeedToFastEvent) OnFast.Invoke();
         }
 
         private void SetFriction(float _frictionWall, bool _isMinimum)
