@@ -112,7 +112,7 @@ namespace NonameGame
                 
                 // Передаем команду в локальный скрипт графики. 
                 // Здесь LocalToggleRagdoll сработает идеально и БЕЗ ОШИБОК, так как RPC вызван на сетевом корне!
-                _ragdoll.ApplyPhysicsRagdollImpulseLocal(forceDirection, forceMagnitude, cameraIndex);
+                //_ragdoll.ApplyPhysicsRagdollImpulseLocal(forceDirection, forceMagnitude, cameraIndex);
             }
         }
 

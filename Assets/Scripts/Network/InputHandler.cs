@@ -11,7 +11,6 @@ namespace NonameGame
     {
 
         private bool _wasSpacePressedLastFrame = false;
-        private bool _wasDashPressedLastFrame = false;
 
         public override void Spawned()
         {
