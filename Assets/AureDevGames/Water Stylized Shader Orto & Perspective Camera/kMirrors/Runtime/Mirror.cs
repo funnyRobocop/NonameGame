@@ -208,7 +208,7 @@ namespace kTools.Mirrors
 
             // Profiling command
             CommandBuffer cmd = CommandBufferPool.Get($"Mirror {gameObject.GetEntityId()}");
-            using (new ProfilingSample(cmd, $"Mirror {gameObject.GetEntityId()}"))
+            /*using (new ProfilingSample(cmd, $"Mirror {gameObject.GetEntityId()}"))
             {
                 ExecuteCommand(context, cmd);
 
@@ -231,7 +231,7 @@ namespace kTools.Mirrors
                 // Execute
                 RenderMirror(context, camera);
                 SetShaderUniforms(context, m_RenderTexture, cmd);
-            }
+            }*/
             ExecuteCommand(context, cmd);
         }
 
